@@ -888,7 +888,7 @@
         category: "framework",
         icon: "library",
         gradient: "#171E17",
-        file: "biblioteca-maas/INDEX.md"
+        file: "biblioteca-maas.html"
       },
       {
         id: 17,
@@ -951,9 +951,13 @@
       });
     });
 
-    // Open document in reader
+    // Open document in reader (or direct HTML)
     function openDocument(file) {
-      window.location.href = 'reader.html?doc=' + encodeURIComponent(file);
+      if (file.endsWith('.html')) {
+        window.location.href = file;
+      } else {
+        window.location.href = 'reader.html?doc=' + encodeURIComponent(file);
+      }
     }
 
     // Sidebar nav filter

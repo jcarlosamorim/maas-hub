@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca MaaS | Top 10 Metodologias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-app: #0D0D0D;
+      --bg-card: #1A1A1A;
+      --bg-card-hover: #222222;
+      --border-subtle: #2A2A2A;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #666666;
+      --accent-gold: #C9A962;
+      --accent-gold-muted: rgba(201,169,98,0.15);
+      --accent-purple: #9B7BFF;
+      --accent-green: #4ADE80;
+      --accent-blue: #60A5FA;
+      --accent-orange: #FB923C;
+      --accent-pink: #F472B6;
+      --accent-cyan: #22D3EE;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-app);
+      color: var(--text-secondary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header {
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text-primary); }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--accent-gold);
+      padding: 6px 12px;
+      background: var(--accent-gold-muted);
+      border-radius: 8px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 80px 48px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(201,169,98,0.05) 0%, transparent 100%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-gold-muted);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--accent-gold);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Methodology Grid */
+    .grid-section {
+      padding: 48px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+    }
+
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    /* Methodology Card */
+    .method-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .method-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-accent, var(--accent-gold));
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .method-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--card-accent, var(--accent-gold));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .method-card:hover::before { opacity: 1; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card-rank {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--card-accent, var(--accent-gold));
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .card-info { flex: 1; }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .card-author {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .card-ke {
+      text-align: right;
+    }
+
+    .ke-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--card-accent, var(--accent-gold));
+    }
+
+    .ke-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    /* Atomic Structure Preview */
+    .atomic-preview {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .atomic-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .atomic-row:last-child { margin-bottom: 0; }
+
+    .atomic-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      width: 70px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .atomic-items {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .atomic-item {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text-secondary);
+    }
+
+    .atomic-item.atom { border-left: 2px solid var(--accent-blue); }
+    .atomic-item.molecule { border-left: 2px solid var(--accent-purple); }
+    .atomic-item.organism { border-left: 2px solid var(--accent-green); }
+
+    /* Card Footer */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+    }
+
+    .card-arrow {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .method-card:hover .card-arrow {
+      background: var(--card-accent, var(--accent-gold));
+      color: var(--bg-app);
+    }
+
+    /* Architecture Section */
+    .architecture-section {
+      padding: 80px 48px;
+      background: linear-gradient(180deg, transparent 0%, rgba(155,123,255,0.03) 100%);
+    }
+
+    .arch-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .arch-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+    }
+
+    .arch-diagram {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+    }
+
+    .arch-level {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .arch-level:last-child { margin-bottom: 0; }
+
+    .arch-label {
+      width: 120px;
+      text-align: right;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .arch-label.atoms { color: var(--accent-blue); }
+    .arch-label.molecules { color: var(--accent-purple); }
+    .arch-label.organisms { color: var(--accent-green); }
+
+    .arch-connector {
+      width: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--text-muted);
+    }
+
+    .arch-boxes {
+      flex: 1;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .arch-box {
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .arch-box.atom {
+      background: rgba(96,165,250,0.15);
+      border: 1px solid rgba(96,165,250,0.3);
+      color: var(--accent-blue);
+    }
+
+    .arch-box.molecule {
+      background: rgba(155,123,255,0.15);
+      border: 1px solid rgba(155,123,255,0.3);
+      color: var(--accent-purple);
+    }
+
+    .arch-box.organism {
+      background: rgba(74,222,128,0.15);
+      border: 1px solid rgba(74,222,128,0.3);
+      color: var(--accent-green);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 48px;
+      text-align: center;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .stats { gap: 24px; }
+      .methodology-grid { grid-template-columns: 1fr; }
+      .header, .hero, .grid-section { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Voltar ao Hub
+    </a>
+    <span class="logo">MaaS</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      Atomic Design Framework
+    </div>
+    <h1>Biblioteca MaaS</h1>
+    <p>As 10 metodologias mais influentes do mundo, decompostas em componentes atômicos e prontas para implementação como Clones Cognitivos.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">10</div>
+        <div class="stat-label">Metodologias</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">78</div>
+        <div class="stat-label">Átomos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">42</div>
+        <div class="stat-label">Moléculas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">25</div>
+        <div class="stat-label">Organismos</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-section">
+    <h2 class="section-title">Top 10 Creators & Metodologias</h2>
+
+    <div class="methodology-grid">
+      <!-- 1. Alex Hormozi -->
+      <article class="method-card" style="--card-accent: #C9A962" onclick="window.location.href='reader.html?doc=biblioteca-maas/100m-offers-hormozi.md'">
+        <div class="card-header">
+          <span class="card-rank">#1</span>
+          <div class="card-info">
+            <h3 class="card-title">$100M Offers</h3>
+            <p class="card-author">Alex Hormozi</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">Grand Slam</div>
+            <div class="ke-label">Framework</div>
+          </div>
+        </div>
+        <p class="card-desc">Como criar ofertas tão boas que as pessoas se sentem estúpidas em dizer não. Value Equation + Grand Slam Offer.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Dream Outcome</span>
+              <span class="atomic-item atom">Likelihood</span>
+              <span class="atomic-item atom">Time Delay</span>
+              <span class="atomic-item atom">Effort</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Value Equation</span>
+              <span class="atomic-item molecule">Offer Stack</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Grand Slam Offer</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Monetização</span>
+            <span class="card-tag">Ofertas</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 2. James Clear -->
+      <article class="method-card" style="--card-accent: #60A5FA" onclick="window.location.href='reader.html?doc=biblioteca-maas/atomic-habits-james-clear.md'">
+        <div class="card-header">
+          <span class="card-rank">#2</span>
+          <div class="card-info">
+            <h3 class="card-title">Atomic Habits</h3>
+            <p class="card-author">James Clear</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">325x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">Framework científico para construir bons hábitos e eliminar maus hábitos através de mudanças de 1% que se acumulam.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Cue</span>
+              <span class="atomic-item atom">Craving</span>
+              <span class="atomic-item atom">Response</span>
+              <span class="atomic-item atom">Reward</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Habit Loop</span>
+              <span class="atomic-item molecule">4 Laws</span>
+              <span class="atomic-item molecule">Identity Shift</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Behavior Change System</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Produtividade</span>
+            <span class="card-tag">Hábitos</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 3. Tiago Forte -->
+      <article class="method-card" style="--card-accent: #4ADE80" onclick="window.location.href='reader.html?doc=biblioteca-maas/basb-para-tiago-forte.md'">
+        <div class="card-header">
+          <span class="card-rank">#3</span>
+          <div class="card-info">
+            <h3 class="card-title">BASB + PARA</h3>
+            <p class="card-author">Tiago Forte</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">30x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">Building a Second Brain + PARA Method. Sistema para capturar, organizar, destilar e expressar conhecimento.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Projects</span>
+              <span class="atomic-item atom">Areas</span>
+              <span class="atomic-item atom">Resources</span>
+              <span class="atomic-item atom">Archives</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">CODE</span>
+              <span class="atomic-item molecule">Progressive Summarization</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Second Brain</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">PKM</span>
+            <span class="card-tag">Organização</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 4. Justin Welsh -->
+      <article class="method-card" style="--card-accent: #9B7BFF" onclick="window.location.href='reader.html?doc=biblioteca-maas/content-os-justin-welsh.md'">
+        <div class="card-header">
+          <span class="card-rank">#4</span>
+          <div class="card-info">
+            <h3 class="card-title">Content OS</h3>
+            <p class="card-author">Justin Welsh</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">1,147x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">Sistema de solopreneur para criar conteúdo, crescer audiência e monetizar no LinkedIn. Hub & Spoke model.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Hook</span>
+              <span class="atomic-item atom">Content Pillar</span>
+              <span class="atomic-item atom">CTA</span>
+              <span class="atomic-item atom">Spoke</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Content Engine</span>
+              <span class="atomic-item molecule">Growth Loop</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">LinkedIn OS</span>
+              <span class="atomic-item organism">Creator MBA</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Solopreneur</span>
+            <span class="card-tag">LinkedIn</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 5. Dan Koe -->
+      <article class="method-card" style="--card-accent: #FB923C" onclick="window.location.href='reader.html?doc=biblioteca-maas/one-person-business-dan-koe.md'">
+        <div class="card-header">
+          <span class="card-rank">#5</span>
+          <div class="card-info">
+            <h3 class="card-title">One-Person Business</h3>
+            <p class="card-author">Dan Koe</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">150x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">Negócio digital solo com 95% de margem, 2-4 horas de trabalho diário. Newsletter-first content flywheel.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Focus</span>
+              <span class="atomic-item atom">Energy</span>
+              <span class="atomic-item atom">Writing</span>
+              <span class="atomic-item atom">Leverage</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Personal Brand</span>
+              <span class="atomic-item molecule">Content Flywheel</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">One-Person Business</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Creator Economy</span>
+            <span class="card-tag">Newsletter</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 6. Nicolas Cole -->
+      <article class="method-card" style="--card-accent: #22D3EE" onclick="window.location.href='reader.html?doc=biblioteca-maas/digital-writing-nicolas-cole.md'">
+        <div class="card-header">
+          <span class="card-rank">#6</span>
+          <div class="card-info">
+            <h3 class="card-title">Digital Writing</h3>
+            <p class="card-author">Nicolas Cole</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">10,131x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">Ship 30 for 30, Atomic Essays, 4A Framework. Sistema para escrever online e construir audiência escrevendo.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Atomic Essay</span>
+              <span class="atomic-item atom">Headline</span>
+              <span class="atomic-item atom">4A Type</span>
+              <span class="atomic-item atom">2-Year Test</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Endless Idea Generator</span>
+              <span class="atomic-item molecule">Content Piece</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Ship 30 for 30</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Writing</span>
+            <span class="card-tag">Ship 30</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 7. Ali Abdaal -->
+      <article class="method-card" style="--card-accent: #F472B6" onclick="window.location.href='reader.html?doc=biblioteca-maas/feel-good-productivity-ali-abdaal.md'">
+        <div class="card-header">
+          <span class="card-rank">#7</span>
+          <div class="card-info">
+            <h3 class="card-title">Feel-Good Productivity</h3>
+            <p class="card-author">Ali Abdaal</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">3,594x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">O segredo da produtividade não é disciplina - é alegria. Play-Power-People + Energize-Unblock-Sustain.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Play</span>
+              <span class="atomic-item atom">Power</span>
+              <span class="atomic-item atom">People</span>
+              <span class="atomic-item atom">Recharge</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Energize</span>
+              <span class="atomic-item molecule">Unblock</span>
+              <span class="atomic-item molecule">Sustain</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Feel-Good System</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Produtividade</span>
+            <span class="card-tag">YouTube</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 8. Sahil Bloom -->
+      <article class="method-card" style="--card-accent: #A78BFA" onclick="window.location.href='reader.html?doc=biblioteca-maas/frameworks-sahil-bloom.md'">
+        <div class="card-header">
+          <span class="card-rank">#8</span>
+          <div class="card-info">
+            <h3 class="card-title">Frameworks</h3>
+            <p class="card-author">Sahil Bloom</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">258x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">5 Types of Wealth, Framework Handbook, Mental Razors. Modelos mentais para decisões melhores na vida.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Time Wealth</span>
+              <span class="atomic-item atom">Social Wealth</span>
+              <span class="atomic-item atom">Mental Wealth</span>
+              <span class="atomic-item atom">Physical</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">5 Types</span>
+              <span class="atomic-item molecule">Decision Engine</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Life Design</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Frameworks</span>
+            <span class="card-tag">Life Design</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 9. Dickie Bush -->
+      <article class="method-card" style="--card-accent: #34D399" onclick="window.location.href='reader.html?doc=biblioteca-maas/atomic-essays-dickie-bush.md'">
+        <div class="card-header">
+          <span class="card-rank">#9</span>
+          <div class="card-info">
+            <h3 class="card-title">Atomic Essays</h3>
+            <p class="card-author">Dickie Bush</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">682x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">250 palavras, 1 ideia. O formato que desbloqueou milhares de escritores. Endless Idea Generator + Content Buckets.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Atomic Essay</span>
+              <span class="atomic-item atom">Content Bucket</span>
+              <span class="atomic-item atom">Sacred Hours</span>
+              <span class="atomic-item atom">1/3/1</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Endless Ideas</span>
+              <span class="atomic-item molecule">Writing Session</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Ship 30 Challenge</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Writing</span>
+            <span class="card-tag">Twitter</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- 10. Russell Brunson -->
+      <article class="method-card" style="--card-accent: #F59E0B" onclick="window.location.href='reader.html?doc=biblioteca-maas/value-ladder-expert-secrets-russell-brunson.md'">
+        <div class="card-header">
+          <span class="card-rank">#10</span>
+          <div class="card-info">
+            <h3 class="card-title">Value Ladder + Expert Secrets</h3>
+            <p class="card-author">Russell Brunson</p>
+          </div>
+          <div class="card-ke">
+            <div class="ke-value">4,225x</div>
+            <div class="ke-label">Ke Multiplier</div>
+          </div>
+        </div>
+        <p class="card-desc">A trilogia Secrets + ClickFunnels. Funnel strategy, Perfect Webinar, Hook-Story-Offer, Mass Movement.</p>
+        <div class="atomic-preview">
+          <div class="atomic-row">
+            <span class="atomic-label">Átomos</span>
+            <div class="atomic-items">
+              <span class="atomic-item atom">Hook</span>
+              <span class="atomic-item atom">Story</span>
+              <span class="atomic-item atom">Offer</span>
+              <span class="atomic-item atom">Epiphany Bridge</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Moléculas</span>
+            <div class="atomic-items">
+              <span class="atomic-item molecule">Value Ladder</span>
+              <span class="atomic-item molecule">Perfect Webinar</span>
+            </div>
+          </div>
+          <div class="atomic-row">
+            <span class="atomic-label">Organismos</span>
+            <div class="atomic-items">
+              <span class="atomic-item organism">Funnel Stack</span>
+              <span class="atomic-item organism">Mass Movement</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Funnels</span>
+            <span class="card-tag">ClickFunnels</span>
+          </div>
+          <span class="card-arrow">→</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Architecture Diagram Section -->
+  <section class="architecture-section">
+    <h2 class="arch-title">Atomic Design Framework</h2>
+    <p class="arch-subtitle">Todas as metodologias decompostas no mesmo padrão hierárquico</p>
+
+    <div class="arch-diagram">
+      <div class="arch-level">
+        <span class="arch-label atoms">Átomos</span>
+        <div class="arch-connector">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="arch-boxes">
+          <span class="arch-box atom">Conceitos indivisíveis</span>
+          <span class="arch-box atom">Princípios fundamentais</span>
+          <span class="arch-box atom">Elementos base</span>
+        </div>
+      </div>
+
+      <div class="arch-level">
+        <span class="arch-label molecules">Moléculas</span>
+        <div class="arch-connector">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="12" r="3"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+          </svg>
+        </div>
+        <div class="arch-boxes">
+          <span class="arch-box molecule">Combinações funcionais</span>
+          <span class="arch-box molecule">Frameworks parciais</span>
+          <span class="arch-box molecule">Unidades de valor</span>
+        </div>
+      </div>
+
+      <div class="arch-level">
+        <span class="arch-label organisms">Organismos</span>
+        <div class="arch-connector">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+          </svg>
+        </div>
+        <div class="arch-boxes">
+          <span class="arch-box organism">Sistemas completos</span>
+          <span class="arch-box organism">Entregáveis finais</span>
+          <span class="arch-box organism">Clones Cognitivos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Biblioteca MaaS v1.0 — 10 Metodologias Mapeadas — Janeiro 2026</p>
+  </footer>
+</body>
+</html>
