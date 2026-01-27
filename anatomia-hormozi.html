@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anatomia: $100M Offers | Alex Hormozi | MaaS</title>
+  <meta name="description" content="Decomposicao atomica da metodologia $100M Offers de Alex Hormozi. Compre apenas o que precisa: atomos, moleculas ou o sistema completo.">
+  <style>
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --accent-gold: #D4AF37;
+      --accent-green: #22c55e;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --border-color: #222222;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, #1a1510 0%, var(--bg-dark) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--gradient-gold);
+      color: #000;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-author {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Navigation */
+    .nav-section {
+      padding: 20px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .cta-main {
+      background: var(--gradient-gold);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Anatomy Tree */
+    .anatomy-section {
+      margin-bottom: 60px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .section-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .section-icon.organism { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+    .section-icon.molecule { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+    .section-icon.atom { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .card-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .card-meta {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .card-price {
+      text-align: right;
+    }
+
+    .price-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .price-type {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    /* Preview Content */
+    .preview-box {
+      background: var(--bg-dark);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .preview-label {
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: var(--accent-green);
+      color: #000;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .preview-content {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+
+    .preview-content.blurred {
+      filter: blur(4px);
+      user-select: none;
+    }
+
+    .locked-overlay {
+      background: linear-gradient(180deg, transparent 0%, var(--bg-card) 80%);
+      padding: 20px;
+      text-align: center;
+      margin: -15px -15px -15px -15px;
+      margin-top: 10px;
+    }
+
+    .locked-text {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    /* Components List */
+    .components-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .component-tag {
+      background: var(--bg-dark);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .component-tag.included {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    /* Card Footer */
+    .card-footer {
+      padding: 15px 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: var(--gradient-gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    /* Ke Badge */
+    .ke-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid var(--accent-gold);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+    }
+
+    /* Visual Tree */
+    .visual-tree {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .tree-title {
+      margin-bottom: 30px;
+      font-size: 1.3rem;
+    }
+
+    .tree-diagram {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      white-space: pre;
+      overflow-x: auto;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tree-diagram .organism { color: var(--accent-purple); font-weight: bold; }
+    .tree-diagram .molecule { color: var(--accent-blue); }
+    .tree-diagram .atom { color: var(--accent-green); }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #1a1510 0%, #0a0a0a 100%);
+      border: 1px solid var(--accent-gold);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cta-option {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      min-width: 200px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .cta-option:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+    }
+
+    .cta-option.featured {
+      border-color: var(--accent-gold);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, var(--bg-card) 100%);
+    }
+
+    .cta-option-label {
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .cta-option-price {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .cta-option-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+
+    /* Back Link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      color: var(--accent-gold);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero-stats { gap: 20px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .nav-container { flex-direction: column; }
+      .tree-diagram { font-size: 0.7rem; }
+      .visual-tree { padding: 20px; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Back Link -->
+  <a href="index.html" class="back-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Voltar ao Hub
+  </a>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-badge">Anatomia de Metodologia</span>
+    <h1>$100M Offers</h1>
+    <p class="hero-author">Alex Hormozi</p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">847x</div>
+        <div class="stat-label">Multiplicador Ke</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Atomos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">5</div>
+        <div class="stat-label">Moleculas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Organismos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="nav-section">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="#organismos" class="nav-link">Organismos</a>
+        <a href="#moleculas" class="nav-link">Moleculas</a>
+        <a href="#atomos" class="nav-link">Atomos</a>
+      </div>
+      <a href="#comprar" class="cta-main">Acesso Completo R$97/mes</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Visual Tree -->
+    <div class="visual-tree">
+      <h2 class="tree-title">Arquitetura Completa da Metodologia</h2>
+      <div class="tree-diagram">
+<span class="organism">                    $100M OFFERS SYSTEM</span>
+                           |
+          +----------------+----------------+
+          |                                 |
+<span class="organism">   [O1] GRAND SLAM OFFER</span>          <span class="organism">[O2] PRICING MASTERY</span>
+          |                                 |
+    +-----+-----+                     +-----+-----+
+    |     |     |                     |     |     |
+<span class="molecule">  [M1]  [M2]  [M3]</span>                  <span class="molecule">[M4]       [M5]</span>
+ Value  Guar. Scarc.               Anchor.   Premium
+ Stack  Stack Stack                Stack     Position
+    |     |     |                     |           |
+    +--+--+  +--+--+               +--+--+     +--+--+
+       |        |                     |           |
+<span class="atom">      ATOMOS</span>                        <span class="atom">ATOMOS</span>
+    A1-A4    A5-A7                 A8-A10     A11-A12
+      </div>
+    </div>
+
+    <!-- Organismos Section -->
+    <section id="organismos" class="anatomy-section">
+      <div class="section-header">
+        <div class="section-icon organism">O</div>
+        <div>
+          <h2 class="section-title">Organismos</h2>
+          <p class="section-subtitle">Sistemas completos prontos para implementacao</p>
+        </div>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Organismo 1 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Grand Slam Offer System</h3>
+              <p class="card-meta">Inclui 3 moleculas + 7 atomos + Clone Cognitivo</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$997</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">
+              Sistema completo para criar ofertas irresistiveis que vendem sozinhas.
+              Inclui Value Stacking, Sistema de Garantias e Escassez Autentica.
+            </p>
+            <div class="components-list">
+              <span class="component-tag included">Value Stack</span>
+              <span class="component-tag included">Garantia Stack</span>
+              <span class="component-tag included">Escassez Stack</span>
+              <span class="component-tag included">Clone Cognitivo</span>
+            </div>
+            <span class="ke-badge">Ke 847x de amplificacao</span>
+          </div>
+          <div class="card-footer">
+            <a href="#comprar" class="btn btn-primary">Quero o Sistema Completo</a>
+          </div>
+        </div>
+
+        <!-- Organismo 2 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Pricing Mastery System</h3>
+              <p class="card-meta">Inclui 2 moleculas + 5 atomos</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$497</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">
+              Domine a precificacao de alto valor. Ancoragem psicologica,
+              posicionamento premium e estrategias para cobrar 10x mais.
+            </p>
+            <div class="components-list">
+              <span class="component-tag included">Anchoring Stack</span>
+              <span class="component-tag included">Premium Positioning</span>
+            </div>
+            <span class="ke-badge">Ke 412x de amplificacao</span>
+          </div>
+          <div class="card-footer">
+            <a href="#comprar" class="btn btn-primary">Quero Precificar Melhor</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Moleculas Section -->
+    <section id="moleculas" class="anatomy-section">
+      <div class="section-header">
+        <div class="section-icon molecule">M</div>
+        <div>
+          <h2 class="section-title">Moleculas</h2>
+          <p class="section-subtitle">Combinacoes funcionais de atomos</p>
+        </div>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Molecula 1 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Value Stacking System</h3>
+              <p class="card-meta">4 atomos combinados</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$197</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">
+              Empilhe valor ate o preco parecer ridiculo. Transforme ofertas
+              comuns em propostas irrecusaveis.
+            </p>
+            <div class="components-list">
+              <span class="component-tag included">Value Equation</span>
+              <span class="component-tag included">Dream Outcome</span>
+              <span class="component-tag included">Stacking</span>
+              <span class="component-tag included">Bonus Architecture</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-secondary">Ver Preview</a>
+            <a href="#comprar" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+
+        <!-- Molecula 2 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Garantia Stack</h3>
+              <p class="card-meta">3 atomos combinados</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$147</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">
+              Sistema de garantias que elimina o risco percebido e
+              aumenta conversao em ate 3x.
+            </p>
+            <div class="components-list">
+              <span class="component-tag included">Risk Reversal</span>
+              <span class="component-tag included">Garantia Condicional</span>
+              <span class="component-tag included">Anti-Garantia</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-secondary">Ver Preview</a>
+            <a href="#comprar" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+
+        <!-- Molecula 3 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Escassez Stack</h3>
+              <p class="card-meta">3 atomos combinados</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$97</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">
+              Urgencia autentica que acelera decisoes sem parecer
+              manipulativo ou falso.
+            </p>
+            <div class="components-list">
+              <span class="component-tag included">Urgencia Real</span>
+              <span class="component-tag included">Escassez Real</span>
+              <span class="component-tag included">Bonus Temporal</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-secondary">Ver Preview</a>
+            <a href="#comprar" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Atomos Section -->
+    <section id="atomos" class="anatomy-section">
+      <div class="section-header">
+        <div class="section-icon atom">A</div>
+        <div>
+          <h2 class="section-title">Atomos</h2>
+          <p class="section-subtitle">Conceitos fundamentais individuais</p>
+        </div>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Atomo 1 - Com Preview -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Value Equation</h3>
+              <p class="card-meta">Capitulo 3, p.45</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$47</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="preview-box">
+              <span class="preview-label">Preview Gratis</span>
+              <div class="preview-content">
+                <strong>Formula:</strong><br>
+                Value = (Dream Outcome x Likelihood) / (Time x Effort)<br><br>
+                <strong>Conceito:</strong> O valor percebido nao e sobre preco,
+                e sobre a relacao entre o resultado sonhado...
+              </div>
+              <div class="preview-content blurred">
+                ...e a probabilidade de alcanca-lo, dividido pelo tempo e
+                esforco necessarios. Para aumentar valor: maximize o
+                numerador (resultado + confianca) e minimize o denominador
+                (tempo + esforco). Template completo de aplicacao incluso.
+              </div>
+              <div class="locked-overlay">
+                <p class="locked-text">70% do conteudo bloqueado</p>
+                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atomo 2 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Dream Outcome</h3>
+              <p class="card-meta">Capitulo 4, p.62</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$47</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="preview-box">
+              <span class="preview-label">Preview Gratis</span>
+              <div class="preview-content">
+                <strong>Definicao:</strong><br>
+                O resultado maximo que seu cliente consegue imaginar.
+                Nao e o que voce entrega, e o que ele sonha...
+              </div>
+              <div class="preview-content blurred">
+                ...ao comprar. Tecnica de elicitacao do sonho: perguntas
+                especificas para descobrir o Dream Outcome real.
+                Framework de comunicacao para vender o sonho.
+              </div>
+              <div class="locked-overlay">
+                <p class="locked-text">70% do conteudo bloqueado</p>
+                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atomo 3 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Risk Reversal</h3>
+              <p class="card-meta">Capitulo 7, p.98</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$47</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="preview-box">
+              <span class="preview-label">Preview Gratis</span>
+              <div class="preview-content">
+                <strong>Principio:</strong><br>
+                Transfira 100% do risco do cliente para voce.
+                Quanto mais risco voce assume...
+              </div>
+              <div class="preview-content blurred">
+                ...mais confianca o cliente tem. 7 tipos de garantia
+                com exemplos reais. Como criar garantias que
+                aumentam conversao sem aumentar reembolsos.
+              </div>
+              <div class="locked-overlay">
+                <p class="locked-text">70% do conteudo bloqueado</p>
+                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Atomo 4 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Stacking Technique</h3>
+              <p class="card-meta">Capitulo 5, p.71</p>
+            </div>
+            <div class="card-price">
+              <div class="price-value">R$47</div>
+              <div class="price-type">unico</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-description">
+              Tecnica de empilhar componentes de valor ate o preco
+              parecer uma fracao do valor total entregue.
+            </p>
+            <div class="preview-box">
+              <span class="preview-label">Preview Gratis</span>
+              <div class="preview-content">
+                <strong>Estrutura Basica:</strong><br>
+                Componente 1: Valor R$X<br>
+                Componente 2: Valor R$Y<br>
+                Componente 3: Valor R$Z...
+              </div>
+              <div class="locked-overlay">
+                <p class="locked-text">Template completo bloqueado</p>
+                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- More atoms indicator -->
+        <div class="card" style="display: flex; align-items: center; justify-content: center; min-height: 200px; border-style: dashed;">
+          <div style="text-align: center; color: var(--text-secondary);">
+            <p style="font-size: 2rem; margin-bottom: 10px;">+8</p>
+            <p>atomos disponiveis</p>
+            <a href="#comprar" class="btn btn-secondary" style="margin-top: 15px;">Ver Todos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="comprar" class="cta-section">
+      <h2>Escolha Seu Nivel de Acesso</h2>
+      <p>
+        Compre apenas o que precisa ou tenha acesso completo a biblioteca.
+        Sem enrolacao, sem conteudo desnecessario.
+      </p>
+
+      <div class="cta-options">
+        <div class="cta-option">
+          <div class="cta-option-label">Atomo Avulso</div>
+          <div class="cta-option-price">R$47</div>
+          <div class="cta-option-desc">1 conceito especifico</div>
+          <a href="#atomos" class="btn btn-secondary" style="width: 100%;">Escolher Atomo</a>
+        </div>
+
+        <div class="cta-option">
+          <div class="cta-option-label">Molecula</div>
+          <div class="cta-option-price">R$197</div>
+          <div class="cta-option-desc">Sistema parcial (3-4 atomos)</div>
+          <a href="#moleculas" class="btn btn-secondary" style="width: 100%;">Escolher Molecula</a>
+        </div>
+
+        <div class="cta-option featured">
+          <div class="cta-option-label">Mais Popular</div>
+          <div class="cta-option-price">R$97<span style="font-size: 1rem; font-weight: normal;">/mes</span></div>
+          <div class="cta-option-desc">Acesso a TODA biblioteca MaaS</div>
+          <a href="#" class="btn btn-primary" style="width: 100%;">Assinar Agora</a>
+        </div>
+
+        <div class="cta-option">
+          <div class="cta-option-label">Organismo Completo</div>
+          <div class="cta-option-price">R$997</div>
+          <div class="cta-option-desc">Sistema + Clone Cognitivo</div>
+          <a href="#organismos" class="btn btn-secondary" style="width: 100%;">Ver Organismos</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 0.85rem;">
+    <p>Anatomia MaaS v1.0 | Metodologia mapeada por Atlas</p>
+    <p style="margin-top: 10px;">
+      <a href="biblioteca-maas.html" style="color: var(--accent-gold); text-decoration: none;">Ver Todas as Metodologias</a>
+    </p>
+  </footer>
+
+</body>
+</html>
