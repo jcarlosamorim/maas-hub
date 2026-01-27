@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaaS Reader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="content.js"></script>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      /* Theme: Dark (default) */
+      --bg-app: #0D0D0D;
+      --bg-header: #0D0D0D;
+      --bg-content: #0D0D0D;
+      --bg-card: #1A1A1A;
+      --bg-code: #151515;
+      --border-subtle: #2A2A2A;
+      --border-default: #333333;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #808080;
+      --text-body: #D4D4D4;
+      --accent-gold: #C9A962;
+      --accent-gold-muted: rgba(201,169,98,0.15);
+      --table-row-alt: #141414;
+
+      /* Typography */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Sizing */
+      --font-size-base: 18px;
+      --content-width: 720px;
+      --header-height: 72px;
+    }
+
+    /* Theme: Light */
+    [data-theme="light"] {
+      --bg-app: #FAFAFA;
+      --bg-header: #FFFFFF;
+      --bg-content: #FFFFFF;
+      --bg-card: #F5F5F5;
+      --bg-code: #F0F0F0;
+      --border-subtle: #E5E5E5;
+      --border-default: #D4D4D4;
+      --text-primary: #171717;
+      --text-secondary: #525252;
+      --text-muted: #737373;
+      --text-body: #404040;
+      --table-row-alt: #F5F5F5;
+    }
+
+    /* Theme: Sepia */
+    [data-theme="sepia"] {
+      --bg-app: #F5EFE0;
+      --bg-header: #F5EFE0;
+      --bg-content: #F5EFE0;
+      --bg-card: #EDE6D6;
+      --bg-code: #E8E0D0;
+      --border-subtle: #D8CFC0;
+      --border-default: #C8BFB0;
+      --text-primary: #3D3428;
+      --text-secondary: #5C5346;
+      --text-muted: #7A7164;
+      --text-body: #4A4238;
+      --accent-gold: #8B7355;
+      --table-row-alt: #EDE6D6;
+    }
+
+    /* Font sizes */
+    [data-font="small"] { --font-size-base: 16px; }
+    [data-font="medium"] { --font-size-base: 18px; }
+    [data-font="large"] { --font-size-base: 21px; }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      line-height: 1.8;
+      color: var(--text-body);
+      background: var(--bg-app);
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    a { color: var(--accent-gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    button { font-family: var(--font-ui); cursor: pointer; }
+
+    /* ===== HEADER ===== */
+    .reader-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: var(--bg-header);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 100;
+      transition: background 0.3s ease;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-back {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      border-radius: 8px;
+      transition: all 0.15s ease;
+    }
+    .btn-back:hover {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+    .btn-back svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .header-category {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+    .header-title {
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: var(--bg-card);
+      border-radius: 20px;
+    }
+    .theme-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .theme-btn[data-theme="dark"] { background: #1A1A1A; }
+    .theme-btn[data-theme="light"] { background: #FFFFFF; border-color: #E5E5E5; }
+    .theme-btn[data-theme="sepia"] { background: #D4C4A8; }
+    .theme-btn.active { border-color: var(--accent-gold); box-shadow: 0 0 0 2px var(--accent-gold-muted); }
+
+    /* Font Size Switcher */
+    .font-switcher {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 4px 8px;
+      background: var(--bg-card);
+      border-radius: 20px;
+    }
+    .font-btn {
+      padding: 6px 10px;
+      font-family: var(--font-ui);
+      font-weight: 500;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: 12px;
+      transition: all 0.15s ease;
+    }
+    .font-btn:hover { color: var(--text-primary); }
+    .font-btn.active { background: var(--accent-gold); color: #0D0D0D; }
+    .font-btn[data-size="small"] { font-size: 13px; }
+    .font-btn[data-size="medium"] { font-size: 16px; }
+    .font-btn[data-size="large"] { font-size: 19px; }
+
+    /* Menu Button */
+    .btn-menu {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+    }
+    .btn-menu:hover { border-color: var(--border-default); color: var(--text-primary); }
+    .btn-menu svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
+
+    /* ===== HERO ===== */
+    .reader-hero {
+      padding: calc(var(--header-height) + 80px) 24px 80px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 1px solid var(--border-default);
+      border-radius: 50px;
+      color: var(--text-secondary);
+    }
+    .badge svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .hero-author {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    .hero-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--border-default);
+      margin: 0 auto;
+    }
+
+    /* ===== CONTENT ===== */
+    .reader-content {
+      max-width: var(--content-width);
+      margin: 0 auto;
+      padding: 0 24px 120px;
+    }
+
+    /* Typography */
+    .reader-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .reader-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 2.5rem 0 1rem;
+    }
+    .reader-content h4 {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin: 2rem 0 0.75rem;
+    }
+    .reader-content p {
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      hyphens: auto;
+    }
+    .reader-content p:first-of-type::first-letter {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 500;
+      float: left;
+      line-height: 1;
+      margin-right: 12px;
+      margin-top: 4px;
+      color: var(--text-primary);
+    }
+
+    /* Lists */
+    .reader-content ul, .reader-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .reader-content li {
+      margin-bottom: 0.5rem;
+    }
+    .reader-content li::marker {
+      color: var(--accent-gold);
+    }
+
+    /* Strong & Emphasis */
+    .reader-content strong {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .reader-content em {
+      font-style: italic;
+    }
+
+    /* Code */
+    .reader-content code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      padding: 0.2em 0.5em;
+      background: var(--bg-code);
+      border-radius: 4px;
+      color: var(--accent-gold);
+    }
+    .reader-content pre {
+      background: var(--bg-code);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    .reader-content pre code {
+      padding: 0;
+      background: none;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-body);
+    }
+
+    /* Blockquotes */
+    .reader-content blockquote {
+      border-left: 3px solid var(--accent-gold);
+      padding: 1rem 0 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border-radius: 0 12px 12px 0;
+    }
+    .reader-content blockquote p {
+      margin-bottom: 0;
+      text-align: left;
+    }
+    .reader-content blockquote p::first-letter {
+      font-size: inherit;
+      float: none;
+      margin: 0;
+    }
+
+    /* Tables */
+    .reader-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+    }
+    .reader-content th {
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--bg-card);
+      border-bottom: 2px solid var(--border-default);
+    }
+    .reader-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .reader-content tr:nth-child(even) {
+      background: var(--table-row-alt);
+    }
+
+    /* Horizontal Rules */
+    .reader-content hr {
+      border: none;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 3rem 0;
+    }
+
+    /* Links */
+    .reader-content a {
+      color: var(--accent-gold);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Images */
+    .reader-content img {
+      border-radius: 12px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    /* Info Cards */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 1.5rem 0;
+    }
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .info-card-header svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .reader-header { padding: 0 16px; }
+      .header-meta { display: none; }
+      .theme-switcher, .font-switcher { display: none; }
+      .reader-hero { padding: calc(var(--header-height) + 48px) 16px 48px; }
+      .hero-title { font-size: 2rem; }
+      .reader-content { padding: 0 16px 80px; }
+      .reader-content h2 { font-size: 1.5rem; }
+      .reader-content p:first-of-type::first-letter { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body data-theme="dark" data-font="medium">
+  <!-- Header -->
+  <header class="reader-header">
+    <div class="header-left">
+      <button class="btn-back" onclick="goBack()">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
+      </button>
+      <div class="header-meta">
+        <span class="header-category" id="headerCategory">Pesquisa</span>
+        <span class="header-title" id="headerTitle">Carregando...</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="dark" onclick="setTheme('dark')"></button>
+        <button class="theme-btn" data-theme="light" onclick="setTheme('light')"></button>
+        <button class="theme-btn" data-theme="sepia" onclick="setTheme('sepia')"></button>
+      </div>
+      <div class="font-switcher">
+        <button class="font-btn" data-size="small" onclick="setFontSize('small')">A-</button>
+        <button class="font-btn active" data-size="medium" onclick="setFontSize('medium')">A</button>
+        <button class="font-btn" data-size="large" onclick="setFontSize('large')">A+</button>
+      </div>
+      <button class="btn-menu">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="reader-hero">
+    <div class="hero-badges">
+      <span class="badge" id="heroBadge">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span id="heroCategory">Pesquisa</span>
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+        <span id="readTime">15 min de leitura</span>
+      </span>
+    </div>
+    <h1 class="hero-title" id="heroTitle">Carregando...</h1>
+    <p class="hero-author" id="heroAuthor">por MaaS Hub</p>
+    <div class="hero-divider"></div>
+  </section>
+
+  <!-- Content -->
+  <article class="reader-content" id="readerContent">
+    <p>Carregando documento...</p>
+  </article>
+
+  <script>
+    // Debug: Check if documentContent loaded
+    console.log('documentContent loaded:', typeof documentContent !== 'undefined');
+    if (typeof documentContent !== 'undefined') {
+      console.log('Documents available:', Object.keys(documentContent));
+    } else {
+      console.error('documentContent is NOT defined!');
+    }
+
+    // Initialize Mermaid v11
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      }
+    });
+
+    // Theme functions
+    function setTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === theme);
+      });
+      localStorage.setItem('maas-theme', theme);
+
+      // Mermaid theme updates require page reload for v11
+      // Theme is applied via CSS instead
+    }
+
+    function setFontSize(size) {
+      document.body.setAttribute('data-font', size);
+      document.querySelectorAll('.font-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.size === size);
+      });
+      localStorage.setItem('maas-font', size);
+    }
+
+    function goBack() {
+      if (document.referrer.includes('index.html') || document.referrer.includes('maas-hub')) {
+        history.back();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+
+    // Load preferences
+    const savedTheme = localStorage.getItem('maas-theme');
+    const savedFont = localStorage.getItem('maas-font');
+    if (savedTheme) setTheme(savedTheme);
+    if (savedFont) setFontSize(savedFont);
+
+    // Document metadata
+    const docMeta = {
+      'arquiteto-conhecimento-pesquisa-profunda.md': {
+        category: 'Pesquisa',
+        title: 'Arquiteto de Conhecimento',
+        subtitle: 'A Nova Profissao da Era da Inteligencia Artificial',
+        author: 'Copy Chief',
+        readTime: '25 min'
+      },
+      'metodologia-arquiteto-conhecimento-mastermind-120k.md': {
+        category: 'Metodologia',
+        title: 'Arquiteto de Conhecimento',
+        subtitle: 'Mastermind & Mentoria High Ticket para Experts',
+        author: 'MaaS Hub',
+        readTime: '20 min'
+      },
+      'value-stack-arquiteto-conhecimento-120k.md': {
+        category: 'Metodologia',
+        title: 'Value Stack R$120k',
+        subtitle: 'Stack de valor completo para oferta de R$120.000',
+        author: 'MaaS Hub',
+        readTime: '15 min'
+      },
+      'copysearch-arquiteto-conhecimento.md': {
+        category: 'Pesquisa',
+        title: 'CopySearch Protocol',
+        subtitle: 'David Ogilvy Research Protocol',
+        author: 'Copy Chief',
+        readTime: '30 min'
+      },
+      'knowledge-architecture-competitor-analysis-brazil.md': {
+        category: 'Analise',
+        title: 'Competitor Analysis Brazil',
+        subtitle: 'Knowledge Architecture Services',
+        author: 'MaaS Hub',
+        readTime: '18 min'
+      },
+      'closer-script-arquiteto-conhecimento-120k.md': {
+        category: 'Script',
+        title: 'CLOSER Script R$120k',
+        subtitle: 'Call de Venda High-Ticket',
+        author: 'Alex Hormozi + Dan Kennedy',
+        readTime: '12 min'
+      },
+      'manifesto-arquiteto-conhecimento.md': {
+        category: 'Manifesto',
+        title: 'Manifesto do Arquiteto de Conhecimento',
+        subtitle: 'A Profissao que 70.000 Anos de Evolucao Humana Preparou',
+        author: 'MaaS Hub',
+        readTime: '10 min'
+      },
+      'da-caverna-ao-claude-code.md': {
+        category: 'Manifesto',
+        title: 'Da Caverna ao Claude Code',
+        subtitle: 'A Epopeia do Esforco Cognitivo Humano',
+        author: 'MaaS Hub',
+        readTime: '15 min'
+      },
+      'dan-koe-content-system-research.md': {
+        category: 'Framework',
+        title: 'Dan Koe Content System',
+        subtitle: 'Research Consolidado',
+        author: 'MaaS Hub',
+        readTime: '22 min'
+      },
+      'nexialismo-content-system-framework.md': {
+        category: 'Framework',
+        title: 'Nexialismo Content System',
+        subtitle: 'Sistema de Conteudo Nexialista',
+        author: 'MaaS Hub',
+        readTime: '18 min'
+      },
+      'equacao-ke-conhecimento-efetivo.md': {
+        category: 'Pesquisa',
+        title: 'Equacao Ke',
+        subtitle: 'Fundamento Matematico do MaaS',
+        author: 'MaaS Hub',
+        readTime: '20 min'
+      },
+      'cases-documentados-maas.md': {
+        category: 'Pesquisa',
+        title: 'Cases Documentados MaaS',
+        subtitle: 'Validacao Empirica do MaaS em Campo',
+        author: 'MaaS Hub',
+        readTime: '15 min'
+      },
+      'glossario-maas.md': {
+        category: 'Metodologia',
+        title: 'Glossario MaaS',
+        subtitle: 'Terminologia Oficial do Methodology As A System',
+        author: 'MaaS Hub',
+        readTime: '12 min'
+      },
+      'benchmark-internacional-maas.md': {
+        category: 'Pesquisa',
+        title: 'Benchmark Internacional',
+        subtitle: 'MaaS vs Metodologias Globais de Conhecimento e Negocio',
+        author: 'MaaS Hub',
+        readTime: '18 min'
+      },
+      'modelo-economico-roi-maas.md': {
+        category: 'Pesquisa',
+        title: 'Modelo Economico ROI',
+        subtitle: 'Analise de ROI e Viabilidade Financeira do MaaS',
+        author: 'MaaS Hub',
+        readTime: '15 min'
+      }
+    };
+
+    // Get document from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const docFile = urlParams.get('doc') || 'arquiteto-conhecimento-pesquisa-profunda.md';
+    const meta = docMeta[docFile] || {
+      category: 'Documento',
+      title: docFile.replace('.md', '').replace(/-/g, ' '),
+      subtitle: '',
+      author: 'MaaS Hub',
+      readTime: '10 min'
+    };
+
+    // Update UI
+    document.getElementById('headerCategory').textContent = meta.category;
+    document.getElementById('headerTitle').textContent = meta.title;
+    document.getElementById('heroCategory').textContent = meta.category;
+    document.getElementById('heroTitle').textContent = meta.title;
+    document.getElementById('heroAuthor').textContent = 'por ' + meta.author;
+    document.getElementById('readTime').textContent = meta.readTime + ' de leitura';
+    document.title = meta.title + ' | MaaS Reader';
+
+    // Custom marked renderer
+    const renderer = new marked.Renderer();
+
+    // Handle mermaid code blocks (marked v5+ API - receives object)
+    renderer.code = function(codeObj) {
+      const code = codeObj.text || codeObj;
+      const language = codeObj.lang || '';
+      if (language === 'mermaid') {
+        return '<div class="mermaid">' + code + '</div>';
+      }
+      const escaped = String(code).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return '<pre><code class="language-' + language + '">' + escaped + '</code></pre>';
+    };
+
+    marked.setOptions({
+      renderer: renderer,
+      gfm: true,
+      breaks: false,
+      headerIds: true
+    });
+
+    // Load and render document
+    async function loadDocument() {
+      try {
+        // Load from embedded content
+        let markdown = documentContent[docFile];
+
+        if (!markdown) {
+          throw new Error('Document not found: ' + docFile);
+        }
+
+        // Remove title and subtitle (will show in hero)
+        markdown = markdown.replace(/^#\s+.*\n(##\s+.*\n)?/, '');
+
+        // Remove metadata block (date, coordination, etc)
+        markdown = markdown.replace(/^\*\*Data:\*\*.*\n/gm, '');
+        markdown = markdown.replace(/^\*\*Coordenacao:\*\*.*\n/gm, '');
+        markdown = markdown.replace(/^\*\*Objetivo:\*\*.*\n/gm, '');
+
+        // Parse and render
+        const html = marked.parse(markdown);
+        document.getElementById('readerContent').innerHTML = html;
+
+        // Render mermaid diagrams
+        await renderMermaid();
+
+      } catch (error) {
+        console.error('Error loading document:', error);
+        document.getElementById('readerContent').innerHTML =
+          '<p style="color: var(--text-muted); text-align: center; padding: 40px;">Documento nao encontrado.</p>';
+      }
+    }
+
+    async function renderMermaid() {
+      const elements = document.querySelectorAll('.mermaid:not([data-processed])');
+      for (let i = 0; i < elements.length; i++) {
+        const el = elements[i];
+        const code = el.textContent.trim();
+        try {
+          const { svg } = await mermaid.render('mermaid-svg-' + Date.now() + '-' + i, code);
+          el.innerHTML = svg;
+          el.setAttribute('data-processed', 'true');
+        } catch (err) {
+          console.error('Mermaid error:', err);
+          el.innerHTML = '<p style="color: var(--text-muted);">Diagrama indisponivel</p>';
+        }
+      }
+    }
+
+    // Initialize
+    loadDocument();
+  </script>
+</body>
+</html>
