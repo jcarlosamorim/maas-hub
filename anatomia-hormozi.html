@@ -376,36 +376,280 @@
       color: var(--accent-gold);
     }
 
-    /* Visual Tree */
-    .visual-tree {
+    /* Architecture Section */
+    .architecture-section {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 40px;
       margin-bottom: 40px;
+    }
+
+    .architecture-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .architecture-title {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .architecture-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Ke Explanation Box */
+    .ke-explanation {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+      border: 1px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 40px;
+    }
+
+    .ke-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+    }
+
+    .ke-formula {
+      background: var(--bg-dark);
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 1rem;
+      margin-bottom: 20px;
       text-align: center;
     }
 
-    .tree-title {
-      margin-bottom: 30px;
-      font-size: 1.3rem;
+    .ke-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
     }
 
-    .tree-diagram {
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      line-height: 1.4;
+    .ke-metric {
+      background: var(--bg-dark);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .ke-metric-label {
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      white-space: pre;
-      overflow-x: auto;
-      text-align: left;
-      max-width: 800px;
+      margin-bottom: 5px;
+    }
+
+    .ke-metric-before {
+      color: #ef4444;
+      font-size: 0.9rem;
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    .ke-metric-after {
+      color: var(--accent-green);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    /* Component Tree */
+    .component-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* Level Styles */
+    .tree-level {
+      position: relative;
+    }
+
+    .level-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .level-label.system { background: linear-gradient(135deg, var(--accent-gold), #B8860B); color: #000; }
+    .level-label.organism { background: var(--accent-purple); color: #fff; }
+    .level-label.molecule { background: var(--accent-blue); color: #fff; }
+    .level-label.atom { background: var(--accent-green); color: #000; }
+
+    /* Component Nodes */
+    .component-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .component-node {
+      background: var(--bg-dark);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      min-width: 280px;
+      max-width: 350px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .component-node:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .component-node.system-node {
+      border-color: var(--accent-gold);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, var(--bg-dark) 100%);
+      min-width: 400px;
+    }
+
+    .component-node.organism-node { border-color: var(--accent-purple); }
+    .component-node.molecule-node { border-color: var(--accent-blue); }
+    .component-node.atom-node { border-color: var(--accent-green); }
+
+    .node-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .node-id {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .node-id.system { background: var(--accent-gold); color: #000; }
+    .node-id.organism { background: var(--accent-purple); color: #fff; }
+    .node-id.molecule { background: var(--accent-blue); color: #fff; }
+    .node-id.atom { background: var(--accent-green); color: #000; }
+
+    .node-price {
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .node-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .node-description {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .node-result {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid var(--accent-green);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .node-result-label {
+      font-size: 0.7rem;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .node-result-text {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+
+    .node-components {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .node-component-tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .node-cta {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .node-cta.primary {
+      background: var(--gradient-gold);
+      color: #000;
+    }
+
+    .node-cta.secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .node-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Connectors */
+    .connector-line {
+      width: 2px;
+      height: 30px;
+      background: var(--border-color);
       margin: 0 auto;
     }
 
-    .tree-diagram .organism { color: var(--accent-purple); font-weight: bold; }
-    .tree-diagram .molecule { color: var(--accent-blue); }
-    .tree-diagram .atom { color: var(--accent-green); }
+    .connector-branch {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 20px;
+    }
+
+    .connector-branch::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background: var(--border-color);
+    }
 
     /* CTA Section */
     .cta-section {
@@ -557,28 +801,273 @@
   <!-- Main Content -->
   <main class="main-content">
 
-    <!-- Visual Tree -->
-    <div class="visual-tree">
-      <h2 class="tree-title">Arquitetura Completa da Metodologia</h2>
-      <div class="tree-diagram">
-<span class="organism">                    $100M OFFERS SYSTEM</span>
-                           |
-          +----------------+----------------+
-          |                                 |
-<span class="organism">   [O1] GRAND SLAM OFFER</span>          <span class="organism">[O2] PRICING MASTERY</span>
-          |                                 |
-    +-----+-----+                     +-----+-----+
-    |     |     |                     |     |     |
-<span class="molecule">  [M1]  [M2]  [M3]</span>                  <span class="molecule">[M4]       [M5]</span>
- Value  Guar. Scarc.               Anchor.   Premium
- Stack  Stack Stack                Stack     Position
-    |     |     |                     |           |
-    +--+--+  +--+--+               +--+--+     +--+--+
-       |        |                     |           |
-<span class="atom">      ATOMOS</span>                        <span class="atom">ATOMOS</span>
-    A1-A4    A5-A7                 A8-A10     A11-A12
+    <!-- Architecture Section -->
+    <section class="architecture-section">
+      <div class="architecture-header">
+        <h2 class="architecture-title">Arquitetura Completa da Metodologia</h2>
+        <p class="architecture-subtitle">Cada componente resolve um problema especifico. Compre apenas o que precisa.</p>
       </div>
-    </div>
+
+      <!-- Ke Explanation -->
+      <div class="ke-explanation">
+        <div class="ke-title">
+          <span>O que significa Ke 847x?</span>
+        </div>
+        <div class="ke-formula">
+          Ke = (Alcance x Velocidade x Personalizacao) / Custo Original
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">
+          <strong style="color: var(--accent-gold);">847x</strong> significa: o que antes custava <strong>R$847 em tempo e esforco</strong>, agora custa o equivalente a <strong>R$1</strong>.
+        </p>
+        <div class="ke-grid">
+          <div class="ke-metric">
+            <div class="ke-metric-label">Tempo para Dominar</div>
+            <div class="ke-metric-before">20 horas lendo</div>
+            <div class="ke-metric-after">10 minutos aplicando</div>
+          </div>
+          <div class="ke-metric">
+            <div class="ke-metric-label">Aplicacoes por Mes</div>
+            <div class="ke-metric-before">1-2 manuais</div>
+            <div class="ke-metric-after">Ilimitadas com IA</div>
+          </div>
+          <div class="ke-metric">
+            <div class="ke-metric-label">Personalizacao</div>
+            <div class="ke-metric-before">Voce adapta sozinho</div>
+            <div class="ke-metric-after">IA adapta ao seu contexto</div>
+          </div>
+          <div class="ke-metric">
+            <div class="ke-metric-label">Resultado</div>
+            <div class="ke-metric-before">Meses ate criar oferta</div>
+            <div class="ke-metric-after">Horas ate oferta pronta</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Component Tree -->
+      <div class="component-tree">
+
+        <!-- Level: System -->
+        <div class="tree-level">
+          <span class="level-label system">Sistema Completo</span>
+          <div class="component-row">
+            <div class="component-node system-node">
+              <div class="node-header">
+                <span class="node-id system">SISTEMA</span>
+                <span class="node-price">R$97/mes</span>
+              </div>
+              <h3 class="node-title">$100M Offers System</h3>
+              <p class="node-description">
+                Sistema completo de criacao de ofertas irresistiveis. Inclui todos os organismos,
+                moleculas e atomos + Clone Cognitivo ativo que aplica a metodologia no seu contexto.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Oferta de alto valor criada em 2-4 horas (vs 2-4 semanas)</div>
+              </div>
+              <div class="node-components">
+                <span class="node-component-tag">2 Organismos</span>
+                <span class="node-component-tag">5 Moleculas</span>
+                <span class="node-component-tag">12 Atomos</span>
+                <span class="node-component-tag">Clone IA</span>
+              </div>
+              <a href="#comprar" class="node-cta primary">Acesso Completo</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector-line"></div>
+
+        <!-- Level: Organisms -->
+        <div class="tree-level">
+          <span class="level-label organism">Organismos (Sistemas Prontos)</span>
+          <div class="component-row">
+            <div class="component-node organism-node">
+              <div class="node-header">
+                <span class="node-id organism">O1</span>
+                <span class="node-price">R$997</span>
+              </div>
+              <h3 class="node-title">Grand Slam Offer</h3>
+              <p class="node-description">
+                Crie ofertas tao boas que as pessoas se sintam estupidas dizendo nao.
+                Empilhe valor, elimine risco e crie urgencia autentica.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Taxa de conversao 2-5x maior nas suas ofertas</div>
+              </div>
+              <div class="node-components">
+                <span class="node-component-tag">M1: Value Stack</span>
+                <span class="node-component-tag">M2: Garantia</span>
+                <span class="node-component-tag">M3: Escassez</span>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Quero Este</a>
+            </div>
+
+            <div class="component-node organism-node">
+              <div class="node-header">
+                <span class="node-id organism">O2</span>
+                <span class="node-price">R$497</span>
+              </div>
+              <h3 class="node-title">Pricing Mastery</h3>
+              <p class="node-description">
+                Domine a psicologia de precos. Aprenda a cobrar 10x mais pelo mesmo
+                servico usando ancoragem e posicionamento premium.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Aumento de 50-200% no ticket medio</div>
+              </div>
+              <div class="node-components">
+                <span class="node-component-tag">M4: Ancoragem</span>
+                <span class="node-component-tag">M5: Premium</span>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Quero Este</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector-line"></div>
+
+        <!-- Level: Molecules -->
+        <div class="tree-level">
+          <span class="level-label molecule">Moleculas (Frameworks Parciais)</span>
+          <div class="component-row">
+            <div class="component-node molecule-node">
+              <div class="node-header">
+                <span class="node-id molecule">M1</span>
+                <span class="node-price">R$197</span>
+              </div>
+              <h3 class="node-title">Value Stacking</h3>
+              <p class="node-description">
+                Empilhe componentes de valor ate o preco parecer uma fracao do que voce entrega.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Oferta com valor percebido 10x maior que o preco</div>
+              </div>
+              <div class="node-components">
+                <span class="node-component-tag">A1: Value Equation</span>
+                <span class="node-component-tag">A2: Dream Outcome</span>
+                <span class="node-component-tag">A3: Stacking</span>
+                <span class="node-component-tag">A4: Bonus</span>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Comprar R$197</a>
+            </div>
+
+            <div class="component-node molecule-node">
+              <div class="node-header">
+                <span class="node-id molecule">M2</span>
+                <span class="node-price">R$147</span>
+              </div>
+              <h3 class="node-title">Garantia Stack</h3>
+              <p class="node-description">
+                Sistema de garantias que elimina 100% do risco percebido e aumenta conversao.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Conversao +30% sem aumentar reembolsos</div>
+              </div>
+              <div class="node-components">
+                <span class="node-component-tag">A5: Risk Reversal</span>
+                <span class="node-component-tag">A6: Condicional</span>
+                <span class="node-component-tag">A7: Anti-Garantia</span>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Comprar R$147</a>
+            </div>
+
+            <div class="component-node molecule-node">
+              <div class="node-header">
+                <span class="node-id molecule">M3</span>
+                <span class="node-price">R$97</span>
+              </div>
+              <h3 class="node-title">Escassez Stack</h3>
+              <p class="node-description">
+                Urgencia autentica que acelera decisoes sem parecer manipulativo.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Reducao de 50% no ciclo de decisao</div>
+              </div>
+              <div class="node-components">
+                <span class="node-component-tag">A8: Urgencia Real</span>
+                <span class="node-component-tag">A9: Escassez Real</span>
+                <span class="node-component-tag">A10: Bonus Temporal</span>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Comprar R$97</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="connector-line"></div>
+
+        <!-- Level: Atoms -->
+        <div class="tree-level">
+          <span class="level-label atom">Atomos (Conceitos Fundamentais)</span>
+          <div class="component-row">
+            <div class="component-node atom-node">
+              <div class="node-header">
+                <span class="node-id atom">A1</span>
+                <span class="node-price">R$47</span>
+              </div>
+              <h3 class="node-title">Value Equation</h3>
+              <p class="node-description">
+                A formula matematica do valor percebido. Maximize o numerador, minimize o denominador.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Diagnosticar por que sua oferta nao converte</div>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Desbloquear R$47</a>
+            </div>
+
+            <div class="component-node atom-node">
+              <div class="node-header">
+                <span class="node-id atom">A2</span>
+                <span class="node-price">R$47</span>
+              </div>
+              <h3 class="node-title">Dream Outcome</h3>
+              <p class="node-description">
+                O resultado maximo que seu cliente consegue imaginar. Nao o que voce entrega, o que ele sonha.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Copy que fala direto ao coracao do cliente</div>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Desbloquear R$47</a>
+            </div>
+
+            <div class="component-node atom-node">
+              <div class="node-header">
+                <span class="node-id atom">A5</span>
+                <span class="node-price">R$47</span>
+              </div>
+              <h3 class="node-title">Risk Reversal</h3>
+              <p class="node-description">
+                Transfira 100% do risco do cliente para voce. Quanto mais risco voce assume, mais ele confia.
+              </p>
+              <div class="node-result">
+                <div class="node-result-label">Resultado Esperado</div>
+                <div class="node-result-text">Garantia que aumenta conversao sem aumentar reembolso</div>
+              </div>
+              <a href="#comprar" class="node-cta secondary">Desbloquear R$47</a>
+            </div>
+
+            <div class="component-node atom-node" style="border-style: dashed; opacity: 0.7;">
+              <div class="node-header">
+                <span class="node-id atom">+9</span>
+                <span class="node-price">R$47 cada</span>
+              </div>
+              <h3 class="node-title">Mais 9 Atomos</h3>
+              <p class="node-description">
+                Stacking, Bonus Architecture, Garantia Condicional, Anti-Garantia, Urgencia Real, Escassez Real, Bonus Temporal, Ancoragem, Premium Positioning.
+              </p>
+              <a href="#atomos" class="node-cta secondary">Ver Todos os Atomos</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- Organismos Section -->
     <section id="organismos" class="anatomy-section">
