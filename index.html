@@ -497,6 +497,7 @@
     .card-tag--script { color: #60A5FA; }
     .card-tag--analysis { color: #F472B6; }
     .card-tag--manifesto { color: #FB923C; }
+    .card-tag--interview { color: #E879F9; }
     .card-title {
       font-size: 15px;
       font-weight: 600;
@@ -633,7 +634,7 @@
           <div class="hero-content">
             <div class="hero-badge">
               <span class="badge">Curadoria Exclusiva</span>
-              <span class="text-muted" style="font-size:14px">15 documentos</span>
+              <span class="text-muted" style="font-size:14px">17 documentos</span>
             </div>
             <h1 class="hero-title">
               Methodology <span class="hero-title-accent">As A System.</span>
@@ -675,6 +676,13 @@
                 <span class="collection-count">2 documentos</span>
               </div>
             </div>
+            <div class="collection-card" onclick="document.querySelector('[data-filter=interview]').click()">
+              <div class="collection-icon" style="background: rgba(232,121,249,0.2)"><svg viewBox="0 0 24 24" style="stroke: #E879F9;"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><path d="M12 19v4m-4 0h8"/></svg></div>
+              <div class="collection-info">
+                <span class="collection-title">Entrevistas</span>
+                <span class="collection-count">1 documento</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -688,6 +696,7 @@
             <button class="tag" data-filter="script">Scripts</button>
             <button class="tag" data-filter="analysis">Análise</button>
             <button class="tag" data-filter="manifesto">Manifesto</button>
+            <button class="tag" data-filter="interview">Entrevista</button>
           </div>
         </section>
 
@@ -697,7 +706,7 @@
             <div class="section-label">
               <span class="section-overline">Catálogo Completo</span>
               <div class="catalog-title">
-                <span class="catalog-number">15</span>
+                <span class="catalog-number">17</span>
                 <span class="catalog-label">documentos</span>
               </div>
             </div>
@@ -730,7 +739,9 @@
       cases: '<svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>',
       glossary: '<svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>',
       globe: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
-      calculator: '<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M14 10h2M8 14h2M14 14h2M8 18h2M14 18h2"/></svg>'
+      calculator: '<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M14 10h2M8 14h2M14 14h2M8 18h2M14 18h2"/></svg>',
+      library: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h8M8 15h4"/></svg>',
+      microphone: '<svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><path d="M12 19v4m-4 0h8"/></svg>'
     };
 
     // Document data
@@ -869,6 +880,24 @@
         icon: "calculator",
         gradient: "var(--bg-card-gold)",
         file: "modelo-economico-roi-maas.md"
+      },
+      {
+        id: 16,
+        title: "Biblioteca MaaS",
+        desc: "Catalogo de metodologias mundiais mapeadas para Clones Cognitivos",
+        category: "framework",
+        icon: "library",
+        gradient: "#171E17",
+        file: "biblioteca-maas/INDEX.md"
+      },
+      {
+        id: 17,
+        title: "A Gênese do MaaS: Entrevista Naval × Dan × José",
+        desc: "Naval Ravikant e Dan Koe entrevistam José Amorim sobre MaaS, moats defensáveis e o primeiro cliente",
+        category: "interview",
+        icon: "microphone",
+        gradient: "#1A1520",
+        file: "entrevista-naval-dan-maas-genesis.md"
       }
     ];
 
@@ -878,7 +907,8 @@
       framework: "Framework",
       script: "Script",
       analysis: "Análise",
-      manifesto: "Manifesto"
+      manifesto: "Manifesto",
+      interview: "Entrevista"
     };
 
     // Render cards
