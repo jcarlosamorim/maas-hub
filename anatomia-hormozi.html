@@ -3,28 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anatomia: $100M Offers | Alex Hormozi | MaaS</title>
-  <meta name="description" content="Decomposicao atomica da metodologia $100M Offers de Alex Hormozi. Compre apenas o que precisa: atomos, moleculas ou o sistema completo.">
+  <title>$100M Offers MaaS | Alex Hormozi</title>
   <style>
     :root {
       --bg-dark: #0a0a0a;
       --bg-card: #111111;
-      --bg-card-hover: #1a1a1a;
       --text-primary: #ffffff;
-      --text-secondary: #a0a0a0;
+      --text-secondary: #888888;
       --accent-gold: #D4AF37;
       --accent-green: #22c55e;
       --accent-blue: #3b82f6;
       --accent-purple: #8b5cf6;
+      --accent-red: #ef4444;
       --border-color: #222222;
-      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -33,696 +27,558 @@
       line-height: 1.6;
     }
 
-    /* Hero Section */
-    .hero {
-      padding: 60px 20px;
-      text-align: center;
-      background: linear-gradient(180deg, #1a1510 0%, var(--bg-dark) 100%);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: var(--gradient-gold);
-      color: #000;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-author {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      margin-bottom: 30px;
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    /* Navigation */
-    .nav-section {
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
       padding: 20px;
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 10px;
-    }
-
-    .nav-link {
-      padding: 8px 16px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-    }
-
-    .cta-main {
-      background: var(--gradient-gold);
-      color: #000;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .cta-main:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-    }
-
-    /* Main Content */
-    .main-content {
-      max-width: 1200px;
-      margin: 0 auto;
+    /* Header */
+    .header {
+      text-align: center;
       padding: 40px 20px;
-    }
-
-    /* Anatomy Tree */
-    .anatomy-section {
-      margin-bottom: 60px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 30px;
-    }
-
-    .section-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    }
-
-    .section-icon.organism { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
-    .section-icon.molecule { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
-    .section-icon.atom { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
-
-    .section-title {
-      font-size: 1.5rem;
-    }
-
-    .section-subtitle {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    /* Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s;
-    }
-
-    .card:hover {
-      border-color: var(--accent-gold);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    }
-
-    .card-header {
-      padding: 20px;
       border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
     }
 
-    .card-title {
-      font-size: 1.2rem;
-      margin-bottom: 5px;
-    }
-
-    .card-meta {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-    }
-
-    .card-price {
-      text-align: right;
-    }
-
-    .price-value {
-      font-size: 1.5rem;
-      font-weight: 700;
+    .header h1 {
+      font-size: 2rem;
       color: var(--accent-gold);
-    }
-
-    .price-type {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-
-    .card-body {
-      padding: 20px;
-    }
-
-    .card-description {
-      color: var(--text-secondary);
-      margin-bottom: 15px;
-      font-size: 0.95rem;
-    }
-
-    /* Preview Content */
-    .preview-box {
-      background: var(--bg-dark);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      position: relative;
-    }
-
-    .preview-label {
-      position: absolute;
-      top: -10px;
-      left: 15px;
-      background: var(--accent-green);
-      color: #000;
-      padding: 2px 10px;
-      border-radius: 10px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .preview-content {
-      font-size: 0.9rem;
-      color: var(--text-primary);
-    }
-
-    .preview-content.blurred {
-      filter: blur(4px);
-      user-select: none;
-    }
-
-    .locked-overlay {
-      background: linear-gradient(180deg, transparent 0%, var(--bg-card) 80%);
-      padding: 20px;
-      text-align: center;
-      margin: -15px -15px -15px -15px;
-      margin-top: 10px;
-    }
-
-    .locked-text {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
       margin-bottom: 10px;
     }
 
-    /* Components List */
-    .components-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .component-tag {
-      background: var(--bg-dark);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.8rem;
+    .header p {
       color: var(--text-secondary);
-      border: 1px solid var(--border-color);
     }
 
-    .component-tag.included {
-      border-color: var(--accent-green);
-      color: var(--accent-green);
-    }
-
-    /* Card Footer */
-    .card-footer {
-      padding: 15px 20px;
-      border-top: 1px solid var(--border-color);
+    /* Tabs */
+    .tabs {
       display: flex;
       gap: 10px;
+      margin: 30px 0;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
     }
 
-    .btn {
-      flex: 1;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      text-align: center;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-      font-size: 0.95rem;
-    }
-
-    .btn-primary {
-      background: var(--gradient-gold);
-      color: #000;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    }
-
-    .btn-secondary {
+    .tab {
+      padding: 12px 24px;
       background: transparent;
       border: 1px solid var(--border-color);
-      color: var(--text-primary);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
     }
 
-    .btn-secondary:hover {
+    .tab:hover {
       border-color: var(--accent-gold);
       color: var(--accent-gold);
     }
 
-    /* Ke Badge */
-    .ke-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid var(--accent-gold);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: var(--accent-gold);
+    .tab.active {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      color: #000;
+      font-weight: 600;
     }
 
-    /* Architecture Section */
-    .architecture-section {
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ==================== */
+    /* TAB 1: MAAS FUNCIONAL */
+    /* ==================== */
+
+    .maas-section {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 40px;
-      margin-bottom: 40px;
+      padding: 30px;
+      margin-bottom: 20px;
     }
 
-    .architecture-header {
+    .maas-section h2 {
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .equation-display {
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #0d0d0d 100%);
+      border-radius: 16px;
+      padding: 30px;
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border-color);
     }
 
-    .architecture-title {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
+    .equation-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
-    .architecture-subtitle {
+    .equation-label {
+      font-size: 1.3rem;
+      font-weight: 600;
       color: var(--text-secondary);
-      font-size: 0.95rem;
     }
 
-    /* Ke Explanation Box */
-    .ke-explanation {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-      border: 1px solid var(--accent-gold);
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 40px;
+    .equation-equals {
+      font-size: 2rem;
+      color: var(--text-secondary);
     }
 
-    .ke-title {
+    .equation-fraction {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .equation-numerator {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-      color: var(--accent-gold);
-    }
-
-    .ke-formula {
-      background: var(--bg-dark);
-      padding: 15px 20px;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 1rem;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .ke-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
-
-    .ke-metric {
-      background: var(--bg-dark);
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .ke-metric-label {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-bottom: 5px;
-    }
-
-    .ke-metric-before {
-      color: #ef4444;
-      font-size: 0.9rem;
-      text-decoration: line-through;
-      opacity: 0.7;
-    }
-
-    .ke-metric-after {
-      color: var(--accent-green);
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-
-    /* Component Tree */
-    .component-tree {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    /* Level Styles */
-    .tree-level {
-      position: relative;
-    }
-
-    .level-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-
-    .level-label.system { background: linear-gradient(135deg, var(--accent-gold), #B8860B); color: #000; }
-    .level-label.organism { background: var(--accent-purple); color: #fff; }
-    .level-label.molecule { background: var(--accent-blue); color: #fff; }
-    .level-label.atom { background: var(--accent-green); color: #000; }
-
-    /* Component Nodes */
-    .component-row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .component-node {
-      background: var(--bg-dark);
-      border: 2px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      min-width: 280px;
-      max-width: 350px;
-      transition: all 0.3s;
-      position: relative;
-    }
-
-    .component-node:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .component-node.system-node {
-      border-color: var(--accent-gold);
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, var(--bg-dark) 100%);
-      min-width: 400px;
-    }
-
-    .component-node.organism-node { border-color: var(--accent-purple); }
-    .component-node.molecule-node { border-color: var(--accent-blue); }
-    .component-node.atom-node { border-color: var(--accent-green); }
-
-    .node-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-
-    .node-id {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    .node-id.system { background: var(--accent-gold); color: #000; }
-    .node-id.organism { background: var(--accent-purple); color: #fff; }
-    .node-id.molecule { background: var(--accent-blue); color: #fff; }
-    .node-id.atom { background: var(--accent-green); color: #000; }
-
-    .node-price {
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-
-    .node-title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      padding: 12px 20px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid var(--accent-green);
+      border-radius: 10px;
       margin-bottom: 8px;
     }
 
-    .node-description {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-bottom: 15px;
-      line-height: 1.5;
-    }
-
-    .node-result {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid var(--accent-green);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 12px;
-    }
-
-    .node-result-label {
-      font-size: 0.7rem;
-      color: var(--accent-green);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 5px;
-    }
-
-    .node-result-text {
-      font-size: 0.9rem;
-      color: var(--text-primary);
-    }
-
-    .node-components {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .node-component-tag {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 12px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-    }
-
-    .node-cta {
-      display: block;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .node-cta.primary {
-      background: var(--gradient-gold);
+    .equation-numerator .var-box {
+      background: var(--accent-green);
       color: #000;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
     }
 
-    .node-cta.secondary {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-    }
-
-    .node-cta:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Connectors */
-    .connector-line {
-      width: 2px;
-      height: 30px;
-      background: var(--border-color);
-      margin: 0 auto;
-    }
-
-    .connector-branch {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      position: relative;
-      padding-top: 20px;
-    }
-
-    .connector-branch::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60%;
-      height: 2px;
-      background: var(--border-color);
-    }
-
-    /* CTA Section */
-    .cta-section {
-      background: linear-gradient(135deg, #1a1510 0%, #0a0a0a 100%);
-      border: 1px solid var(--accent-gold);
-      border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-      margin-top: 60px;
-    }
-
-    .cta-section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .cta-section p {
-      color: var(--text-secondary);
-      margin-bottom: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-options {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .cta-option {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 25px;
-      min-width: 200px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .cta-option:hover {
-      border-color: var(--accent-gold);
-      transform: translateY(-4px);
-    }
-
-    .cta-option.featured {
-      border-color: var(--accent-gold);
-      background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, var(--bg-card) 100%);
-    }
-
-    .cta-option-label {
+    .equation-numerator .var-label {
+      color: var(--accent-green);
       font-size: 0.8rem;
+    }
+
+    .equation-multiply {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+    }
+
+    .equation-line {
+      width: 100%;
+      height: 3px;
+      background: var(--text-secondary);
+      border-radius: 2px;
+    }
+
+    .equation-denominator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--accent-red);
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
+    .equation-denominator .var-box {
+      background: var(--accent-red);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .equation-denominator .var-label {
+      color: var(--accent-red);
+      font-size: 0.8rem;
+    }
+
+    .equation-result-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+      border-radius: 12px;
+      border: 1px solid var(--accent-gold);
+    }
+
+    .equation-result {
+      font-size: 4rem;
+      font-weight: 700;
       color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    .equation-result-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .score-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .score-indicator.low {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--accent-red);
+    }
+
+    .score-indicator.medium {
+      background: rgba(251, 191, 36, 0.2);
+      color: #fbbf24;
+    }
+
+    .score-indicator.high {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--accent-green);
+    }
+
+    /* Sliders */
+    .slider-group {
+      margin-bottom: 25px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 10px;
     }
 
-    .cta-option-price {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 5px;
+    .slider-label {
+      font-weight: 600;
     }
 
-    .cta-option-desc {
-      font-size: 0.85rem;
+    .slider-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .slider-value.positive { color: var(--accent-green); }
+    .slider-value.negative { color: var(--accent-red); }
+
+    .slider-desc {
       color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: var(--border-color);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      cursor: pointer;
+    }
+
+    .slider-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 5px;
+    }
+
+    .scale-reference {
+      background: var(--bg-dark);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+
+    .scale-item {
+      padding: 4px 0;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .scale-item:last-child {
+      border-bottom: none;
+    }
+
+    .scale-item strong {
+      color: var(--accent-gold);
+    }
+
+    /* Diagnosis */
+    .diagnosis {
+      background: var(--bg-dark);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 30px;
+    }
+
+    .diagnosis h3 {
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .diagnosis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .diagnosis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .diagnosis-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .diagnosis-item.good {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .diagnosis-item.bad {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .diagnosis-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    .diagnosis-item.good .diagnosis-icon {
+      background: var(--accent-green);
+      color: #000;
+    }
+
+    .diagnosis-item.bad .diagnosis-icon {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    .diagnosis-content {
+      flex: 1;
+    }
+
+    .diagnosis-content h4 {
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .diagnosis-item.good .diagnosis-content h4 {
+      color: var(--accent-green);
+    }
+
+    .diagnosis-item.bad .diagnosis-content h4 {
+      color: var(--accent-red);
+    }
+
+    .diagnosis-content p {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    /* Offer Builder */
+    .offer-builder {
+      margin-top: 30px;
+    }
+
+    .offer-input {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      color: var(--text-primary);
+      font-size: 1rem;
       margin-bottom: 15px;
+    }
+
+    .offer-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    .offer-output {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+      border: 1px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .offer-output h4 {
+      color: var(--accent-gold);
+      margin-bottom: 15px;
+    }
+
+    .offer-output p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* ==================== */
+    /* TAB 2: ANATOMIA */
+    /* ==================== */
+
+    /* Accordion */
+    .accordion {
+      margin-bottom: 10px;
+    }
+
+    .accordion-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .accordion-header:hover {
+      border-color: var(--accent-gold);
+    }
+
+    .accordion-header.open {
+      border-radius: 12px 12px 0 0;
+      border-bottom: none;
+    }
+
+    .accordion-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .accordion-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .accordion-icon.atom { background: var(--accent-green); color: #000; }
+    .accordion-icon.molecule { background: var(--accent-blue); color: #fff; }
+    .accordion-icon.organism { background: var(--accent-purple); color: #fff; }
+
+    .accordion-label h3 {
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+
+    .accordion-label p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .accordion-arrow {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      transition: transform 0.3s;
+    }
+
+    .accordion-header.open .accordion-arrow {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      padding: 25px;
+    }
+
+    .accordion-content.open {
+      display: block;
+    }
+
+    /* Component Cards inside accordion */
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .component-card {
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .component-card h4 {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .component-card h4 span {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--accent-green);
+      color: #000;
+    }
+
+    .component-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
     }
 
     /* Back Link */
@@ -732,7 +588,7 @@
       gap: 8px;
       color: var(--text-secondary);
       text-decoration: none;
-      padding: 20px;
+      padding: 20px 0;
       font-size: 0.9rem;
     }
 
@@ -742,709 +598,588 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 1.8rem; }
-      .hero-stats { gap: 20px; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .nav-container { flex-direction: column; }
-      .tree-diagram { font-size: 0.7rem; }
-      .visual-tree { padding: 20px; overflow-x: auto; }
+      .tabs { flex-wrap: wrap; }
+      .tab { flex: 1; min-width: 120px; text-align: center; }
+      .equation-formula { font-size: 1rem; }
+      .equation-result { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Back Link -->
-  <a href="index.html" class="back-link">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M19 12H5M12 19l-7-7 7-7"/>
-    </svg>
-    Voltar ao Hub
-  </a>
 
-  <!-- Hero -->
-  <section class="hero">
-    <span class="hero-badge">Anatomia de Metodologia</span>
-    <h1>$100M Offers</h1>
-    <p class="hero-author">Alex Hormozi</p>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      ← Voltar ao Hub
+    </a>
 
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-value">847x</div>
-        <div class="stat-label">Multiplicador Ke</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">12</div>
-        <div class="stat-label">Atomos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">5</div>
-        <div class="stat-label">Moleculas</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">2</div>
-        <div class="stat-label">Organismos</div>
-      </div>
+    <div class="header">
+      <h1>$100M Offers</h1>
+      <p>Alex Hormozi | Methodology as a Service</p>
     </div>
-  </section>
 
-  <!-- Navigation -->
-  <nav class="nav-section">
-    <div class="nav-container">
-      <div class="nav-links">
-        <a href="#organismos" class="nav-link">Organismos</a>
-        <a href="#moleculas" class="nav-link">Moleculas</a>
-        <a href="#atomos" class="nav-link">Atomos</a>
-      </div>
-      <a href="#comprar" class="cta-main">Acesso Completo R$97/mes</a>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('maas')">MaaS Funcional</button>
+      <button class="tab" onclick="showTab('anatomia')">Anatomia</button>
+      <button class="tab" onclick="showTab('cases')">Cases</button>
     </div>
-  </nav>
 
-  <!-- Main Content -->
-  <main class="main-content">
+    <!-- ==================== -->
+    <!-- TAB 1: MAAS FUNCIONAL -->
+    <!-- ==================== -->
+    <div id="tab-maas" class="tab-content active">
 
-    <!-- Architecture Section -->
-    <section class="architecture-section">
-      <div class="architecture-header">
-        <h2 class="architecture-title">Arquitetura Completa da Metodologia</h2>
-        <p class="architecture-subtitle">Cada componente resolve um problema especifico. Compre apenas o que precisa.</p>
-      </div>
-
-      <!-- Ke Explanation -->
-      <div class="ke-explanation">
-        <div class="ke-title">
-          <span>O que significa Ke 847x?</span>
-        </div>
-        <div class="ke-formula">
-          Ke = (Alcance x Velocidade x Personalizacao) / Custo Original
-        </div>
-        <p style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">
-          <strong style="color: var(--accent-gold);">847x</strong> significa: o que antes custava <strong>R$847 em tempo e esforco</strong>, agora custa o equivalente a <strong>R$1</strong>.
+      <!-- Value Equation Calculator -->
+      <div class="maas-section">
+        <h2>Value Equation Calculator</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+          Ajuste os sliders para diagnosticar sua oferta. O sistema calcula o valor percebido e mostra o que melhorar.
         </p>
-        <div class="ke-grid">
-          <div class="ke-metric">
-            <div class="ke-metric-label">Tempo para Dominar</div>
-            <div class="ke-metric-before">20 horas lendo</div>
-            <div class="ke-metric-after">10 minutos aplicando</div>
+
+        <div class="equation-display">
+          <div class="equation-visual">
+            <span class="equation-label">Value</span>
+            <span class="equation-equals">=</span>
+            <div class="equation-fraction">
+              <div class="equation-numerator">
+                <div class="var-box" id="dream-box">5</div>
+                <span class="var-label">Dream</span>
+                <span class="equation-multiply">x</span>
+                <div class="var-box" id="likelihood-box">5</div>
+                <span class="var-label">Likelihood</span>
+              </div>
+              <div class="equation-line"></div>
+              <div class="equation-denominator">
+                <div class="var-box" id="time-box">5</div>
+                <span class="var-label">Time</span>
+                <span class="equation-multiply">x</span>
+                <div class="var-box" id="effort-box">5</div>
+                <span class="var-label">Effort</span>
+              </div>
+            </div>
           </div>
-          <div class="ke-metric">
-            <div class="ke-metric-label">Aplicacoes por Mes</div>
-            <div class="ke-metric-before">1-2 manuais</div>
-            <div class="ke-metric-after">Ilimitadas com IA</div>
+          <div class="equation-result-container">
+            <div class="equation-result" id="value-score">2.0</div>
+            <div class="equation-result-label">Valor Percebido</div>
+            <div class="score-indicator low" id="score-indicator">
+              <span>Oferta fraca - precisa melhorar</span>
+            </div>
           </div>
-          <div class="ke-metric">
-            <div class="ke-metric-label">Personalizacao</div>
-            <div class="ke-metric-before">Voce adapta sozinho</div>
-            <div class="ke-metric-after">IA adapta ao seu contexto</div>
+        </div>
+
+        <!-- Dream Outcome -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Dream Outcome</span>
+            <span class="slider-value positive" id="dream-value">5</span>
           </div>
-          <div class="ke-metric">
-            <div class="ke-metric-label">Resultado</div>
-            <div class="ke-metric-before">Meses ate criar oferta</div>
-            <div class="ke-metric-after">Horas ate oferta pronta</div>
+          <div class="slider-desc">O quao desejavel e o resultado que voce promete?</div>
+          <input type="range" id="dream" min="1" max="10" value="5" oninput="updateEquation()">
+          <div class="scale-reference">
+            <div class="scale-item"><strong>1-2:</strong> Conveniencia ("economize 10 min/dia")</div>
+            <div class="scale-item"><strong>3-4:</strong> Melhoria incremental ("aumento de 10%")</div>
+            <div class="scale-item"><strong>5-6:</strong> Mudanca significativa ("dobre seu faturamento")</div>
+            <div class="scale-item"><strong>7-8:</strong> Transformacao de vida ("liberdade financeira")</div>
+            <div class="scale-item"><strong>9-10:</strong> Sonho maximo ("aposentar os pais", "sair do Brasil")</div>
+          </div>
+        </div>
+
+        <!-- Perceived Likelihood -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Perceived Likelihood</span>
+            <span class="slider-value positive" id="likelihood-value">5</span>
+          </div>
+          <div class="slider-desc">O quanto o cliente acredita que VAI conseguir com voce?</div>
+          <input type="range" id="likelihood" min="1" max="10" value="5" oninput="updateEquation()">
+          <div class="scale-reference">
+            <div class="scale-item"><strong>1-2:</strong> "Parece golpe" (sem provas, promessa exagerada)</div>
+            <div class="scale-item"><strong>3-4:</strong> "Talvez funcione" (alguns depoimentos genericos)</div>
+            <div class="scale-item"><strong>5-6:</strong> "Provavel" (cases reais, garantia basica)</div>
+            <div class="scale-item"><strong>7-8:</strong> "Quase certo" (metodo validado, autoridade reconhecida)</div>
+            <div class="scale-item"><strong>9-10:</strong> "Garantido" (track record impecavel, garantia forte)</div>
+          </div>
+        </div>
+
+        <!-- Time Delay -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Time Delay</span>
+            <span class="slider-value negative" id="time-value">5</span>
+          </div>
+          <div class="slider-desc">Quanto tempo ate o cliente ver o PRIMEIRO resultado?</div>
+          <input type="range" id="time" min="1" max="10" value="5" oninput="updateEquation()">
+          <div class="scale-reference">
+            <div class="scale-item"><strong>1-2:</strong> Imediato (minutos/horas - ex: template pronto)</div>
+            <div class="scale-item"><strong>3-4:</strong> Dias (1-7 dias - ex: primeira venda)</div>
+            <div class="scale-item"><strong>5-6:</strong> Semanas (2-4 semanas - ex: primeiros leads)</div>
+            <div class="scale-item"><strong>7-8:</strong> Meses (2-6 meses - ex: emagrecer 10kg)</div>
+            <div class="scale-item"><strong>9-10:</strong> Anos (ex: fluencia em idioma, aposentadoria)</div>
+          </div>
+        </div>
+
+        <!-- Effort/Sacrifice -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Effort Required</span>
+            <span class="slider-value negative" id="effort-value">5</span>
+          </div>
+          <div class="slider-desc">Quanto esforco/sacrificio o cliente precisa fazer?</div>
+          <input type="range" id="effort" min="1" max="10" value="5" oninput="updateEquation()">
+          <div class="scale-reference">
+            <div class="scale-item"><strong>1-2:</strong> Done-for-you (voce faz tudo, cliente so paga)</div>
+            <div class="scale-item"><strong>3-4:</strong> Plug-and-play (templates, copiar e colar)</div>
+            <div class="scale-item"><strong>5-6:</strong> Guiado (curso com suporte, passo a passo)</div>
+            <div class="scale-item"><strong>7-8:</strong> DIY (cliente faz sozinho com material)</div>
+            <div class="scale-item"><strong>9-10:</strong> Hardcore (mudanca de habito, disciplina diaria)</div>
+          </div>
+        </div>
+
+        <!-- Diagnosis -->
+        <div class="diagnosis" id="diagnosis">
+          <h3>Diagnostico da Sua Oferta</h3>
+          <div id="diagnosis-items"></div>
+        </div>
+      </div>
+
+      <!-- Offer Transformer -->
+      <div class="maas-section">
+        <h2>Offer Transformer</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+          Cole sua oferta atual e veja como transforma-la usando a Value Equation.
+        </p>
+
+        <div class="offer-builder">
+          <textarea class="offer-input" id="offer-input" rows="3" placeholder="Ex: Curso de Excel por R$497 com 40 horas de aula"></textarea>
+
+          <button class="tab" style="width: 100%; margin-bottom: 20px;" onclick="transformOffer()">
+            Transformar com Value Equation
+          </button>
+
+          <div class="offer-output" id="offer-output" style="display: none;">
+            <h4>Oferta Otimizada</h4>
+            <div id="transformed-offer"></div>
           </div>
         </div>
       </div>
 
-      <!-- Component Tree -->
-      <div class="component-tree">
+    </div>
 
-        <!-- Level: System -->
-        <div class="tree-level">
-          <span class="level-label system">Sistema Completo</span>
-          <div class="component-row">
-            <div class="component-node system-node">
-              <div class="node-header">
-                <span class="node-id system">SISTEMA</span>
-                <span class="node-price">R$97/mes</span>
-              </div>
-              <h3 class="node-title">$100M Offers System</h3>
-              <p class="node-description">
-                Sistema completo de criacao de ofertas irresistiveis. Inclui todos os organismos,
-                moleculas e atomos + Clone Cognitivo ativo que aplica a metodologia no seu contexto.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Oferta de alto valor criada em 2-4 horas (vs 2-4 semanas)</div>
-              </div>
-              <div class="node-components">
-                <span class="node-component-tag">2 Organismos</span>
-                <span class="node-component-tag">5 Moleculas</span>
-                <span class="node-component-tag">12 Atomos</span>
-                <span class="node-component-tag">Clone IA</span>
-              </div>
-              <a href="#comprar" class="node-cta primary">Acesso Completo</a>
-            </div>
-          </div>
-        </div>
+    <!-- ==================== -->
+    <!-- TAB 2: ANATOMIA -->
+    <!-- ==================== -->
+    <div id="tab-anatomia" class="tab-content">
 
-        <div class="connector-line"></div>
-
-        <!-- Level: Organisms -->
-        <div class="tree-level">
-          <span class="level-label organism">Organismos (Sistemas Prontos)</span>
-          <div class="component-row">
-            <div class="component-node organism-node">
-              <div class="node-header">
-                <span class="node-id organism">O1</span>
-                <span class="node-price">R$997</span>
-              </div>
-              <h3 class="node-title">Grand Slam Offer</h3>
-              <p class="node-description">
-                Crie ofertas tao boas que as pessoas se sintam estupidas dizendo nao.
-                Empilhe valor, elimine risco e crie urgencia autentica.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Taxa de conversao 2-5x maior nas suas ofertas</div>
-              </div>
-              <div class="node-components">
-                <span class="node-component-tag">M1: Value Stack</span>
-                <span class="node-component-tag">M2: Garantia</span>
-                <span class="node-component-tag">M3: Escassez</span>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Quero Este</a>
-            </div>
-
-            <div class="component-node organism-node">
-              <div class="node-header">
-                <span class="node-id organism">O2</span>
-                <span class="node-price">R$497</span>
-              </div>
-              <h3 class="node-title">Pricing Mastery</h3>
-              <p class="node-description">
-                Domine a psicologia de precos. Aprenda a cobrar 10x mais pelo mesmo
-                servico usando ancoragem e posicionamento premium.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Aumento de 50-200% no ticket medio</div>
-              </div>
-              <div class="node-components">
-                <span class="node-component-tag">M4: Ancoragem</span>
-                <span class="node-component-tag">M5: Premium</span>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Quero Este</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="connector-line"></div>
-
-        <!-- Level: Molecules -->
-        <div class="tree-level">
-          <span class="level-label molecule">Moleculas (Frameworks Parciais)</span>
-          <div class="component-row">
-            <div class="component-node molecule-node">
-              <div class="node-header">
-                <span class="node-id molecule">M1</span>
-                <span class="node-price">R$197</span>
-              </div>
-              <h3 class="node-title">Value Stacking</h3>
-              <p class="node-description">
-                Empilhe componentes de valor ate o preco parecer uma fracao do que voce entrega.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Oferta com valor percebido 10x maior que o preco</div>
-              </div>
-              <div class="node-components">
-                <span class="node-component-tag">A1: Value Equation</span>
-                <span class="node-component-tag">A2: Dream Outcome</span>
-                <span class="node-component-tag">A3: Stacking</span>
-                <span class="node-component-tag">A4: Bonus</span>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Comprar R$197</a>
-            </div>
-
-            <div class="component-node molecule-node">
-              <div class="node-header">
-                <span class="node-id molecule">M2</span>
-                <span class="node-price">R$147</span>
-              </div>
-              <h3 class="node-title">Garantia Stack</h3>
-              <p class="node-description">
-                Sistema de garantias que elimina 100% do risco percebido e aumenta conversao.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Conversao +30% sem aumentar reembolsos</div>
-              </div>
-              <div class="node-components">
-                <span class="node-component-tag">A5: Risk Reversal</span>
-                <span class="node-component-tag">A6: Condicional</span>
-                <span class="node-component-tag">A7: Anti-Garantia</span>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Comprar R$147</a>
-            </div>
-
-            <div class="component-node molecule-node">
-              <div class="node-header">
-                <span class="node-id molecule">M3</span>
-                <span class="node-price">R$97</span>
-              </div>
-              <h3 class="node-title">Escassez Stack</h3>
-              <p class="node-description">
-                Urgencia autentica que acelera decisoes sem parecer manipulativo.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Reducao de 50% no ciclo de decisao</div>
-              </div>
-              <div class="node-components">
-                <span class="node-component-tag">A8: Urgencia Real</span>
-                <span class="node-component-tag">A9: Escassez Real</span>
-                <span class="node-component-tag">A10: Bonus Temporal</span>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Comprar R$97</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="connector-line"></div>
-
-        <!-- Level: Atoms -->
-        <div class="tree-level">
-          <span class="level-label atom">Atomos (Conceitos Fundamentais)</span>
-          <div class="component-row">
-            <div class="component-node atom-node">
-              <div class="node-header">
-                <span class="node-id atom">A1</span>
-                <span class="node-price">R$47</span>
-              </div>
-              <h3 class="node-title">Value Equation</h3>
-              <p class="node-description">
-                A formula matematica do valor percebido. Maximize o numerador, minimize o denominador.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Diagnosticar por que sua oferta nao converte</div>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Desbloquear R$47</a>
-            </div>
-
-            <div class="component-node atom-node">
-              <div class="node-header">
-                <span class="node-id atom">A2</span>
-                <span class="node-price">R$47</span>
-              </div>
-              <h3 class="node-title">Dream Outcome</h3>
-              <p class="node-description">
-                O resultado maximo que seu cliente consegue imaginar. Nao o que voce entrega, o que ele sonha.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Copy que fala direto ao coracao do cliente</div>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Desbloquear R$47</a>
-            </div>
-
-            <div class="component-node atom-node">
-              <div class="node-header">
-                <span class="node-id atom">A5</span>
-                <span class="node-price">R$47</span>
-              </div>
-              <h3 class="node-title">Risk Reversal</h3>
-              <p class="node-description">
-                Transfira 100% do risco do cliente para voce. Quanto mais risco voce assume, mais ele confia.
-              </p>
-              <div class="node-result">
-                <div class="node-result-label">Resultado Esperado</div>
-                <div class="node-result-text">Garantia que aumenta conversao sem aumentar reembolso</div>
-              </div>
-              <a href="#comprar" class="node-cta secondary">Desbloquear R$47</a>
-            </div>
-
-            <div class="component-node atom-node" style="border-style: dashed; opacity: 0.7;">
-              <div class="node-header">
-                <span class="node-id atom">+9</span>
-                <span class="node-price">R$47 cada</span>
-              </div>
-              <h3 class="node-title">Mais 9 Atomos</h3>
-              <p class="node-description">
-                Stacking, Bonus Architecture, Garantia Condicional, Anti-Garantia, Urgencia Real, Escassez Real, Bonus Temporal, Ancoragem, Premium Positioning.
-              </p>
-              <a href="#atomos" class="node-cta secondary">Ver Todos os Atomos</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Organismos Section -->
-    <section id="organismos" class="anatomy-section">
-      <div class="section-header">
-        <div class="section-icon organism">O</div>
-        <div>
-          <h2 class="section-title">Organismos</h2>
-          <p class="section-subtitle">Sistemas completos prontos para implementacao</p>
-        </div>
-      </div>
-
-      <div class="cards-grid">
-        <!-- Organismo 1 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Grand Slam Offer System</h3>
-              <p class="card-meta">Inclui 3 moleculas + 7 atomos + Clone Cognitivo</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$997</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">
-              Sistema completo para criar ofertas irresistiveis que vendem sozinhas.
-              Inclui Value Stacking, Sistema de Garantias e Escassez Autentica.
-            </p>
-            <div class="components-list">
-              <span class="component-tag included">Value Stack</span>
-              <span class="component-tag included">Garantia Stack</span>
-              <span class="component-tag included">Escassez Stack</span>
-              <span class="component-tag included">Clone Cognitivo</span>
-            </div>
-            <span class="ke-badge">Ke 847x de amplificacao</span>
-          </div>
-          <div class="card-footer">
-            <a href="#comprar" class="btn btn-primary">Quero o Sistema Completo</a>
-          </div>
-        </div>
-
-        <!-- Organismo 2 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Pricing Mastery System</h3>
-              <p class="card-meta">Inclui 2 moleculas + 5 atomos</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$497</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">
-              Domine a precificacao de alto valor. Ancoragem psicologica,
-              posicionamento premium e estrategias para cobrar 10x mais.
-            </p>
-            <div class="components-list">
-              <span class="component-tag included">Anchoring Stack</span>
-              <span class="component-tag included">Premium Positioning</span>
-            </div>
-            <span class="ke-badge">Ke 412x de amplificacao</span>
-          </div>
-          <div class="card-footer">
-            <a href="#comprar" class="btn btn-primary">Quero Precificar Melhor</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Moleculas Section -->
-    <section id="moleculas" class="anatomy-section">
-      <div class="section-header">
-        <div class="section-icon molecule">M</div>
-        <div>
-          <h2 class="section-title">Moleculas</h2>
-          <p class="section-subtitle">Combinacoes funcionais de atomos</p>
-        </div>
-      </div>
-
-      <div class="cards-grid">
-        <!-- Molecula 1 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Value Stacking System</h3>
-              <p class="card-meta">4 atomos combinados</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$197</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">
-              Empilhe valor ate o preco parecer ridiculo. Transforme ofertas
-              comuns em propostas irrecusaveis.
-            </p>
-            <div class="components-list">
-              <span class="component-tag included">Value Equation</span>
-              <span class="component-tag included">Dream Outcome</span>
-              <span class="component-tag included">Stacking</span>
-              <span class="component-tag included">Bonus Architecture</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-secondary">Ver Preview</a>
-            <a href="#comprar" class="btn btn-primary">Comprar</a>
-          </div>
-        </div>
-
-        <!-- Molecula 2 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Garantia Stack</h3>
-              <p class="card-meta">3 atomos combinados</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$147</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">
-              Sistema de garantias que elimina o risco percebido e
-              aumenta conversao em ate 3x.
-            </p>
-            <div class="components-list">
-              <span class="component-tag included">Risk Reversal</span>
-              <span class="component-tag included">Garantia Condicional</span>
-              <span class="component-tag included">Anti-Garantia</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-secondary">Ver Preview</a>
-            <a href="#comprar" class="btn btn-primary">Comprar</a>
-          </div>
-        </div>
-
-        <!-- Molecula 3 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Escassez Stack</h3>
-              <p class="card-meta">3 atomos combinados</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$97</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">
-              Urgencia autentica que acelera decisoes sem parecer
-              manipulativo ou falso.
-            </p>
-            <div class="components-list">
-              <span class="component-tag included">Urgencia Real</span>
-              <span class="component-tag included">Escassez Real</span>
-              <span class="component-tag included">Bonus Temporal</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-secondary">Ver Preview</a>
-            <a href="#comprar" class="btn btn-primary">Comprar</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Atomos Section -->
-    <section id="atomos" class="anatomy-section">
-      <div class="section-header">
-        <div class="section-icon atom">A</div>
-        <div>
-          <h2 class="section-title">Atomos</h2>
-          <p class="section-subtitle">Conceitos fundamentais individuais</p>
-        </div>
-      </div>
-
-      <div class="cards-grid">
-        <!-- Atomo 1 - Com Preview -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Value Equation</h3>
-              <p class="card-meta">Capitulo 3, p.45</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$47</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="preview-box">
-              <span class="preview-label">Preview Gratis</span>
-              <div class="preview-content">
-                <strong>Formula:</strong><br>
-                Value = (Dream Outcome x Likelihood) / (Time x Effort)<br><br>
-                <strong>Conceito:</strong> O valor percebido nao e sobre preco,
-                e sobre a relacao entre o resultado sonhado...
-              </div>
-              <div class="preview-content blurred">
-                ...e a probabilidade de alcanca-lo, dividido pelo tempo e
-                esforco necessarios. Para aumentar valor: maximize o
-                numerador (resultado + confianca) e minimize o denominador
-                (tempo + esforco). Template completo de aplicacao incluso.
-              </div>
-              <div class="locked-overlay">
-                <p class="locked-text">70% do conteudo bloqueado</p>
-                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Atomo 2 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Dream Outcome</h3>
-              <p class="card-meta">Capitulo 4, p.62</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$47</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="preview-box">
-              <span class="preview-label">Preview Gratis</span>
-              <div class="preview-content">
-                <strong>Definicao:</strong><br>
-                O resultado maximo que seu cliente consegue imaginar.
-                Nao e o que voce entrega, e o que ele sonha...
-              </div>
-              <div class="preview-content blurred">
-                ...ao comprar. Tecnica de elicitacao do sonho: perguntas
-                especificas para descobrir o Dream Outcome real.
-                Framework de comunicacao para vender o sonho.
-              </div>
-              <div class="locked-overlay">
-                <p class="locked-text">70% do conteudo bloqueado</p>
-                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Atomo 3 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Risk Reversal</h3>
-              <p class="card-meta">Capitulo 7, p.98</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$47</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="preview-box">
-              <span class="preview-label">Preview Gratis</span>
-              <div class="preview-content">
-                <strong>Principio:</strong><br>
-                Transfira 100% do risco do cliente para voce.
-                Quanto mais risco voce assume...
-              </div>
-              <div class="preview-content blurred">
-                ...mais confianca o cliente tem. 7 tipos de garantia
-                com exemplos reais. Como criar garantias que
-                aumentam conversao sem aumentar reembolsos.
-              </div>
-              <div class="locked-overlay">
-                <p class="locked-text">70% do conteudo bloqueado</p>
-                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Atomo 4 -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Stacking Technique</h3>
-              <p class="card-meta">Capitulo 5, p.71</p>
-            </div>
-            <div class="card-price">
-              <div class="price-value">R$47</div>
-              <div class="price-type">unico</div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">
-              Tecnica de empilhar componentes de valor ate o preco
-              parecer uma fracao do valor total entregue.
-            </p>
-            <div class="preview-box">
-              <span class="preview-label">Preview Gratis</span>
-              <div class="preview-content">
-                <strong>Estrutura Basica:</strong><br>
-                Componente 1: Valor R$X<br>
-                Componente 2: Valor R$Y<br>
-                Componente 3: Valor R$Z...
-              </div>
-              <div class="locked-overlay">
-                <p class="locked-text">Template completo bloqueado</p>
-                <a href="#comprar" class="btn btn-primary" style="display: inline-block;">Desbloquear R$47</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- More atoms indicator -->
-        <div class="card" style="display: flex; align-items: center; justify-content: center; min-height: 200px; border-style: dashed;">
-          <div style="text-align: center; color: var(--text-secondary);">
-            <p style="font-size: 2rem; margin-bottom: 10px;">+8</p>
-            <p>atomos disponiveis</p>
-            <a href="#comprar" class="btn btn-secondary" style="margin-top: 15px;">Ver Todos</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="comprar" class="cta-section">
-      <h2>Escolha Seu Nivel de Acesso</h2>
-      <p>
-        Compre apenas o que precisa ou tenha acesso completo a biblioteca.
-        Sem enrolacao, sem conteudo desnecessario.
+      <p style="color: var(--text-secondary); margin-bottom: 20px;">
+        Clique para expandir cada nivel e ver os componentes.
       </p>
 
-      <div class="cta-options">
-        <div class="cta-option">
-          <div class="cta-option-label">Atomo Avulso</div>
-          <div class="cta-option-price">R$47</div>
-          <div class="cta-option-desc">1 conceito especifico</div>
-          <a href="#atomos" class="btn btn-secondary" style="width: 100%;">Escolher Atomo</a>
+      <!-- Organisms -->
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title">
+            <div class="accordion-icon organism">O</div>
+            <div class="accordion-label">
+              <h3>Organismos</h3>
+              <p>2 sistemas completos prontos para usar</p>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
         </div>
-
-        <div class="cta-option">
-          <div class="cta-option-label">Molecula</div>
-          <div class="cta-option-price">R$197</div>
-          <div class="cta-option-desc">Sistema parcial (3-4 atomos)</div>
-          <a href="#moleculas" class="btn btn-secondary" style="width: 100%;">Escolher Molecula</a>
-        </div>
-
-        <div class="cta-option featured">
-          <div class="cta-option-label">Mais Popular</div>
-          <div class="cta-option-price">R$97<span style="font-size: 1rem; font-weight: normal;">/mes</span></div>
-          <div class="cta-option-desc">Acesso a TODA biblioteca MaaS</div>
-          <a href="#" class="btn btn-primary" style="width: 100%;">Assinar Agora</a>
-        </div>
-
-        <div class="cta-option">
-          <div class="cta-option-label">Organismo Completo</div>
-          <div class="cta-option-price">R$997</div>
-          <div class="cta-option-desc">Sistema + Clone Cognitivo</div>
-          <a href="#organismos" class="btn btn-secondary" style="width: 100%;">Ver Organismos</a>
+        <div class="accordion-content">
+          <div class="component-grid">
+            <div class="component-card">
+              <h4>Grand Slam Offer</h4>
+              <p>Crie ofertas tao boas que as pessoas se sintam estupidas dizendo nao. Combina Value Equation + Garantias + Escassez.</p>
+            </div>
+            <div class="component-card">
+              <h4>Pricing Mastery</h4>
+              <p>Domine psicologia de precos. Ancoragem + posicionamento premium para cobrar 10x mais.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
 
-  </main>
+      <!-- Molecules -->
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title">
+            <div class="accordion-icon molecule">M</div>
+            <div class="accordion-label">
+              <h3>Moleculas</h3>
+              <p>5 frameworks compostos por atomos</p>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="component-grid">
+            <div class="component-card">
+              <h4>Value Equation <span>M1</span></h4>
+              <p>V = (Dream x Likelihood) / (Time x Effort)</p>
+            </div>
+            <div class="component-card">
+              <h4>Garantia Stack <span>M2</span></h4>
+              <p>Risk Reversal + Condicional + Anti-Garantia</p>
+            </div>
+            <div class="component-card">
+              <h4>Escassez Stack <span>M3</span></h4>
+              <p>Urgencia Real + Escassez Real + Bonus Temporal</p>
+            </div>
+            <div class="component-card">
+              <h4>Ancoragem Stack <span>M4</span></h4>
+              <p>Ancora Alta + Comparacao + Contexto Premium</p>
+            </div>
+            <div class="component-card">
+              <h4>Bonus Stack <span>M5</span></h4>
+              <p>Arquitetura de bonus que multiplica valor percebido</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <!-- Footer -->
-  <footer style="text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 0.85rem;">
-    <p>Anatomia MaaS v1.0 | Metodologia mapeada por Atlas</p>
-    <p style="margin-top: 10px;">
-      <a href="biblioteca-maas.html" style="color: var(--accent-gold); text-decoration: none;">Ver Todas as Metodologias</a>
-    </p>
-  </footer>
+      <!-- Atoms -->
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title">
+            <div class="accordion-icon atom">A</div>
+            <div class="accordion-label">
+              <h3>Atomos</h3>
+              <p>13 conceitos indivisiveis fundamentais</p>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="component-grid">
+            <div class="component-card">
+              <h4>Dream Outcome <span>A1</span></h4>
+              <p>O resultado maximo que o cliente sonha</p>
+            </div>
+            <div class="component-card">
+              <h4>Perceived Likelihood <span>A2</span></h4>
+              <p>Probabilidade percebida de sucesso</p>
+            </div>
+            <div class="component-card">
+              <h4>Time Delay <span>A3</span></h4>
+              <p>Tempo ate ver resultados</p>
+            </div>
+            <div class="component-card">
+              <h4>Effort/Sacrifice <span>A4</span></h4>
+              <p>Esforco necessario do cliente</p>
+            </div>
+            <div class="component-card">
+              <h4>Risk Reversal <span>A5</span></h4>
+              <p>Transferir risco para voce</p>
+            </div>
+            <div class="component-card">
+              <h4>Garantia Condicional <span>A6</span></h4>
+              <p>Garantia com condicoes especificas</p>
+            </div>
+            <div class="component-card">
+              <h4>Anti-Garantia <span>A7</span></h4>
+              <p>"Se nao funcionar, pago o dobro"</p>
+            </div>
+            <div class="component-card">
+              <h4>Urgencia Real <span>A8</span></h4>
+              <p>Deadline genuino e justificado</p>
+            </div>
+            <div class="component-card">
+              <h4>Escassez Real <span>A9</span></h4>
+              <p>Limite verdadeiro de vagas/unidades</p>
+            </div>
+            <div class="component-card">
+              <h4>Bonus Temporal <span>A10</span></h4>
+              <p>Bonus que expira em X dias</p>
+            </div>
+            <div class="component-card">
+              <h4>Ancora Alta <span>A11</span></h4>
+              <p>Mostrar preco maior primeiro</p>
+            </div>
+            <div class="component-card">
+              <h4>Comparacao <span>A12</span></h4>
+              <p>Comparar com alternativas caras</p>
+            </div>
+            <div class="component-card">
+              <h4>Contexto Premium <span>A13</span></h4>
+              <p>Posicionar no ambiente certo</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== -->
+    <!-- TAB 3: CASES -->
+    <!-- ==================== -->
+    <div id="tab-cases" class="tab-content">
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title">
+            <div class="accordion-icon" style="background: var(--accent-gold); color: #000;">1</div>
+            <div class="accordion-label">
+              <h3>Gym Launch - Academia LA</h3>
+              <p>De $500/mes para $2,000/mes em 90 dias</p>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <p><strong>Problema:</strong> Academia cobrava $500/mes com alta taxa de churn.</p>
+          <p style="margin-top: 10px;"><strong>Solucao aplicada:</strong></p>
+          <ul style="margin: 10px 0 10px 20px; color: var(--text-secondary);">
+            <li>Dream Outcome: "6 Pack em 90 dias" (nao "acesso a academia")</li>
+            <li>Garantia: "6 Pack ou devolvemos tudo + $1000"</li>
+            <li>Escassez: Apenas 20 vagas por trimestre</li>
+          </ul>
+          <p style="margin-top: 15px;"><strong style="color: var(--accent-green);">Resultado: +300% ticket | -40% churn | ROI 847%</strong></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title">
+            <div class="accordion-icon" style="background: var(--accent-blue); color: #fff;">2</div>
+            <div class="accordion-label">
+              <h3>Agencia Marketing Digital - SP</h3>
+              <p>De R$3k para R$15k por cliente</p>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <p><strong>Problema:</strong> Agencia vendia "gestao de trafego" por R$3k.</p>
+          <p style="margin-top: 10px;"><strong>Solucao aplicada:</strong></p>
+          <ul style="margin: 10px 0 10px 20px; color: var(--text-secondary);">
+            <li>Ancora: Mostrou proposta de R$50k primeiro</li>
+            <li>Dream Outcome: "100 leads qualificados/mes" (nao "gestao")</li>
+            <li>Garantia: "Menos de 50 leads = proximo mes gratis"</li>
+          </ul>
+          <p style="margin-top: 15px;"><strong style="color: var(--accent-green);">Resultado: +400% ticket | Mesma taxa de fechamento</strong></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title">
+            <div class="accordion-icon" style="background: var(--accent-purple); color: #fff;">3</div>
+            <div class="accordion-label">
+              <h3>Infoprodutor - Curso Excel</h3>
+              <p>R$127k em 7 dias de lancamento</p>
+            </div>
+          </div>
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <p><strong>Problema:</strong> Curso de Excel generico por R$197, conversao de 1.2%.</p>
+          <p style="margin-top: 10px;"><strong>Solucao aplicada:</strong></p>
+          <ul style="margin: 10px 0 10px 20px; color: var(--text-secondary);">
+            <li>Dream Outcome: "Seja promovido em 90 dias ou reembolso"</li>
+            <li>Escassez: 50 vagas + 3 bonus que expiravam em 48h</li>
+            <li>Preco: Aumentou para R$497 com nova proposta de valor</li>
+          </ul>
+          <p style="margin-top: 15px;"><strong style="color: var(--accent-green);">Resultado: R$127k | 4.2% conversao | 0.8% reembolso</strong></p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Tab switching
+    function showTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+    }
+
+    // Accordion
+    function toggleAccordion(header) {
+      const content = header.nextElementSibling;
+      const isOpen = header.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('open'));
+      document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+
+      // Open clicked if was closed
+      if (!isOpen) {
+        header.classList.add('open');
+        content.classList.add('open');
+      }
+    }
+
+    // Value Equation Calculator
+    function updateEquation() {
+      const dream = parseInt(document.getElementById('dream').value);
+      const likelihood = parseInt(document.getElementById('likelihood').value);
+      const time = parseInt(document.getElementById('time').value);
+      const effort = parseInt(document.getElementById('effort').value);
+
+      // Update slider values
+      document.getElementById('dream-value').textContent = dream;
+      document.getElementById('likelihood-value').textContent = likelihood;
+      document.getElementById('time-value').textContent = time;
+      document.getElementById('effort-value').textContent = effort;
+
+      // Update formula boxes
+      document.getElementById('dream-box').textContent = dream;
+      document.getElementById('likelihood-box').textContent = likelihood;
+      document.getElementById('time-box').textContent = time;
+      document.getElementById('effort-box').textContent = effort;
+
+      // Calculate value score
+      const numerator = dream * likelihood;
+      const denominator = Math.max(time * effort, 1);
+      const rawScore = numerator / denominator;
+      const normalizedScore = Math.min(10, Math.max(1, rawScore * 2)).toFixed(1);
+
+      document.getElementById('value-score').textContent = normalizedScore;
+
+      // Update score indicator
+      const indicator = document.getElementById('score-indicator');
+      const score = parseFloat(normalizedScore);
+
+      if (score < 4) {
+        indicator.className = 'score-indicator low';
+        indicator.innerHTML = '<span>Oferta fraca - precisa melhorar</span>';
+      } else if (score < 7) {
+        indicator.className = 'score-indicator medium';
+        indicator.innerHTML = '<span>Oferta razoavel - pode melhorar</span>';
+      } else {
+        indicator.className = 'score-indicator high';
+        indicator.innerHTML = '<span>Oferta forte - bom potencial!</span>';
+      }
+
+      // Update diagnosis
+      updateDiagnosis(dream, likelihood, time, effort, score);
+    }
+
+    function updateDiagnosis(dream, likelihood, time, effort, score) {
+      const items = [];
+
+      // Dream Outcome
+      if (dream < 7) {
+        items.push({
+          icon: '!',
+          type: 'bad',
+          title: 'Dream Outcome fraco',
+          desc: 'Reformule para o sonho do cliente, nao sua entrega tecnica.'
+        });
+      } else {
+        items.push({
+          icon: '✓',
+          type: 'good',
+          title: 'Dream Outcome forte',
+          desc: 'Voce promete algo que o cliente realmente deseja.'
+        });
+      }
+
+      // Likelihood
+      if (likelihood < 6) {
+        items.push({
+          icon: '!',
+          type: 'bad',
+          title: 'Baixa credibilidade',
+          desc: 'Adicione provas sociais, cases e garantias.'
+        });
+      } else {
+        items.push({
+          icon: '✓',
+          type: 'good',
+          title: 'Boa credibilidade',
+          desc: 'Cliente acredita que vai conseguir.'
+        });
+      }
+
+      // Time
+      if (time > 5) {
+        items.push({
+          icon: '!',
+          type: 'bad',
+          title: 'Tempo muito longo',
+          desc: 'Crie "quick wins" para engajar rapido.'
+        });
+      } else {
+        items.push({
+          icon: '✓',
+          type: 'good',
+          title: 'Tempo adequado',
+          desc: 'Resultados em tempo razoavel.'
+        });
+      }
+
+      // Effort
+      if (effort > 5) {
+        items.push({
+          icon: '!',
+          type: 'bad',
+          title: 'Muito esforco',
+          desc: 'Adicione templates, automacoes, done-for-you.'
+        });
+      } else {
+        items.push({
+          icon: '✓',
+          type: 'good',
+          title: 'Esforco gerenciavel',
+          desc: 'O processo nao sobrecarrega o cliente.'
+        });
+      }
+
+      const html = '<div class="diagnosis-grid">' + items.map(item => `
+        <div class="diagnosis-item ${item.type}">
+          <div class="diagnosis-icon">${item.icon}</div>
+          <div class="diagnosis-content">
+            <h4>${item.title}</h4>
+            <p>${item.desc}</p>
+          </div>
+        </div>
+      `).join('') + '</div>';
+
+      document.getElementById('diagnosis-items').innerHTML = html;
+    }
+
+    // Offer Transformer
+    function transformOffer() {
+      const input = document.getElementById('offer-input').value;
+      if (!input.trim()) return;
+
+      const dream = parseInt(document.getElementById('dream').value);
+      const likelihood = parseInt(document.getElementById('likelihood').value);
+
+      const output = document.getElementById('offer-output');
+      const transformed = document.getElementById('transformed-offer');
+
+      let suggestions = `<p><strong>Original:</strong> ${input}</p><br>`;
+      suggestions += `<p><strong>Aplicando Value Equation:</strong></p><ul style="margin: 10px 0 10px 20px;">`;
+
+      if (dream < 8) {
+        suggestions += `<li><strong>Dream Outcome:</strong> Reformule para o resultado final (ex: "Seja promovido" em vez de "Aprenda Excel")</li>`;
+      }
+      if (likelihood < 7) {
+        suggestions += `<li><strong>Likelihood:</strong> Adicione garantia condicional ligada ao resultado</li>`;
+      }
+      suggestions += `<li><strong>Time:</strong> Adicione "primeiros resultados em X dias"</li>`;
+      suggestions += `<li><strong>Effort:</strong> Inclua templates prontos, suporte, done-for-you</li>`;
+      suggestions += `</ul>`;
+
+      suggestions += `<p style="margin-top: 15px; padding: 15px; background: rgba(34,197,94,0.1); border-radius: 8px;">
+        <strong>Exemplo transformado:</strong><br>
+        "Seja promovido em 90 dias dominando Excel - ou devolvemos seu dinheiro. Inclui 15 templates prontos + mentoria semanal. Apenas 30 vagas."
+      </p>`;
+
+      transformed.innerHTML = suggestions;
+      output.style.display = 'block';
+    }
+
+    // Initialize
+    updateEquation();
+  </script>
 
 </body>
 </html>

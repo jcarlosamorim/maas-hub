@@ -1,0 +1,3174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaaS Hub | Methodology As A System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-app: #0D0D0D;
+      --bg-sidebar: #0F0F0F;
+      --bg-main: #111111;
+      --bg-card: #1A1A1A;
+      --bg-card-hover: #222222;
+      --bg-elevated: #252525;
+      --border-subtle: #2A2A2A;
+      --border-default: #333333;
+      --border-hover: #444444;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #808080;
+      --accent-gold: #C9A962;
+      --accent-gold-light: #E5D4A1;
+      --accent-gold-muted: rgba(201,169,98,0.2);
+      --accent-purple: #9B7BFF;
+      --accent-purple-muted: rgba(155,123,255,0.2);
+      --accent-blue: #60A5FA;
+      --accent-blue-muted: rgba(96,165,250,0.2);
+      --accent-green: #4ADE80;
+      --accent-green-muted: rgba(74,222,128,0.2);
+      --accent-red: #F87171;
+      --accent-red-muted: rgba(248,113,113,0.2);
+      --bg-hero: #151413;
+      --sidebar-width: 260px;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl: 24px;
+      --radius-full: 9999px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      background: var(--bg-app);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* Top Header */
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-symbol {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      padding: 6px 8px;
+      background: var(--accent-gold-muted);
+      border-radius: var(--radius-md);
+    }
+    .logo-text {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 15px;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .nav-item:hover {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+    .nav-item.active {
+      background: var(--accent-gold-muted);
+      color: var(--accent-gold);
+    }
+    .nav-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      transition: all 0.15s ease;
+    }
+    .back-link:hover {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-full);
+      color: var(--text-primary);
+    }
+    /* Main */
+    .main-content {
+      margin-top: 64px;
+      flex: 1;
+      min-height: calc(100vh - 64px);
+      background: var(--bg-main);
+    }
+    .content-header {
+      display: none; /* Removido - navegação agora no header superior */
+    }
+    .header-title { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+    .avatar-inline {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-full);
+      color: var(--text-primary);
+    }
+    .content-body { padding: 32px 48px; max-width: 1200px; margin: 0 auto; }
+
+    /* Hero */
+    .hero-banner {
+      padding: 64px 48px;
+      background: var(--bg-hero);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-2xl);
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .hero-badge { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; }
+    .badge {
+      display: inline-flex;
+      padding: 6px 14px;
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--accent-gold-muted);
+      color: var(--accent-gold);
+      border-radius: var(--radius-full);
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+    .hero-title-accent {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+    .hero-desc { font-size: 18px; color: var(--text-secondary); line-height: 1.6; max-width: 700px; margin: 0 auto; }
+
+    /* Quote */
+    .quote-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px 48px;
+      margin: 0 auto 48px;
+      text-align: center;
+      max-width: 800px;
+    }
+    .quote-text { font-size: 20px; font-weight: 500; font-style: italic; color: var(--text-primary); line-height: 1.6; margin-bottom: 16px; }
+    .quote-author { font-size: 14px; color: var(--text-muted); }
+
+    /* Section */
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; margin-bottom: 32px; }
+    .section-overline { font-size: 11px; font-weight: 600; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 0.1em; }
+    .section-title { font-size: 28px; font-weight: 600; color: var(--text-primary); }
+    .section-desc { font-size: 15px; color: var(--text-muted); margin-top: 8px; max-width: 600px; }
+
+    /* ============================================ */
+    /* ANIMATED SYSTEM OVERVIEW */
+    /* ============================================ */
+    .system-overview {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .system-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    /* Example Context Box */
+    .example-context {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.02));
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .example-badge {
+      background: var(--accent-gold);
+      color: var(--bg-app);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+    .example-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .example-text strong {
+      color: var(--accent-gold);
+    }
+
+    /* Animation Container */
+    .animation-container {
+      position: relative;
+      padding: 20px 0;
+    }
+
+    /* Flow Track */
+    .flow-track {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+      padding: 20px 0;
+    }
+
+    /* Nodes */
+    .flow-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px 24px;
+      background: var(--bg-elevated);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      min-width: 120px;
+      text-align: center;
+      position: relative;
+      transition: all 0.4s ease;
+      z-index: 2;
+    }
+    .flow-node.active {
+      border-color: var(--accent-gold);
+      background: var(--accent-gold-muted);
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(201,169,98,0.3);
+    }
+    .flow-node.completed {
+      border-color: var(--accent-green);
+      background: var(--accent-green-muted);
+    }
+    .flow-node-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      transition: all 0.3s;
+    }
+    .flow-node.active .flow-node-icon {
+      background: var(--accent-gold);
+    }
+    .flow-node.active .flow-node-icon svg {
+      stroke: var(--bg-app);
+    }
+    .flow-node-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-gold);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .flow-node-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .flow-node-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      position: relative;
+    }
+    .flow-connector svg {
+      width: 32px;
+      height: 24px;
+      stroke: var(--border-default);
+      stroke-width: 2;
+      fill: none;
+      transition: all 0.3s;
+    }
+    .flow-connector.active svg {
+      stroke: var(--accent-gold);
+    }
+
+    /* Moving Particle */
+    .particle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-red);
+      box-shadow: 0 0 20px var(--accent-red);
+      z-index: 10;
+      opacity: 0;
+      transition: all 0.1s linear;
+    }
+    .particle.visible {
+      opacity: 1;
+    }
+    .particle.transformed {
+      background: var(--accent-gold);
+      box-shadow: 0 0 20px var(--accent-gold);
+    }
+    .particle.complete {
+      background: var(--accent-green);
+      box-shadow: 0 0 20px var(--accent-green);
+    }
+
+    /* Detail Panel - Conteúdo visual por passo */
+    .detail-panel {
+      margin-top: 24px;
+      min-height: 120px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+    .detail-panel.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .detail-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .detail-card {
+      padding: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+    .detail-card-icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .detail-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+    }
+    .detail-card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .detail-formula {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--accent-gold);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-mono);
+    }
+    .detail-formula-text {
+      font-size: 14px;
+      color: var(--text-primary);
+      text-align: center;
+    }
+    .detail-formula-num {
+      color: var(--accent-gold);
+    }
+    .detail-formula-den {
+      color: var(--text-muted);
+    }
+    .detail-formula-line {
+      display: block;
+      height: 1px;
+      background: var(--text-secondary);
+      margin: 8px 0;
+    }
+    .detail-mockup {
+      display: flex;
+      justify-content: center;
+    }
+    .detail-mockup-box {
+      padding: 20px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      min-width: 280px;
+    }
+    .detail-mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .detail-mockup-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+    .detail-mockup-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .detail-mockup-label {
+      color: var(--text-secondary);
+    }
+    .detail-mockup-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-card);
+      border-radius: 3px;
+      margin: 0 12px;
+      overflow: hidden;
+    }
+    .detail-mockup-fill {
+      height: 100%;
+      background: var(--accent-gold);
+      border-radius: 3px;
+    }
+    .detail-mockup-value {
+      color: var(--text-primary);
+      font-weight: 600;
+      min-width: 20px;
+      text-align: right;
+    }
+    .detail-mockup-result {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+    .detail-mockup-score {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+    .detail-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .detail-compare-box {
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .detail-compare-box.before {
+      background: var(--accent-red-muted);
+      border: 1px solid rgba(239,68,68,0.3);
+    }
+    .detail-compare-box.after {
+      background: var(--accent-green-muted);
+      border: 1px solid rgba(34,197,94,0.3);
+    }
+    .detail-compare-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .detail-compare-box.before .detail-compare-title {
+      color: var(--accent-red);
+    }
+    .detail-compare-box.after .detail-compare-title {
+      color: var(--accent-green);
+    }
+    .detail-compare-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .detail-compare-item svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .detail-compare-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .detail-compare-arrow svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .detail-compare-multiplier {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .detail-compare-multiplier-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+    .detail-compare-multiplier-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .detail-ke-breakdown {
+      margin-top: 20px;
+      padding: 16px;
+      background: rgba(212,175,55,0.08);
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: var(--radius-md);
+    }
+    .detail-ke-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .detail-ke-formula {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    .detail-ke-num {
+      font-weight: 500;
+    }
+    .detail-ke-line {
+      width: 180px;
+      height: 2px;
+      background: var(--text-secondary);
+    }
+    .detail-ke-den {
+      font-weight: 500;
+    }
+    .detail-ke-vars {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .detail-ke-var {
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-sm);
+    }
+    .detail-ke-var strong {
+      color: var(--accent-gold);
+    }
+
+    /* Narration Panel */
+    .narration-panel {
+      margin-top: 32px;
+      padding: 24px;
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      min-height: 140px;
+    }
+    .narration-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .narration-stage {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .narration-badge {
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: var(--radius-full);
+      transition: all 0.3s;
+    }
+    .narration-badge.input {
+      background: var(--accent-red-muted);
+      color: var(--accent-red);
+    }
+    .narration-badge.process {
+      background: var(--accent-purple-muted);
+      color: var(--accent-purple);
+    }
+    .narration-badge.output {
+      background: var(--accent-green-muted);
+      color: var(--accent-green);
+    }
+    .narration-step {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .narration-progress {
+      display: flex;
+      gap: 4px;
+    }
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-default);
+      transition: all 0.3s;
+    }
+    .progress-dot.active {
+      background: var(--accent-gold);
+    }
+    .progress-dot.complete {
+      background: var(--accent-green);
+    }
+    .narration-content {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+    .narration-box {
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .narration-box.highlight {
+      border-color: var(--accent-gold);
+      background: var(--accent-gold-muted);
+    }
+    .narration-box-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .narration-box-value {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      min-height: 18px;
+    }
+    .narration-arrow svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Flow CTA */
+    .flow-cta {
+      margin-top: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      pointer-events: none;
+    }
+    .flow-cta.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .flow-cta-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.05) 100%);
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: var(--radius-lg);
+    }
+    .flow-cta-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+    }
+    .flow-cta-text {
+      flex: 1;
+    }
+    .flow-cta-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .flow-cta-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .flow-cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--accent-gold);
+      color: var(--bg-app);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .flow-cta-button:hover {
+      background: var(--accent-gold-hover);
+      transform: translateX(4px);
+    }
+    .flow-cta-button svg {
+      transition: transform 0.3s;
+    }
+    .flow-cta-button:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Transformation Display */
+    .transform-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-lg);
+    }
+    .transform-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      min-width: 140px;
+      transition: all 0.3s;
+    }
+    .transform-state.before {
+      background: var(--accent-red-muted);
+      border: 1px solid var(--accent-red);
+    }
+    .transform-state.before.faded {
+      opacity: 0.4;
+    }
+    .transform-state.after {
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      opacity: 0.3;
+    }
+    .transform-state.after.active {
+      background: var(--accent-green-muted);
+      border-color: var(--accent-green);
+      opacity: 1;
+    }
+    .transform-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .transform-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .transform-state.before .transform-icon svg {
+      stroke: var(--accent-red);
+    }
+    .transform-state.after .transform-icon svg {
+      stroke: var(--text-muted);
+    }
+    .transform-state.after.active .transform-icon svg {
+      stroke: var(--accent-green);
+    }
+    .transform-label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .transform-state.before .transform-label {
+      color: var(--accent-red);
+    }
+    .transform-state.after .transform-label {
+      color: var(--text-muted);
+    }
+    .transform-state.after.active .transform-label {
+      color: var(--accent-green);
+    }
+    .transform-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .transform-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0 0;
+      text-align: left;
+    }
+    .transform-list li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .transform-list li svg {
+      width: 12px;
+      height: 12px;
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+    .transform-state.before .transform-list li svg {
+      stroke: var(--accent-red);
+    }
+    .transform-state.after .transform-list li svg {
+      stroke: var(--text-muted);
+    }
+    .transform-state.after.active .transform-list li svg {
+      stroke: var(--accent-green);
+    }
+    .transform-arrow-big {
+      display: flex;
+      align-items: center;
+    }
+    .transform-arrow-big svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Play Button */
+    .play-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 24px auto 0;
+      padding: 12px 24px;
+      background: var(--accent-gold);
+      border: none;
+      border-radius: var(--radius-full);
+      color: var(--bg-app);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .play-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(201,169,98,0.3);
+    }
+    .play-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .play-button.playing {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+
+    /* Rest of styles... */
+    .causas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--accent-gold);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+    }
+    .causas-grid::after {
+      content: 'METODOLOGIA';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--bg-app);
+      background: var(--accent-gold);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      z-index: 2;
+    }
+    .causa-card {
+      background: var(--bg-card);
+      padding: 32px;
+      position: relative;
+    }
+    .causa-card::before {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: var(--accent-gold-muted);
+      border-radius: 50%;
+    }
+    .causa-card:nth-child(1)::before { bottom: -20px; right: -20px; }
+    .causa-card:nth-child(2)::before { bottom: -20px; left: -20px; }
+    .causa-card:nth-child(3)::before { top: -20px; right: -20px; }
+    .causa-card:nth-child(4)::before { top: -20px; left: -20px; }
+    .causa-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .causa-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+    }
+    .causa-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .causa-card:nth-child(1) .causa-icon { background: var(--accent-blue-muted); }
+    .causa-card:nth-child(1) .causa-icon svg { stroke: var(--accent-blue); }
+    .causa-card:nth-child(2) .causa-icon { background: var(--accent-purple-muted); }
+    .causa-card:nth-child(2) .causa-icon svg { stroke: var(--accent-purple); }
+    .causa-card:nth-child(3) .causa-icon { background: var(--accent-green-muted); }
+    .causa-card:nth-child(3) .causa-icon svg { stroke: var(--accent-green); }
+    .causa-card:nth-child(4) .causa-icon { background: var(--accent-gold-muted); }
+    .causa-card:nth-child(4) .causa-icon svg { stroke: var(--accent-gold); }
+    .causa-question {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .causa-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .causa-card:nth-child(1) .causa-name { color: var(--accent-blue); }
+    .causa-card:nth-child(2) .causa-name { color: var(--accent-purple); }
+    .causa-card:nth-child(3) .causa-name { color: var(--accent-green); }
+    .causa-card:nth-child(4) .causa-name { color: var(--accent-gold); }
+    .causa-answer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      padding: 8px 12px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .causa-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Anatomy */
+    .anatomy-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .anatomy-connector-line {
+      position: absolute;
+      left: 28px;
+      top: 48px;
+      bottom: 48px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-purple) 0%, var(--accent-gold) 100%);
+    }
+    .anatomy-item {
+      display: flex;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .anatomy-marker {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 2px solid var(--border-default);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .anatomy-marker svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-gold);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .anatomy-content {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .anatomy-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .anatomy-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .anatomy-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .transform-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px;
+      background: var(--bg-app);
+      border-radius: var(--radius-lg);
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .transform-box {
+      padding: 16px 20px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-align: center;
+      min-width: 100px;
+    }
+    .transform-box.highlight {
+      border-color: var(--accent-gold);
+      background: var(--accent-gold-muted);
+    }
+    .tf-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .tf-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .transform-arrow svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Pipeline */
+    .pipeline-flow {
+      position: relative;
+      padding: 40px 0;
+    }
+    .pipeline-track {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent-blue) 0%, var(--accent-purple) 50%, var(--accent-gold) 100%);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .pipeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .pipeline-step:nth-child(odd) { flex-direction: row; }
+    .pipeline-step:nth-child(even) { flex-direction: row-reverse; }
+    .pipeline-number {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .pipeline-step:nth-child(1) .pipeline-number { background: var(--accent-blue); }
+    .pipeline-step:nth-child(2) .pipeline-number { background: #6366f1; }
+    .pipeline-step:nth-child(3) .pipeline-number { background: var(--accent-purple); }
+    .pipeline-step:nth-child(4) .pipeline-number { background: #a855f7; }
+    .pipeline-step:nth-child(5) .pipeline-number { background: #d946ef; }
+    .pipeline-step:nth-child(6) .pipeline-number { background: #ec4899; }
+    .pipeline-step:nth-child(7) .pipeline-number { background: var(--accent-gold); }
+    .pipeline-card {
+      flex: 1;
+      max-width: 420px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    .pipeline-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .pipeline-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .pipeline-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+    }
+    .pipeline-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent-gold);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .pipeline-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .pipeline-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .pipeline-ipo {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 8px;
+      align-items: center;
+      padding: 12px;
+      background: var(--bg-app);
+      border-radius: var(--radius-md);
+    }
+    .pipeline-ipo-box {
+      padding: 8px 12px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+    .pipeline-ipo-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .pipeline-ipo-value {
+      font-size: 11px;
+      color: var(--text-primary);
+    }
+    .pipeline-ipo-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Matriz */
+    .matriz-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .matriz-question {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .matriz-q-num {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--accent-gold-muted);
+      color: var(--accent-gold);
+      border-radius: 50%;
+      margin-bottom: 12px;
+    }
+    .matriz-q-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .matriz-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .matriz-option svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+    .matriz-agent {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .matriz-table-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .matriz-table-title {
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .matriz-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .matriz-table th,
+    .matriz-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13px;
+    }
+    .matriz-table th {
+      background: var(--bg-elevated);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .matriz-table tr:last-child td { border-bottom: none; }
+    .agent-badge {
+      display: inline-flex;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+    }
+    .agent-badge.sistema { background: var(--accent-blue-muted); color: var(--accent-blue); }
+    .agent-badge.ia { background: var(--accent-purple-muted); color: var(--accent-purple); }
+    .agent-badge.uiux { background: var(--accent-green-muted); color: var(--accent-green); }
+    .agent-badge.humano { background: var(--accent-red-muted); color: var(--accent-red); }
+    .agent-badge.hibrido { background: var(--accent-gold-muted); color: var(--accent-gold); }
+
+    /* Ke */
+    .ke-card {
+      background: var(--bg-card);
+      border: 2px solid var(--accent-gold);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .ke-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+    }
+    .ke-formula {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .ke-var { color: var(--accent-gold); }
+    .ke-op { color: var(--text-muted); margin: 0 6px; }
+    .ke-vars-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .ke-var-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      min-width: 100px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ke-var-node:hover {
+      border-color: var(--accent-gold);
+    }
+    .ke-var-symbol {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+    .ke-var-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .ke-var-range {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .ke-multiply svg, .ke-divide svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .ke-divide svg { stroke: var(--text-muted); }
+    .ke-demo {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+    }
+    .ke-demo-box {
+      padding: 24px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .ke-demo-box.after { border-color: var(--accent-gold); }
+    .ke-demo-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .ke-demo-formula {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .ke-demo-result {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .ke-demo-box.before .ke-demo-result { color: var(--text-muted); }
+    .ke-demo-box.after .ke-demo-result { color: var(--accent-gold); }
+    .ke-demo-arrow svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .ke-demo-multiplier {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .ke-demo-multiplier span {
+      font-size: 36px;
+      color: var(--accent-gold);
+    }
+
+    /* Ke Variables Detail */
+    .ke-vars-detail {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    .ke-var-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      transition: all 0.2s;
+    }
+    .ke-var-card:hover {
+      border-color: var(--border-hover);
+    }
+    .ke-var-card.amplifier {
+      border-color: var(--accent-gold);
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(201,169,98,0.05) 100%);
+    }
+    .ke-var-card.limiter {
+      border-color: var(--accent-red);
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(248,113,113,0.05) 100%);
+    }
+    .ke-var-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .ke-var-card-symbol {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      border-radius: var(--radius-lg);
+      flex-shrink: 0;
+    }
+    .ke-var-card:nth-child(1) .ke-var-card-symbol { background: var(--accent-blue-muted); color: var(--accent-blue); }
+    .ke-var-card:nth-child(2) .ke-var-card-symbol { background: var(--accent-purple-muted); color: var(--accent-purple); }
+    .ke-var-card:nth-child(3) .ke-var-card-symbol { background: var(--accent-green-muted); color: var(--accent-green); }
+    .ke-var-card.amplifier .ke-var-card-symbol { background: var(--accent-gold-muted); color: var(--accent-gold); }
+    .ke-var-card.limiter .ke-var-card-symbol { background: var(--accent-red-muted); color: var(--accent-red); }
+    .ke-var-card-info { flex: 1; }
+    .ke-var-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .ke-var-card-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .ke-var-card-range {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 4px 10px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-full);
+      color: var(--text-secondary);
+    }
+    .ke-var-card-components {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .ke-var-component {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-full);
+      color: var(--text-secondary);
+    }
+    .ke-var-card-section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+    }
+    .ke-var-card-section-title svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .ke-var-card.limiter .ke-var-card-section-title {
+      color: var(--accent-green);
+    }
+    .ke-var-card.limiter .ke-var-card-section-title svg {
+      stroke: var(--accent-green);
+    }
+    .ke-var-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .ke-var-action {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .ke-var-action-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-gold-muted);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .ke-var-action-icon svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .ke-var-card.limiter .ke-var-action-icon {
+      background: var(--accent-green-muted);
+    }
+    .ke-var-card.limiter .ke-var-action-icon svg {
+      stroke: var(--accent-green);
+    }
+    .ke-var-example {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .ke-var-example-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .ke-var-example-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .ke-var-example-row:last-child {
+      margin-bottom: 0;
+    }
+    .ke-var-example-before, .ke-var-example-after {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+    }
+    .ke-var-example-before {
+      background: var(--accent-red-muted);
+      color: var(--accent-red);
+      border: 1px solid rgba(248,113,113,0.2);
+    }
+    .ke-var-example-after {
+      background: var(--accent-green-muted);
+      color: var(--accent-green);
+      border: 1px solid rgba(74,222,128,0.2);
+    }
+    .ke-var-example-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .ke-var-impact {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+      margin-top: 16px;
+    }
+    .ke-var-impact-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .ke-var-impact-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+
+    /* Meta Section - Aplicando */
+    .meta-section {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(201,169,98,0.03) 100%);
+      border: 2px solid var(--accent-gold);
+      border-radius: var(--radius-2xl);
+      padding: 48px;
+      margin-top: 64px;
+    }
+    .meta-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-gold);
+      color: var(--bg-app);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: var(--radius-full);
+      margin-bottom: 16px;
+    }
+    .meta-badge svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .meta-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .meta-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .meta-transformation {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 48px;
+      padding: 32px;
+      background: var(--bg-app);
+      border-radius: var(--radius-xl);
+    }
+    .meta-state {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .meta-state.before {
+      background: var(--accent-red-muted);
+      border: 1px solid rgba(248,113,113,0.3);
+    }
+    .meta-state.after {
+      background: var(--accent-green-muted);
+      border: 1px solid rgba(74,222,128,0.3);
+    }
+    .meta-state-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .meta-state.before .meta-state-label { color: var(--accent-red); }
+    .meta-state.after .meta-state-label { color: var(--accent-green); }
+    .meta-state-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .meta-state-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .meta-arrow svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--accent-gold);
+      stroke-width: 2;
+      fill: none;
+    }
+    .meta-decisions {
+      margin-bottom: 48px;
+    }
+    .meta-decisions-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .meta-decisions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .meta-decision {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      transition: all 0.2s;
+    }
+    .meta-decision:hover {
+      border-color: var(--accent-gold);
+    }
+    .meta-decision-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+    }
+    .meta-decision-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent-gold);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .meta-decision-content { flex: 1; }
+    .meta-decision-problem {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-red);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .meta-decision-solution {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .meta-decision-result {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .meta-friction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .meta-friction {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-lg);
+    }
+    .meta-friction-check {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-green-muted);
+      border-radius: 50%;
+    }
+    .meta-friction-check svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--accent-green);
+      stroke-width: 2.5;
+      fill: none;
+    }
+    .meta-friction-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .meta-friction-type {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .meta-ke-result {
+      text-align: center;
+      padding: 32px;
+      background: var(--bg-app);
+      border-radius: var(--radius-xl);
+    }
+    .meta-ke-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .meta-ke-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+    }
+    .meta-ke-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) {
+      .top-header { padding: 0 16px; }
+      .header-nav { display: none; }
+      .main-content { margin-top: 64px; }
+      .causas-grid { grid-template-columns: 1fr; }
+      .matriz-flow { grid-template-columns: 1fr; }
+      .ke-demo { grid-template-columns: 1fr; }
+      .meta-transformation { grid-template-columns: 1fr; gap: 16px; }
+      .meta-arrow { transform: rotate(90deg); }
+      .meta-section { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Top Header Navigation -->
+    <header class="top-header">
+      <div class="header-left">
+        <a href="#" class="header-logo">
+          <span class="logo-symbol">MaaS</span>
+          <span class="logo-text">Methodology OS</span>
+        </a>
+        <nav class="header-nav">
+          <a href="#overview" class="nav-item active">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Overview
+          </a>
+          <a href="#causas" class="nav-item">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            4 Causas
+          </a>
+          <a href="#anatomia" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            Anatomia
+          </a>
+          <a href="#pipeline" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Pipeline
+          </a>
+          <a href="#ke" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Equação Ke
+          </a>
+          <a href="#meta" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Aplicando
+          </a>
+        </nav>
+      </div>
+      <div class="header-right">
+        <a href="hub.html" class="back-link">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          Biblioteca
+        </a>
+        <div class="avatar">JC</div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <div class="content-body">
+        <!-- Hero -->
+        <section class="hero-banner">
+          <div class="hero-badge">
+            <span class="badge">First Principles</span>
+          </div>
+          <h1 class="hero-title">O que É <span class="hero-title-accent">Metodologia.</span></h1>
+          <p class="hero-desc">Framework de primeiros princípios para extrair, atomizar e implementar metodologias como sistemas com IA.</p>
+        </section>
+
+        <!-- Quote -->
+        <div class="quote-block">
+          <p class="quote-text">"A unidade atômica de uma metodologia não é o conceito - é a DECISÃO. Conceitos explicam. Decisões transformam."</p>
+          <p class="quote-author">— José Amorim, MaaS</p>
+        </div>
+
+        <!-- ANIMATED SYSTEM OVERVIEW -->
+        <section id="overview" class="section">
+          <div class="system-overview">
+            <div class="system-title">Fluxo do Sistema</div>
+
+            <!-- Exemplo Concreto: Hormozi -->
+            <div class="example-context">
+              <div class="example-badge">Exemplo Real</div>
+              <div class="example-text">
+                <strong>Value Equation</strong> — Alex Hormozi criou uma fórmula para ofertas irresistíveis.
+                Veja como extraímos o processo da cabeça dele e transformamos em sistema.
+              </div>
+            </div>
+
+            <div class="animation-container">
+              <!-- Flow Track -->
+              <div class="flow-track">
+                <div class="flow-node" data-step="0">
+                  <div class="flow-node-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a7 7 0 0114 0v2"/></svg></div>
+                  <div class="flow-node-label">EXPERT</div>
+                  <div class="flow-node-sub">Alex Hormozi</div>
+                </div>
+                <div class="flow-connector" data-connector="0"><svg viewBox="0 0 32 24"><path d="M4 12h24M24 6l6 6-6 6"/></svg></div>
+                <div class="flow-node" data-step="1">
+                  <div class="flow-node-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div>
+                  <div class="flow-node-label">EXTRAIR</div>
+                  <div class="flow-node-sub">4 Perguntas</div>
+                </div>
+                <div class="flow-connector" data-connector="1"><svg viewBox="0 0 32 24"><path d="M4 12h24M24 6l6 6-6 6"/></svg></div>
+                <div class="flow-node" data-step="2">
+                  <div class="flow-node-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg></div>
+                  <div class="flow-node-label">ATOMIZAR</div>
+                  <div class="flow-node-sub">Value Equation</div>
+                </div>
+                <div class="flow-connector" data-connector="2"><svg viewBox="0 0 32 24"><path d="M4 12h24M24 6l6 6-6 6"/></svg></div>
+                <div class="flow-node" data-step="3">
+                  <div class="flow-node-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+                  <div class="flow-node-label">SISTEMA</div>
+                  <div class="flow-node-sub">Offer Builder</div>
+                </div>
+                <div class="flow-connector" data-connector="3"><svg viewBox="0 0 32 24"><path d="M4 12h24M24 6l6 6-6 6"/></svg></div>
+                <div class="flow-node" data-step="4">
+                  <div class="flow-node-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                  <div class="flow-node-label">Ke</div>
+                  <div class="flow-node-sub">693×</div>
+                </div>
+              </div>
+
+              <!-- Detail Panel - Conteúdo específico de cada passo -->
+              <div class="detail-panel" id="detail-panel">
+                <!-- Conteúdo injetado via JS -->
+              </div>
+
+              <!-- Narration Panel -->
+              <div class="narration-panel">
+                <div class="narration-header">
+                  <div class="narration-stage">
+                    <span class="narration-badge input" id="narration-badge">INPUT</span>
+                    <span class="narration-step" id="narration-step">Aguardando início...</span>
+                  </div>
+                  <div class="narration-progress">
+                    <div class="progress-dot" data-dot="0"></div>
+                    <div class="progress-dot" data-dot="1"></div>
+                    <div class="progress-dot" data-dot="2"></div>
+                    <div class="progress-dot" data-dot="3"></div>
+                    <div class="progress-dot" data-dot="4"></div>
+                  </div>
+                </div>
+                <div class="narration-content">
+                  <div class="narration-box" id="input-box">
+                    <div class="narration-box-label">Input</div>
+                    <div class="narration-box-value" id="input-value">—</div>
+                  </div>
+                  <div class="narration-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="narration-box" id="process-box">
+                    <div class="narration-box-label">Processo</div>
+                    <div class="narration-box-value" id="process-value">—</div>
+                  </div>
+                  <div class="narration-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="narration-box" id="output-box">
+                    <div class="narration-box-label">Output</div>
+                    <div class="narration-box-value" id="output-value">—</div>
+                  </div>
+                </div>
+
+              <!-- Next Step Button -->
+              <button class="play-button" id="play-btn" onclick="nextStep()">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Passar
+              </button>
+              </div>
+
+              <!-- CTA após completar o flow -->
+              <div class="flow-cta" id="flow-cta">
+                <div class="flow-cta-content">
+                  <div class="flow-cta-icon">
+                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--accent-gold)" stroke-width="2" fill="none">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                      <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                    </svg>
+                  </div>
+                  <div class="flow-cta-text">
+                    <div class="flow-cta-title">Quer aplicar isso na sua metodologia?</div>
+                    <div class="flow-cta-desc">Use o Methodology OS para transformar seu conhecimento em sistema.</div>
+                  </div>
+                  <a href="#" class="flow-cta-button">
+                    Começar Mapeamento
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4 CAUSAS -->
+        <section id="causas" class="section">
+          <div class="section-header">
+            <span class="section-overline">Definição Aristotélica</span>
+            <h2 class="section-title">As 4 Causas de Metodologia</h2>
+            <p class="section-desc">Para entender algo em primeiro princípio, responda 4 perguntas fundamentais.</p>
+          </div>
+          <div class="causas-grid">
+            <div class="causa-card">
+              <div class="causa-header">
+                <div class="causa-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg></div>
+                <div><div class="causa-question">Do que é feito?</div><div class="causa-name">Causa Material</div></div>
+              </div>
+              <div class="causa-answer">DECISÕES SEQUENCIADAS</div>
+              <div class="causa-desc">Cada passo é uma decisão que o expert tomou. A sequência dessas decisões é o material bruto.</div>
+            </div>
+            <div class="causa-card">
+              <div class="causa-header">
+                <div class="causa-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div><div class="causa-question">Qual a estrutura?</div><div class="causa-name">Causa Formal</div></div>
+              </div>
+              <div class="causa-answer">INPUT → TRANSFORMAÇÃO → OUTPUT</div>
+              <div class="causa-desc">Repetido em cascata. Cada output vira input do próximo. Cadeia de transformações.</div>
+            </div>
+            <div class="causa-card">
+              <div class="causa-header">
+                <div class="causa-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg></div>
+                <div><div class="causa-question">O que faz funcionar?</div><div class="causa-name">Causa Eficiente</div></div>
+              </div>
+              <div class="causa-answer">O AGENTE QUE EXECUTA</div>
+              <div class="causa-desc">Pode ser: Humano, IA, Sistema, UI/UX, ou combinação híbrida.</div>
+            </div>
+            <div class="causa-card">
+              <div class="causa-header">
+                <div class="causa-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
+                <div><div class="causa-question">Para que serve?</div><div class="causa-name">Causa Final</div></div>
+              </div>
+              <div class="causa-answer">REDUZIR FRICÇÃO A → B</div>
+              <div class="causa-desc">Metodologia existe para que alguém chegue a B sem redescobrir as decisões do expert.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ANATOMIA -->
+        <section id="anatomia" class="section">
+          <div class="section-header">
+            <span class="section-overline">Estrutura Completa</span>
+            <h2 class="section-title">Anatomia de uma Metodologia</h2>
+            <p class="section-desc">5 partes conectadas que formam toda metodologia.</p>
+          </div>
+          <div class="anatomy-flow">
+            <div class="anatomy-connector-line"></div>
+            <div class="anatomy-item">
+              <div class="anatomy-marker"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="anatomy-content">
+                <div class="anatomy-title">Estado A — Ponto de Partida</div>
+                <div class="anatomy-subtitle">Onde o usuário está antes</div>
+                <div class="anatomy-body">Mapeie completamente quem é a pessoa e seu contexto inicial.</div>
+                <div class="transform-flow">
+                  <div class="transform-box"><div class="tf-label">Quem é?</div><div class="tf-value">Avatar</div></div>
+                  <div class="transform-box"><div class="tf-label">O que tem?</div><div class="tf-value">Recursos</div></div>
+                  <div class="transform-box highlight" style="border-color: var(--accent-red); background: var(--accent-red-muted);"><div class="tf-label">O que NÃO tem?</div><div class="tf-value">Gap</div></div>
+                  <div class="transform-box"><div class="tf-label">Por que mudar?</div><div class="tf-value">Dor</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="anatomy-item">
+              <div class="anatomy-marker"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4l8 8-8 8"/></svg></div>
+              <div class="anatomy-content">
+                <div class="anatomy-title">Transformações — Os Passos</div>
+                <div class="anatomy-subtitle">Cada passo é uma decisão</div>
+                <div class="anatomy-body">A DECISÃO é o núcleo. Onde o expert colocou inteligência.</div>
+                <div class="transform-flow">
+                  <div class="transform-box"><div class="tf-label">Input</div><div class="tf-value">Dados</div></div>
+                  <div class="transform-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="transform-box highlight"><div class="tf-label">Decisão</div><div class="tf-value">O que fazer?</div></div>
+                  <div class="transform-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="transform-box"><div class="tf-label">Output</div><div class="tf-value">Resultado</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="anatomy-item">
+              <div class="anatomy-marker"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+              <div class="anatomy-content">
+                <div class="anatomy-title">Estado B — Ponto de Chegada</div>
+                <div class="anatomy-subtitle">Resultado esperado</div>
+                <div class="anatomy-body">Defina claramente o estado final e como validar que chegou.</div>
+                <div class="transform-flow">
+                  <div class="transform-box" style="border-color: var(--accent-green); background: var(--accent-green-muted);"><div class="tf-label">O que TEM agora?</div><div class="tf-value">Resultado</div></div>
+                  <div class="transform-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="transform-box"><div class="tf-label">O que mudou?</div><div class="tf-value">Delta (A→B)</div></div>
+                  <div class="transform-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="transform-box highlight"><div class="tf-label">Como saber?</div><div class="tf-value">Evidência</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="anatomy-item">
+              <div class="anatomy-marker"><svg viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg></div>
+              <div class="anatomy-content">
+                <div class="anatomy-title">Fricções — O que Impede</div>
+                <div class="anatomy-subtitle">Barreiras em cada transformação</div>
+                <div class="anatomy-body">Identifique qual fricção está bloqueando cada passo para escolher a solução certa.</div>
+                <div class="transform-flow" style="flex-wrap: wrap; gap: 8px;">
+                  <div class="transform-box" style="min-width: 100px; border-color: var(--accent-red);"><div class="tf-label">Cognitiva</div><div class="tf-value">Não entende</div></div>
+                  <div class="transform-box" style="min-width: 100px; border-color: var(--accent-purple);"><div class="tf-label">Operacional</div><div class="tf-value">Difícil fazer</div></div>
+                  <div class="transform-box" style="min-width: 100px; border-color: var(--accent-gold);"><div class="tf-label">Motivacional</div><div class="tf-value">Não quer</div></div>
+                  <div class="transform-box" style="min-width: 100px; border-color: var(--accent-blue);"><div class="tf-label">Temporal</div><div class="tf-value">Demora muito</div></div>
+                  <div class="transform-box" style="min-width: 100px; border-color: var(--accent-green);"><div class="tf-label">Financeira</div><div class="tf-value">Custa caro</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="anatomy-item">
+              <div class="anatomy-marker"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+              <div class="anatomy-content">
+                <div class="anatomy-title">Agentes — Quem Executa</div>
+                <div class="anatomy-subtitle">Motor de cada decisão</div>
+                <div class="anatomy-body">Escolha o agente certo baseado no tipo de decisão e risco envolvido.</div>
+                <div class="transform-flow" style="flex-wrap: wrap; gap: 8px;">
+                  <div class="transform-box" style="min-width: 110px; border-color: var(--accent-red); background: var(--accent-red-muted);"><div class="tf-label">Humano</div><div class="tf-value">Alto risco</div></div>
+                  <div class="transform-box" style="min-width: 110px; border-color: var(--accent-purple); background: var(--accent-purple-muted);"><div class="tf-label">IA (LLM)</div><div class="tf-value">Probabilístico</div></div>
+                  <div class="transform-box" style="min-width: 110px; border-color: var(--accent-blue); background: var(--accent-blue-muted);"><div class="tf-label">Sistema</div><div class="tf-value">Determinístico</div></div>
+                  <div class="transform-box" style="min-width: 110px; border-color: var(--accent-green); background: var(--accent-green-muted);"><div class="tf-label">UI/UX</div><div class="tf-value">Reduz fricção</div></div>
+                  <div class="transform-box" style="min-width: 110px; border-color: var(--accent-gold); background: var(--accent-gold-muted);"><div class="tf-label">Híbrido</div><div class="tf-value">IA + Humano</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PIPELINE 7 PASSOS -->
+        <section id="pipeline" class="section">
+          <div class="section-header">
+            <span class="section-overline">Pipeline Completo</span>
+            <h2 class="section-title">Algoritmo de 7 Passos</h2>
+            <p class="section-desc">Do processo do expert ao sistema integrado com IA.</p>
+          </div>
+          <div class="pipeline-flow">
+            <div class="pipeline-track"></div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">1</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div>
+                  <div class="pipeline-title">EXTRAIR</div>
+                </div>
+                <div class="pipeline-desc">Capturar decisões do expert via replay mental</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Expert fazendo</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">Replay + perguntas</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">Lista decisões</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">2</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg></div>
+                  <div class="pipeline-title">ATOMIZAR</div>
+                </div>
+                <div class="pipeline-desc">Documentar Input/Critério/Output/Fricção</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Lista decisões</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">Documentar átomos</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">Átomos docs</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">3</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4l8 8-8 8"/></svg></div>
+                  <div class="pipeline-title">SEQUENCIAR</div>
+                </div>
+                <div class="pipeline-desc">Conectar átomos em cadeia (DAG)</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Átomos docs</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">Conectar deps</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">FLUXO (DAG)</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">4</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+                  <div class="pipeline-title">ALOCAR AGENTES</div>
+                </div>
+                <div class="pipeline-desc">Decidir IA vs Sistema vs UI vs Humano</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Fluxo decisões</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">3 perguntas</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">MATRIZ</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">5</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                  <div class="pipeline-title">IMPLEMENTAR</div>
+                </div>
+                <div class="pipeline-desc">Construir código, prompts, interfaces</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Matriz alocação</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">Build componentes</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">SISTEMA</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">6</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                  <div class="pipeline-title">MEDIR Ke</div>
+                </div>
+                <div class="pipeline-desc">Calcular Conhecimento Efetivo</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Sistema rodando</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">Medir T,A,M,Amp,Lc</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">Ke SCORE</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-number">7</div>
+              <div class="pipeline-card">
+                <div class="pipeline-header">
+                  <div class="pipeline-icon"><svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+                  <div class="pipeline-title">ITERAR</div>
+                </div>
+                <div class="pipeline-desc">Melhorar variável com menor score</div>
+                <div class="pipeline-ipo">
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Input</div><div class="pipeline-ipo-value">Ke por variável</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Processo</div><div class="pipeline-ipo-value">Ciclo PDCA</div></div>
+                  <div class="pipeline-ipo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="pipeline-ipo-box"><div class="pipeline-ipo-label">Output</div><div class="pipeline-ipo-value">Sistema melhorado</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MATRIZ -->
+        <section id="matriz" class="section">
+          <div class="section-header">
+            <span class="section-overline">Artesanato do Sistema</span>
+            <h2 class="section-title">Matriz de Alocação de Agentes</h2>
+            <p class="section-desc">3 perguntas para decidir o agente certo para cada decisão.</p>
+          </div>
+          <div class="matriz-flow">
+            <div class="matriz-question">
+              <div class="matriz-q-num">1</div>
+              <div class="matriz-q-title">O critério é DETERMINÍSTICO ou PROBABILÍSTICO?</div>
+              <div class="matriz-option">Determinístico <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">SISTEMA</span></div>
+              <div class="matriz-option">Probabilístico <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">IA</span></div>
+            </div>
+            <div class="matriz-question">
+              <div class="matriz-q-num">2</div>
+              <div class="matriz-q-title">Qual a FRICÇÃO dominante?</div>
+              <div class="matriz-option">Cognitiva <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">UI/UX</span></div>
+              <div class="matriz-option">Operacional <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">SISTEMA</span></div>
+              <div class="matriz-option">Temporal <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">IA</span></div>
+            </div>
+            <div class="matriz-question">
+              <div class="matriz-q-num">3</div>
+              <div class="matriz-q-title">Qual o RISCO de erro?</div>
+              <div class="matriz-option">Baixo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">IA autônoma</span></div>
+              <div class="matriz-option">Médio <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">IA + Humano</span></div>
+              <div class="matriz-option">Alto <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> <span class="matriz-agent">Humano + IA</span></div>
+            </div>
+          </div>
+          <div class="matriz-table-wrapper">
+            <div class="matriz-table-title">Tabela de Decisão</div>
+            <table class="matriz-table">
+              <thead><tr><th>Critério</th><th>Fricção</th><th>Risco</th><th>Agente</th></tr></thead>
+              <tbody>
+                <tr><td>Determinístico</td><td>Qualquer</td><td>Qualquer</td><td><span class="agent-badge sistema">SISTEMA</span></td></tr>
+                <tr><td>Probabilístico</td><td>Temporal</td><td>Baixo</td><td><span class="agent-badge ia">IA (autônomo)</span></td></tr>
+                <tr><td>Probabilístico</td><td>Temporal</td><td>Médio</td><td><span class="agent-badge hibrido">IA + Humano</span></td></tr>
+                <tr><td>Probabilístico</td><td>Temporal</td><td>Alto</td><td><span class="agent-badge humano">Humano + IA</span></td></tr>
+                <tr><td>Qualquer</td><td>Cognitiva</td><td>Qualquer</td><td><span class="agent-badge uiux">UI/UX + [outro]</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- EQUAÇÃO Ke -->
+        <section id="ke" class="section">
+          <div class="section-header">
+            <span class="section-overline">Métrica Central</span>
+            <h2 class="section-title">Equação Ke</h2>
+            <p class="section-desc">Conhecimento Efetivo: a métrica que mede transformação.</p>
+          </div>
+          <div class="ke-card">
+            <div class="ke-label">Conhecimento Efetivo</div>
+            <div class="ke-formula"><span class="ke-var">Ke</span><span class="ke-op">=</span><span class="ke-op">(</span><span class="ke-var">T</span><span class="ke-op">×</span><span class="ke-var">A</span><span class="ke-op">×</span><span class="ke-var">M</span><span class="ke-op">×</span><span class="ke-var">Amp<sub>IA</sub></span><span class="ke-op">)</span><span class="ke-op">÷</span><span class="ke-var">Lc</span></div>
+          </div>
+          <div class="ke-vars-flow">
+            <div class="ke-var-node"><div class="ke-var-symbol">T</div><div class="ke-var-name">Transferibilidade</div><div class="ke-var-range">0.0 - 1.0</div></div>
+            <div class="ke-multiply"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+            <div class="ke-var-node"><div class="ke-var-symbol">A</div><div class="ke-var-name">Aplicabilidade</div><div class="ke-var-range">0.0 - 1.0</div></div>
+            <div class="ke-multiply"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+            <div class="ke-var-node"><div class="ke-var-symbol">M</div><div class="ke-var-name">Metodização</div><div class="ke-var-range">0.0 - 1.0</div></div>
+            <div class="ke-multiply"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></div>
+            <div class="ke-var-node"><div class="ke-var-symbol">Amp</div><div class="ke-var-name">Amplificador IA</div><div class="ke-var-range">1.0 - 15.0+</div></div>
+            <div class="ke-divide"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></div>
+            <div class="ke-var-node"><div class="ke-var-symbol">Lc</div><div class="ke-var-name">Limite Cognitivo</div><div class="ke-var-range">0.2 - 2.0</div></div>
+          </div>
+
+          <!-- Ke Variables Detail Cards -->
+          <div class="ke-vars-detail">
+            <!-- T - Transferibilidade -->
+            <div class="ke-var-card">
+              <div class="ke-var-card-header">
+                <div class="ke-var-card-symbol">T</div>
+                <div class="ke-var-card-info">
+                  <div class="ke-var-card-title">Transferibilidade</div>
+                  <div class="ke-var-card-subtitle">Quão bem o conhecimento pode ser passado</div>
+                </div>
+                <div class="ke-var-card-range">0.0 - 1.0</div>
+              </div>
+              <div class="ke-var-card-components">
+                <span class="ke-var-component">Clareza</span>
+                <span class="ke-var-component">Completude</span>
+                <span class="ke-var-component">Sequenciamento</span>
+              </div>
+              <div class="ke-var-card-section-title">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                Como Aumentar
+              </div>
+              <div class="ke-var-actions">
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Cada passo executável SEM interpretar</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Nada implícito - tudo explícito e documentado</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Ordem clara: "faça A, DEPOIS B"</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Exemplos concretos para cada passo</span>
+                </div>
+              </div>
+              <div class="ke-var-example">
+                <div class="ke-var-example-label">Exemplo Prático</div>
+                <div class="ke-var-example-row">
+                  <div class="ke-var-example-before">"Analise o cliente"</div>
+                  <div class="ke-var-example-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="ke-var-example-after">"Abra o CRM, clique em 'Histórico', veja as últimas 3 compras"</div>
+                </div>
+              </div>
+              <div class="ke-var-impact">
+                <span class="ke-var-impact-label">Impacto típico:</span>
+                <span class="ke-var-impact-value">0.5 → 0.8 (+60%)</span>
+              </div>
+            </div>
+
+            <!-- A - Aplicabilidade -->
+            <div class="ke-var-card">
+              <div class="ke-var-card-header">
+                <div class="ke-var-card-symbol">A</div>
+                <div class="ke-var-card-info">
+                  <div class="ke-var-card-title">Aplicabilidade</div>
+                  <div class="ke-var-card-subtitle">Quão útil e imediato é o output</div>
+                </div>
+                <div class="ke-var-card-range">0.0 - 1.0</div>
+              </div>
+              <div class="ke-var-card-components">
+                <span class="ke-var-component">Relevância</span>
+                <span class="ke-var-component">Praticidade</span>
+                <span class="ke-var-component">Imediatismo</span>
+              </div>
+              <div class="ke-var-card-section-title">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                Como Aumentar
+              </div>
+              <div class="ke-var-actions">
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Cada passo resolve problema REAL do usuário</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Output USÁVEL imediatamente (não teórico)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Contexto do usuário considerado (nicho, momento)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Casos de borda tratados (e se X? e se Y?)</span>
+                </div>
+              </div>
+              <div class="ke-var-example">
+                <div class="ke-var-example-label">Exemplo Prático</div>
+                <div class="ke-var-example-row">
+                  <div class="ke-var-example-before">"Template genérico de e-mail"</div>
+                  <div class="ke-var-example-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="ke-var-example-after">"E-mail pronto com nome do lead e produto específico"</div>
+                </div>
+              </div>
+              <div class="ke-var-impact">
+                <span class="ke-var-impact-label">Impacto típico:</span>
+                <span class="ke-var-impact-value">0.5 → 0.9 (+80%)</span>
+              </div>
+            </div>
+
+            <!-- M - Metodização -->
+            <div class="ke-var-card">
+              <div class="ke-var-card-header">
+                <div class="ke-var-card-symbol">M</div>
+                <div class="ke-var-card-info">
+                  <div class="ke-var-card-title">Metodização</div>
+                  <div class="ke-var-card-subtitle">Quão bem estruturado está o processo</div>
+                </div>
+                <div class="ke-var-card-range">0.0 - 1.0</div>
+              </div>
+              <div class="ke-var-card-components">
+                <span class="ke-var-component">Atomização</span>
+                <span class="ke-var-component">Encadeamento</span>
+                <span class="ke-var-component">Validação</span>
+              </div>
+              <div class="ke-var-card-section-title">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                Como Aumentar
+              </div>
+              <div class="ke-var-actions">
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Quebrar em menores unidades possíveis (átomos)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Cada átomo tem INPUT/OUTPUT definido</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Átomos se conectam em sequência lógica (DAG)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Cada passo tem critério de "feito" mensurável</span>
+                </div>
+              </div>
+              <div class="ke-var-example">
+                <div class="ke-var-example-label">Exemplo Prático</div>
+                <div class="ke-var-example-row">
+                  <div class="ke-var-example-before">"Faça uma proposta comercial"</div>
+                  <div class="ke-var-example-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="ke-var-example-after">"1. Extrair dor → 2. Listar benefícios → 3. Calcular ROI → 4. Montar slides"</div>
+                </div>
+              </div>
+              <div class="ke-var-impact">
+                <span class="ke-var-impact-label">Impacto típico:</span>
+                <span class="ke-var-impact-value">0.4 → 0.9 (+125%)</span>
+              </div>
+            </div>
+
+            <!-- Amp - Amplificador IA -->
+            <div class="ke-var-card amplifier">
+              <div class="ke-var-card-header">
+                <div class="ke-var-card-symbol">Amp</div>
+                <div class="ke-var-card-info">
+                  <div class="ke-var-card-title">Amplificador IA</div>
+                  <div class="ke-var-card-subtitle">Multiplicador de capacidade com IA</div>
+                </div>
+                <div class="ke-var-card-range">1.0 - 15.0+</div>
+              </div>
+              <div class="ke-var-card-components">
+                <span class="ke-var-component">Calibração</span>
+                <span class="ke-var-component">Contexto</span>
+                <span class="ke-var-component">Feedback Loop</span>
+              </div>
+              <div class="ke-var-card-section-title">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                Como Aumentar
+              </div>
+              <div class="ke-var-actions">
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>System prompt com DNA Mental do expert</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>RAG com knowledge base específica do domínio</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Exemplos reais do expert (few-shot learning)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Feedback loop: output → validação → ajuste</span>
+                </div>
+              </div>
+              <div class="ke-var-example">
+                <div class="ke-var-example-label">Exemplo Prático</div>
+                <div class="ke-var-example-row">
+                  <div class="ke-var-example-before">IA genérica (ChatGPT padrão)</div>
+                  <div class="ke-var-example-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="ke-var-example-after">Clone Cognitivo com DNA + KB + exemplos</div>
+                </div>
+              </div>
+              <div class="ke-var-impact">
+                <span class="ke-var-impact-label">Impacto típico:</span>
+                <span class="ke-var-impact-value">1× → 10× (+900%)</span>
+              </div>
+            </div>
+
+            <!-- Lc - Limite Cognitivo -->
+            <div class="ke-var-card limiter">
+              <div class="ke-var-card-header">
+                <div class="ke-var-card-symbol">Lc</div>
+                <div class="ke-var-card-info">
+                  <div class="ke-var-card-title">Limite Cognitivo</div>
+                  <div class="ke-var-card-subtitle">Quanto esforço mental o usuário gasta</div>
+                </div>
+                <div class="ke-var-card-range">0.2 - 2.0</div>
+              </div>
+              <div class="ke-var-card-components">
+                <span class="ke-var-component">Decisões</span>
+                <span class="ke-var-component">Complexidade</span>
+                <span class="ke-var-component">Ambiguidade</span>
+              </div>
+              <div class="ke-var-card-section-title">
+                <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                Como DIMINUIR
+              </div>
+              <div class="ke-var-actions">
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>UI/UX que guia (menos decisões para o usuário)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Defaults inteligentes (IA escolhe, usuário confirma)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Progressive disclosure (só mostra o necessário)</span>
+                </div>
+                <div class="ke-var-action">
+                  <div class="ke-var-action-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                  <span>Feedback imediato (sabe se está certo sem pensar)</span>
+                </div>
+              </div>
+              <div class="ke-var-example">
+                <div class="ke-var-example-label">Exemplo Prático</div>
+                <div class="ke-var-example-row">
+                  <div class="ke-var-example-before">"Preencha 50 campos do formulário"</div>
+                  <div class="ke-var-example-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                  <div class="ke-var-example-after">"Confirme: João, 32 anos, SP?" [Sim/Editar]</div>
+                </div>
+              </div>
+              <div class="ke-var-impact">
+                <span class="ke-var-impact-label">Impacto típico:</span>
+                <span class="ke-var-impact-value">2.0 → 0.3 (-85%)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ke-demo">
+            <div class="ke-demo-box before">
+              <div class="ke-demo-label">PRÉ-MaaS</div>
+              <div class="ke-demo-formula">(0.5 × 0.5 × 0.4 × 1) ÷ 2.0</div>
+              <div class="ke-demo-result">0.05</div>
+            </div>
+            <div class="ke-demo-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            <div class="ke-demo-box after">
+              <div class="ke-demo-label">COM-MaaS</div>
+              <div class="ke-demo-formula">(0.8 × 0.9 × 0.9 × 10) ÷ 0.3</div>
+              <div class="ke-demo-result">21.6</div>
+            </div>
+            <div class="ke-demo-multiplier">MULTIPLICADOR: <span>432×</span></div>
+          </div>
+        </section>
+
+        <!-- META: Aplicando à Esta Página -->
+        <section id="meta" class="section">
+          <div class="meta-section">
+            <div class="meta-header">
+              <div class="meta-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                Na Prática
+              </div>
+              <h2 class="meta-title">Olha só o que eu fiz aqui...</h2>
+              <p class="meta-subtitle">Sabe aquela metodologia toda que você acabou de ver? Eu usei ela pra construir esta página. Vem comigo que vou te mostrar.</p>
+            </div>
+
+            <!-- Transformação A → B -->
+            <div class="meta-transformation">
+              <div class="meta-state before">
+                <div class="meta-state-label">Você 5 minutos atrás</div>
+                <div class="meta-state-title">"Isso parece complicado..."</div>
+                <div class="meta-state-desc">Metodologia? 4 causas? Ke? Parecia abstrato demais.</div>
+              </div>
+              <div class="meta-arrow">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+              <div class="meta-state after">
+                <div class="meta-state-label">Você agora</div>
+                <div class="meta-state-title">"Ah, é isso!"</div>
+                <div class="meta-state-desc">Decisões em sequência. Cada uma transforma algo. Posso fazer isso.</div>
+              </div>
+            </div>
+
+            <!-- Decisões Tomadas -->
+            <div class="meta-decisions">
+              <div class="meta-decisions-title">É tipo... o que eu fiz foi isso:</div>
+              <div class="meta-decisions-grid">
+                <div class="meta-decision">
+                  <div class="meta-decision-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+                  </div>
+                  <div class="meta-decision-content">
+                    <div class="meta-decision-problem">Texto vira imagem</div>
+                    <div class="meta-decision-solution">Em vez de explicar as 4 causas em parágrafos...</div>
+                    <div class="meta-decision-result">Montei um diagrama. Você vê, não lê.</div>
+                  </div>
+                </div>
+                <div class="meta-decision">
+                  <div class="meta-decision-icon">
+                    <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                  </div>
+                  <div class="meta-decision-content">
+                    <div class="meta-decision-problem">Estático vira animado</div>
+                    <div class="meta-decision-solution">Em vez de lista de passos...</div>
+                    <div class="meta-decision-result">Botão "Passar". Você controla o ritmo.</div>
+                  </div>
+                </div>
+                <div class="meta-decision">
+                  <div class="meta-decision-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+                  </div>
+                  <div class="meta-decision-content">
+                    <div class="meta-decision-problem">Rolar vira navegar</div>
+                    <div class="meta-decision-solution">Em vez de scroll infinito...</div>
+                    <div class="meta-decision-result">Menu lateral. Você pula pro que quer.</div>
+                  </div>
+                </div>
+                <div class="meta-decision">
+                  <div class="meta-decision-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg>
+                  </div>
+                  <div class="meta-decision-content">
+                    <div class="meta-decision-problem">Tudo vira partes</div>
+                    <div class="meta-decision-solution">Em vez de um textão...</div>
+                    <div class="meta-decision-result">Seções pequenas. Um conceito de cada vez.</div>
+                  </div>
+                </div>
+                <div class="meta-decision">
+                  <div class="meta-decision-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  </div>
+                  <div class="meta-decision-content">
+                    <div class="meta-decision-problem">"Por que aprender?" fica óbvio</div>
+                    <div class="meta-decision-solution">Em vez de prometer benefícios...</div>
+                    <div class="meta-decision-result">Mostro o 432×. Você vê o resultado.</div>
+                  </div>
+                </div>
+                <div class="meta-decision">
+                  <div class="meta-decision-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  </div>
+                  <div class="meta-decision-content">
+                    <div class="meta-decision-problem">Teoria vira prática</div>
+                    <div class="meta-decision-solution">Em vez de só ensinar...</div>
+                    <div class="meta-decision-result">Esta seção. A metodologia aplicada nela mesma.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fricções Reduzidas -->
+            <div class="meta-decisions-title" style="margin-bottom: 20px;">O que eu eliminei do seu caminho:</div>
+            <div class="meta-friction-grid">
+              <div class="meta-friction">
+                <div class="meta-friction-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="meta-friction-text"><span class="meta-friction-type">Pensar demais:</span> Imagens fazem o trabalho</div>
+              </div>
+              <div class="meta-friction">
+                <div class="meta-friction-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="meta-friction-text"><span class="meta-friction-type">Esperar demais:</span> Animação mostra na hora</div>
+              </div>
+              <div class="meta-friction">
+                <div class="meta-friction-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="meta-friction-text"><span class="meta-friction-type">Fazer demais:</span> Exemplos prontos</div>
+              </div>
+              <div class="meta-friction">
+                <div class="meta-friction-check"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="meta-friction-text"><span class="meta-friction-type">Duvidar demais:</span> Resultado visível (432×)</div>
+              </div>
+            </div>
+
+            <!-- Resultado Ke -->
+            <div class="meta-ke-result">
+              <div class="meta-ke-label">Sabe o que é louco?</div>
+              <div class="meta-ke-value">~50×</div>
+              <div class="meta-ke-desc">Você absorveu isso em minutos. O mesmo conteúdo num PDF? Horas. Isso é Ke na prática.</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Animation Data - Exemplo: Value Equation do Alex Hormozi ($100M Offers)
+    const steps = [
+      { step: 'EXPERT', badge: 'input', badgeText: 'HORMOZI', stepText: 'Alex Hormozi cria ofertas irresistíveis há anos', input: 'Experiência: 500+ ofertas', process: 'Intuição de décadas', output: '"Sei o que funciona"' },
+      { step: 'EXTRAIR', badge: 'process', badgeText: 'PERGUNTA', stepText: '"Alex, que decisões você toma pra criar uma oferta?"', input: 'Entrevista com expert', process: '"O que você olha primeiro?"', output: '4 perguntas-chave' },
+      { step: 'ATOMIZAR', badge: 'process', badgeText: 'DECISÕES', stepText: 'As 4 decisões viram a Value Equation', input: '4 perguntas do Alex', process: 'Dream × Likelihood ÷ Time × Effort', output: 'Fórmula documentada' },
+      { step: 'SISTEMA', badge: 'process', badgeText: 'CONSTRUIR', stepText: 'Calculadora de Valor com IA', input: 'Fórmula + exemplos', process: 'Interface + IA sugere', output: 'Offer Builder funcional' },
+      { step: 'Ke', badge: 'output', badgeText: 'RESULTADO', stepText: 'Qualquer pessoa cria ofertas como Hormozi', input: 'Usuário usa sistema', process: '30 min vs 2 semanas', output: 'Ke = 693×' }
+    ];
+
+    // Detail content for each step
+    const detailContent = {
+      1: `<div class="detail-cards">
+            <div class="detail-card">
+              <div class="detail-card-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--accent-gold)" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <div class="detail-card-title">Dream Outcome</div>
+              <div class="detail-card-desc">"O que o cliente quer de verdade?"</div>
+            </div>
+            <div class="detail-card">
+              <div class="detail-card-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--accent-gold)" stroke-width="2" fill="none"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+              <div class="detail-card-title">Likelihood</div>
+              <div class="detail-card-desc">"Qual a chance de funcionar?"</div>
+            </div>
+            <div class="detail-card">
+              <div class="detail-card-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--accent-gold)" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div class="detail-card-title">Time Delay</div>
+              <div class="detail-card-desc">"Quanto tempo até o resultado?"</div>
+            </div>
+            <div class="detail-card">
+              <div class="detail-card-icon"><svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--accent-gold)" stroke-width="2" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <div class="detail-card-title">Effort</div>
+              <div class="detail-card-desc">"Quanto trabalho ele faz?"</div>
+            </div>
+          </div>`,
+      2: `<div class="detail-formula">
+            <div class="detail-formula-text">
+              <span class="detail-formula-num">Dream Outcome × Perceived Likelihood</span>
+              <span class="detail-formula-line"></span>
+              <span class="detail-formula-den">Time Delay × Effort & Sacrifice</span>
+            </div>
+          </div>`,
+      3: `<div class="detail-mockup">
+            <div class="detail-mockup-box">
+              <div class="detail-mockup-header">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent-gold)" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                <span class="detail-mockup-title">OFFER BUILDER</span>
+              </div>
+              <div class="detail-mockup-row">
+                <span class="detail-mockup-label">Dream Outcome</span>
+                <div class="detail-mockup-bar"><div class="detail-mockup-fill" style="width: 90%"></div></div>
+                <span class="detail-mockup-value">9</span>
+              </div>
+              <div class="detail-mockup-row">
+                <span class="detail-mockup-label">Likelihood</span>
+                <div class="detail-mockup-bar"><div class="detail-mockup-fill" style="width: 70%"></div></div>
+                <span class="detail-mockup-value">7</span>
+              </div>
+              <div class="detail-mockup-row">
+                <span class="detail-mockup-label">Time Delay</span>
+                <div class="detail-mockup-bar"><div class="detail-mockup-fill" style="width: 20%"></div></div>
+                <span class="detail-mockup-value">2</span>
+              </div>
+              <div class="detail-mockup-row">
+                <span class="detail-mockup-label">Effort</span>
+                <div class="detail-mockup-bar"><div class="detail-mockup-fill" style="width: 30%"></div></div>
+                <span class="detail-mockup-value">3</span>
+              </div>
+              <div class="detail-mockup-result">
+                <div class="detail-mockup-score">VALUE: 10.5 ✓</div>
+              </div>
+            </div>
+          </div>`,
+      4: `<div class="detail-compare">
+            <div class="detail-compare-box before">
+              <div class="detail-compare-title">ANTES</div>
+              <div class="detail-compare-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> 2-4 semanas</div>
+              <div class="detail-compare-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> $50k consultoria</div>
+              <div class="detail-compare-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> 20+ anos exp</div>
+            </div>
+            <div class="detail-compare-arrow">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="detail-compare-box after">
+              <div class="detail-compare-title">DEPOIS</div>
+              <div class="detail-compare-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> 30 minutos</div>
+              <div class="detail-compare-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Acesso ao sistema</div>
+              <div class="detail-compare-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Zero experiência</div>
+            </div>
+          </div>
+          <div class="detail-ke-breakdown">
+            <div class="detail-ke-title">De onde vem o 693×?</div>
+            <div class="detail-ke-formula">
+              <span class="detail-ke-num">(0.8 × 0.9 × 0.9 × 12.6)</span>
+              <span class="detail-ke-line"></span>
+              <span class="detail-ke-den">0.35</span>
+            </div>
+            <div class="detail-ke-vars">
+              <span class="detail-ke-var"><strong>T</strong>=0.8</span>
+              <span class="detail-ke-var"><strong>A</strong>=0.9</span>
+              <span class="detail-ke-var"><strong>M</strong>=0.9</span>
+              <span class="detail-ke-var"><strong>Amp</strong>=12.6</span>
+              <span class="detail-ke-var"><strong>Lc</strong>=0.35</span>
+            </div>
+          </div>
+          <div class="detail-compare-multiplier">
+            <div class="detail-compare-multiplier-value">693×</div>
+            <div class="detail-compare-multiplier-label">Multiplicador Ke</div>
+          </div>`
+    };
+
+    let currentStep = -1;
+
+    function updateDetailPanel(stepIndex) {
+      const panel = document.getElementById('detail-panel');
+      if (detailContent[stepIndex]) {
+        panel.innerHTML = detailContent[stepIndex];
+        panel.classList.add('visible');
+      } else {
+        panel.classList.remove('visible');
+        setTimeout(() => { panel.innerHTML = ''; }, 400);
+      }
+    }
+
+    function resetAnimation() {
+      currentStep = -1;
+      document.querySelectorAll('.flow-node').forEach(n => n.classList.remove('active', 'completed'));
+      document.querySelectorAll('.flow-connector').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active', 'complete'));
+      document.getElementById('narration-badge').className = 'narration-badge input';
+      document.getElementById('narration-badge').textContent = 'INÍCIO';
+      document.getElementById('narration-step').textContent = 'Clique em Passar para iniciar...';
+      document.getElementById('input-value').textContent = '—';
+      document.getElementById('process-value').textContent = '—';
+      document.getElementById('output-value').textContent = '—';
+      document.querySelectorAll('.narration-box').forEach(b => b.classList.remove('highlight'));
+      updateDetailPanel(-1);
+      document.getElementById('flow-cta').classList.remove('visible');
+      updateButton();
+    }
+
+    function updateButton() {
+      const btn = document.getElementById('play-btn');
+      const isComplete = currentStep >= steps.length - 1;
+
+      if (isComplete) {
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar';
+      } else {
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Passar';
+      }
+    }
+
+    function animateStep(stepIndex) {
+      const data = steps[stepIndex];
+      const isLastStep = stepIndex === steps.length - 1;
+
+      // Update nodes - mark all previous as completed (green), current as active (gold)
+      document.querySelectorAll('.flow-node').forEach((n, i) => {
+        n.classList.remove('active', 'completed');
+        if (i < stepIndex) {
+          n.classList.add('completed');
+        } else if (i === stepIndex) {
+          n.classList.add('active');
+        }
+      });
+
+      // Update connectors
+      document.querySelectorAll('.flow-connector').forEach((c, i) => {
+        if (i < stepIndex) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+
+      // Update progress dots
+      document.querySelectorAll('.progress-dot').forEach((d, i) => {
+        d.classList.remove('active', 'complete');
+        if (i < stepIndex) d.classList.add('complete');
+        if (i === stepIndex) d.classList.add('active');
+      });
+
+      // Update detail panel with step-specific content
+      updateDetailPanel(stepIndex);
+
+      // Update narration immediately
+      document.getElementById('narration-badge').className = `narration-badge ${data.badge}`;
+      document.getElementById('narration-badge').textContent = data.badgeText;
+      document.getElementById('narration-step').textContent = data.stepText;
+
+      // Update input/process/output boxes
+      const inputBox = document.getElementById('input-box');
+      const processBox = document.getElementById('process-box');
+      const outputBox = document.getElementById('output-box');
+
+      inputBox.classList.remove('highlight');
+      processBox.classList.remove('highlight');
+      outputBox.classList.remove('highlight');
+
+      document.getElementById('input-value').textContent = data.input;
+      inputBox.classList.add('highlight');
+
+      setTimeout(() => {
+        document.getElementById('process-value').textContent = data.process;
+        inputBox.classList.remove('highlight');
+        processBox.classList.add('highlight');
+      }, 600);
+
+      setTimeout(() => {
+        document.getElementById('output-value').textContent = data.output;
+        processBox.classList.remove('highlight');
+        outputBox.classList.add('highlight');
+      }, 1200);
+
+      // On last step, mark all as complete and show transformation
+      if (isLastStep) {
+        setTimeout(() => {
+          // Mark all nodes as completed (green)
+          document.querySelectorAll('.flow-node').forEach(n => {
+            n.classList.remove('active');
+            n.classList.add('completed');
+          });
+          // Mark all connectors as active
+          document.querySelectorAll('.flow-connector').forEach(c => c.classList.add('active'));
+          // Mark all dots as complete
+          document.querySelectorAll('.progress-dot').forEach(d => {
+            d.classList.remove('active');
+            d.classList.add('complete');
+          });
+          // Show CTA
+          document.getElementById('flow-cta').classList.add('visible');
+        }, 1500);
+      }
+    }
+
+    function nextStep() {
+      // If at the end, reset
+      if (currentStep >= steps.length - 1) {
+        resetAnimation();
+        return;
+      }
+
+      // Advance to next step
+      currentStep++;
+      animateStep(currentStep);
+
+      // Update button after animation completes
+      setTimeout(updateButton, 1500);
+    }
+
+    // Initialize
+    resetAnimation();
+  </script>
+</body>
+</html>

@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVH — Ecossistema de Vendas Humanizadas | Pereira Amorim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --bg-app: #0D0D0D;
+      --bg-card: #1A1A1A;
+      --bg-card-hover: #222222;
+      --bg-elevated: #252525;
+      --border-subtle: #2A2A2A;
+      --border-default: #333333;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #808080;
+      --text-body: #D4D4D4;
+      --accent-gold: #C9A962;
+      --accent-gold-muted: rgba(201,169,98,0.15);
+      --accent-gold-bright: #E5D4A1;
+      --accent-purple: #9B7BFF;
+      --accent-purple-muted: rgba(155,123,255,0.15);
+      --accent-green: #4ADE80;
+      --accent-green-muted: rgba(74,222,128,0.15);
+      --accent-blue: #60A5FA;
+      --accent-blue-muted: rgba(96,165,250,0.15);
+      --accent-orange: #FB923C;
+      --accent-orange-muted: rgba(251,146,60,0.15);
+      --accent-pink: #F472B6;
+      --accent-pink-muted: rgba(244,114,182,0.15);
+      --accent-cyan: #22D3EE;
+      --accent-red: #F87171;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-2xl: 24px;
+      --radius-full: 9999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--bg-app);
+      color: var(--text-secondary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      padding: 0 32px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--text-primary); }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent-gold);
+      padding: 4px 10px;
+      background: var(--accent-gold-muted);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Section Nav */
+    .section-nav {
+      display: flex;
+      gap: 4px;
+    }
+
+    .section-nav a {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .section-nav a:hover,
+    .section-nav a.active {
+      color: var(--accent-gold);
+      background: var(--accent-gold-muted);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 120px 48px 80px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,169,98,0.08) 0%, transparent 70%);
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--accent-gold-muted);
+      border: 1px solid rgba(201,169,98,0.2);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-gold);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .hero-author {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+    }
+
+    .hero-thesis {
+      font-family: var(--font-body);
+      font-size: 20px;
+      color: var(--text-body);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.5;
+    }
+
+    .hero-thesis strong {
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .stat-value.atom-color { color: var(--accent-blue); }
+    .stat-value.molecule-color { color: var(--accent-purple); }
+    .stat-value.organism-color { color: var(--accent-green); }
+    .stat-value.ke-color { color: var(--accent-gold); }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section {
+      padding: 80px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 40px);
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ===== ECOSYSTEM DIAGRAM ===== */
+    #ecosystem {
+      padding-top: 60px;
+    }
+
+    .ecosystem-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* SVG connections layer */
+    .eco-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .eco-svg path, .eco-svg line {
+      stroke: var(--border-default);
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 6 4;
+      opacity: 0.5;
+    }
+
+    .eco-svg .arrow-flow {
+      stroke: var(--accent-gold);
+      stroke-width: 2.5;
+      stroke-dasharray: none;
+      opacity: 0.7;
+    }
+
+    /* Main pipeline row */
+    .eco-pipeline {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eco-node {
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      width: 240px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .eco-node:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    }
+
+    .eco-node.active {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 24px rgba(201,169,98,0.15);
+    }
+
+    .eco-node-phase {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    .eco-node-phase.phase-find { color: var(--accent-blue); }
+    .eco-node-phase.phase-convert { color: var(--accent-purple); }
+    .eco-node-phase.phase-retain { color: var(--accent-green); }
+
+    .eco-node-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .eco-node-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .eco-node-atoms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .eco-node-atoms .pill {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      border-left: 2px solid var(--accent-blue);
+    }
+
+    /* Flow arrows between nodes */
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      color: var(--accent-gold);
+      font-size: 20px;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* Layer cards below pipeline */
+    .eco-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eco-layer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .eco-layer:hover {
+      border-color: var(--border-default);
+      background: var(--bg-card-hover);
+    }
+
+    .eco-layer-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+
+    .eco-layer-tag.filosofia {
+      color: var(--accent-orange);
+      background: var(--accent-orange-muted);
+    }
+
+    .eco-layer-tag.metodo {
+      color: var(--accent-cyan);
+      background: rgba(34,211,238,0.15);
+    }
+
+    .eco-layer-tag.gestao {
+      color: var(--accent-pink);
+      background: var(--accent-pink-muted);
+    }
+
+    .eco-layer-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 200px;
+    }
+
+    .eco-layer-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      flex: 1;
+    }
+
+    .eco-layer-scope {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-style: italic;
+      flex-shrink: 0;
+    }
+
+    /* Loop indicator */
+    .eco-loop {
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px;
+      border: 1px dashed rgba(201,169,98,0.3);
+      border-radius: var(--radius-lg);
+      position: relative;
+      z-index: 2;
+    }
+
+    .eco-loop-text {
+      font-size: 13px;
+      color: var(--accent-gold);
+      font-weight: 500;
+    }
+
+    .eco-loop-arrow {
+      font-size: 18px;
+      margin: 0 8px;
+    }
+
+    /* ===== FRAMEWORKS EXPLORER ===== */
+    #frameworks {
+      padding-top: 60px;
+      background: linear-gradient(180deg, transparent 0%, rgba(155,123,255,0.02) 100%);
+    }
+
+    .fw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .fw-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .fw-card:hover {
+      border-color: var(--border-default);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .fw-card.expanded {
+      grid-column: 1 / -1;
+      max-width: 100%;
+    }
+
+    .fw-card-header {
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .fw-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .fw-card-icon.m1 { background: var(--accent-blue-muted); color: var(--accent-blue); }
+    .fw-card-icon.m2 { background: var(--accent-orange-muted); color: var(--accent-orange); }
+    .fw-card-icon.m3 { background: var(--accent-purple-muted); color: var(--accent-purple); }
+    .fw-card-icon.m4 { background: var(--accent-green-muted); color: var(--accent-green); }
+    .fw-card-icon.m5 { background: var(--accent-pink-muted); color: var(--accent-pink); }
+    .fw-card-icon.m6 { background: rgba(34,211,238,0.15); color: var(--accent-cyan); }
+
+    .fw-card-meta { flex: 1; }
+
+    .fw-card-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .fw-card-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .fw-card-role {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .fw-card-toggle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .fw-card.expanded .fw-card-toggle {
+      transform: rotate(180deg);
+      color: var(--accent-gold);
+    }
+
+    /* Card body (expandable) */
+    .fw-card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .fw-card.expanded .fw-card-body {
+      max-height: 2000px;
+    }
+
+    .fw-card-content {
+      padding: 0 24px 24px;
+    }
+
+    .fw-card-desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-body);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Steps inside card */
+    .fw-steps {
+      margin-bottom: 20px;
+    }
+
+    .fw-steps-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .fw-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .fw-step:last-child { border-bottom: none; }
+
+    .fw-step-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .fw-step-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .fw-step-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Atoms inside card */
+    .fw-atoms {
+      margin-bottom: 16px;
+    }
+
+    .fw-atoms-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .fw-atoms-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .atom-pill {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-blue-muted);
+      color: var(--accent-blue);
+      border-left: 3px solid var(--accent-blue);
+      cursor: default;
+      transition: all 0.2s;
+    }
+
+    .atom-pill:hover {
+      background: rgba(96,165,250,0.25);
+    }
+
+    /* Metric inside card */
+    .fw-metric {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: var(--radius-md);
+    }
+
+    .fw-metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .fw-metric-value {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+
+    /* ===== FLOW TIMELINE ===== */
+    #flow {
+      padding-top: 60px;
+    }
+
+    .flow-container {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .flow-phases {
+      display: flex;
+      gap: 0;
+      min-width: 800px;
+      position: relative;
+    }
+
+    .flow-phase {
+      flex: 1;
+      padding: 32px 24px;
+      position: relative;
+    }
+
+    .flow-phase::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+    }
+
+    .flow-phase:nth-child(1) { background: rgba(96,165,250,0.05); border-radius: var(--radius-xl) 0 0 var(--radius-xl); }
+    .flow-phase:nth-child(1)::after { border-left: 16px solid rgba(96,165,250,0.05); }
+    .flow-phase:nth-child(2) { background: rgba(155,123,255,0.05); }
+    .flow-phase:nth-child(2)::after { border-left: 16px solid rgba(155,123,255,0.05); }
+    .flow-phase:nth-child(3) { background: rgba(74,222,128,0.05); border-radius: 0 var(--radius-xl) var(--radius-xl) 0; }
+
+    .flow-phase-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    .flow-phase:nth-child(1) .flow-phase-label { color: var(--accent-blue); }
+    .flow-phase:nth-child(2) .flow-phase-label { color: var(--accent-purple); }
+    .flow-phase:nth-child(3) .flow-phase-label { color: var(--accent-green); }
+
+    .flow-phase-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .flow-phase-mol {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .flow-steps-list {
+      list-style: none;
+    }
+
+    .flow-steps-list li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 6px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .flow-steps-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .flow-phase:nth-child(1) .flow-steps-list li::before { background: var(--accent-blue); }
+    .flow-phase:nth-child(2) .flow-steps-list li::before { background: var(--accent-purple); }
+    .flow-phase:nth-child(3) .flow-steps-list li::before { background: var(--accent-green); }
+
+    /* Flow bottom layers */
+    .flow-layers {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .flow-layer-bar {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .flow-layer-bar.h2h {
+      background: var(--accent-orange-muted);
+      color: var(--accent-orange);
+      border: 1px solid rgba(251,146,60,0.2);
+    }
+
+    .flow-layer-bar.ebs {
+      background: rgba(34,211,238,0.1);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(34,211,238,0.2);
+    }
+
+    .flow-layer-bar.gestao {
+      background: var(--accent-pink-muted);
+      color: var(--accent-pink);
+      border: 1px solid rgba(244,114,182,0.2);
+    }
+
+    .flow-loop-bar {
+      margin-top: 16px;
+      padding: 10px;
+      border: 1px dashed rgba(201,169,98,0.3);
+      border-radius: var(--radius-md);
+      text-align: center;
+      font-size: 13px;
+      color: var(--accent-gold);
+    }
+
+    /* ===== ATOMS LIBRARY ===== */
+    #atoms {
+      padding-top: 60px;
+    }
+
+    .atom-category {
+      margin-bottom: 32px;
+    }
+
+    .atom-cat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .atom-cat-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .atom-cat-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 2px 8px;
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius-full);
+    }
+
+    .atom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+
+    .atom-card {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      transition: border-color 0.2s;
+    }
+
+    .atom-card:hover {
+      border-color: var(--accent-blue);
+    }
+
+    .atom-card-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      padding: 4px 8px;
+      background: var(--accent-blue-muted);
+      border-radius: var(--radius-sm);
+      height: fit-content;
+      flex-shrink: 0;
+    }
+
+    .atom-card-body { flex: 1; }
+
+    .atom-card-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .atom-card-def {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ===== PARADOXES ===== */
+    #paradoxes {
+      padding-top: 60px;
+    }
+
+    .paradox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .paradox-card {
+      padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .paradox-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-purple));
+    }
+
+    .paradox-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .paradox-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .paradox-tension {
+      font-size: 14px;
+      color: var(--accent-gold);
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .paradox-why {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ===== QUOTES ===== */
+    #quotes {
+      padding-top: 60px;
+      background: linear-gradient(180deg, transparent 0%, rgba(201,169,98,0.03) 100%);
+    }
+
+    .quotes-grid {
+      columns: 2;
+      column-gap: 20px;
+    }
+
+    .quote-card {
+      break-inside: avoid;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      background: var(--bg-card);
+      border-left: 3px solid var(--accent-gold);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    }
+
+    .quote-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .quote-ref {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-blue);
+      padding: 2px 8px;
+      background: var(--accent-blue-muted);
+      border-radius: var(--radius-sm);
+      display: inline-block;
+    }
+
+    /* ===== MAAS TRANSLATION ===== */
+    #maas {
+      padding-top: 60px;
+    }
+
+    .maas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .maas-col-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .maas-col-title.gaps { color: var(--accent-red); }
+    .maas-col-title.opportunities { color: var(--accent-green); }
+
+    .maas-item {
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+    }
+
+    .maas-item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .maas-item-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Ke Calculation */
+    .ke-calc {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 32px;
+      background: var(--bg-card);
+      border: 2px solid rgba(201,169,98,0.2);
+      border-radius: var(--radius-2xl);
+      text-align: center;
+    }
+
+    .ke-calc-formula {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .ke-calc-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .ke-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .ke-row-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .ke-row-values {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ke-row-original {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .ke-row-maas {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-green);
+    }
+
+    .ke-result {
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .ke-result-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 48px;
+      text-align: center;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+    }
+
+    .footer-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-meta a {
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .eco-pipeline { flex-direction: column; align-items: center; }
+      .flow-arrow { transform: rotate(90deg); }
+      .maas-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 60px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .header { padding: 0 16px; }
+      .section-nav { display: none; }
+      .stats-bar { gap: 24px; }
+      .fw-grid { grid-template-columns: 1fr; }
+      .atom-grid { grid-template-columns: 1fr; }
+      .paradox-grid { grid-template-columns: 1fr; }
+      .quotes-grid { columns: 1; }
+      .eco-node { width: 100%; max-width: 320px; }
+      .flow-phases { min-width: auto; flex-direction: column; }
+      .flow-phase { border-radius: var(--radius-xl); }
+      .flow-phase::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <a href="biblioteca-maas.html" class="back-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Biblioteca
+      </a>
+      <span class="logo">MaaS</span>
+    </div>
+    <nav class="section-nav" id="sectionNav">
+      <a href="#ecosystem">Ecossistema</a>
+      <a href="#frameworks">Frameworks</a>
+      <a href="#flow">Fluxo</a>
+      <a href="#atoms">Atomos</a>
+      <a href="#paradoxes">Paradoxos</a>
+      <a href="#quotes">Frases</a>
+      <a href="#maas">MaaS</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Clone Cognitivo Ativo &bull; Ke 120x</div>
+    <h1>Ecossistema de Vendas Humanizadas</h1>
+    <p class="hero-author">Pereira Amorim</p>
+    <p class="hero-thesis"><strong>EDUCACAO &rarr; INFLUENCIA &rarr; CONVERSAO</strong><br>
+    O sistema completo para encontrar, converter e reter clientes com humanidade.</p>
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value atom-color">27</div>
+        <div class="stat-label">Atomos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value molecule-color">6</div>
+        <div class="stat-label">Moleculas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value organism-color">3</div>
+        <div class="stat-label">Organismos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value ke-color">120x</div>
+        <div class="stat-label">Ke Ajustado</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">45k+</div>
+        <div class="stat-label">Treinados</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM DIAGRAM -->
+  <section class="section" id="ecosystem">
+    <div class="section-header">
+      <div class="section-label">Arquitetura</div>
+      <h2 class="section-title">O Ecossistema</h2>
+      <p class="section-desc">3 fases operacionais + 3 camadas que permeiam tudo. Clique em cada node para expandir.</p>
+    </div>
+
+    <div class="ecosystem-container">
+      <!-- Pipeline: PAP → CTLV → ATENDIMENTO -->
+      <div class="eco-pipeline">
+        <div class="eco-node" onclick="scrollToFramework('m1')">
+          <div class="eco-node-phase phase-find">Fase 1: Encontrar</div>
+          <div class="eco-node-title">PAP</div>
+          <div class="eco-node-subtitle">Prospeccao Ativa Presencial</div>
+          <div class="eco-node-atoms">
+            <span class="pill">Selecao</span>
+            <span class="pill">Pesquisa</span>
+            <span class="pill">Visita</span>
+            <span class="pill">Manutencao</span>
+            <span class="pill">Conversao</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
+        <div class="eco-node" onclick="scrollToFramework('m3')">
+          <div class="eco-node-phase phase-convert">Fase 2: Converter</div>
+          <div class="eco-node-title">CTLV</div>
+          <div class="eco-node-subtitle">Leads &rarr; Vendas (6 estagios)</div>
+          <div class="eco-node-atoms">
+            <span class="pill">Lead</span>
+            <span class="pill">Contato</span>
+            <span class="pill">Qualificacao</span>
+            <span class="pill">Abordagem</span>
+            <span class="pill">Apresentacao</span>
+            <span class="pill">Fechamento</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
+        <div class="eco-node" onclick="scrollToFramework('m4')">
+          <div class="eco-node-phase phase-retain">Fase 3: Reter</div>
+          <div class="eco-node-title">Atendimento</div>
+          <div class="eco-node-subtitle">4 Pilares de Excelencia</div>
+          <div class="eco-node-atoms">
+            <span class="pill">Responsividade</span>
+            <span class="pill">Clareza</span>
+            <span class="pill">Follow-through</span>
+            <span class="pill">Parceria</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loop indicator -->
+      <div class="eco-loop">
+        <span class="eco-loop-arrow">&larr;</span>
+        <span class="eco-loop-text">LOOP VIRTUOSO: Atendimento gera indicacoes que alimentam PAP</span>
+        <span class="eco-loop-arrow">&larr;</span>
+      </div>
+
+      <!-- Permeating layers -->
+      <div class="eco-layers">
+        <div class="eco-layer" onclick="scrollToFramework('m2')">
+          <span class="eco-layer-tag filosofia">Filosofia</span>
+          <span class="eco-layer-name">H2H &mdash; Human-to-Human</span>
+          <span class="eco-layer-desc">Humanidade + Educacao + Clareza + Presenca + Servico</span>
+          <span class="eco-layer-scope">Permeia todas as interacoes</span>
+        </div>
+
+        <div class="eco-layer" onclick="scrollToFramework('m6')">
+          <span class="eco-layer-tag metodo">Metodo</span>
+          <span class="eco-layer-name">Education-Based Selling</span>
+          <span class="eco-layer-desc">Diagnostico + Framework + Case Study + Dados + Handout</span>
+          <span class="eco-layer-scope">Metodo usado em cada conversa</span>
+        </div>
+
+        <div class="eco-layer" onclick="scrollToFramework('m5')">
+          <span class="eco-layer-tag gestao">Gestao</span>
+          <span class="eco-layer-name">Gestao 3 Pontos</span>
+          <span class="eco-layer-desc">Cobranca + Treino + Acompanhamento</span>
+          <span class="eco-layer-scope">Supervisiona todo o sistema</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAMEWORKS EXPLORER -->
+  <section class="section" id="frameworks">
+    <div class="section-header">
+      <div class="section-label">Moleculas</div>
+      <h2 class="section-title">6 Frameworks</h2>
+      <p class="section-desc">Cada molecula combina atomos em unidades funcionais. Clique para expandir.</p>
+    </div>
+
+    <div class="fw-grid">
+
+      <!-- M1: PAP -->
+      <article class="fw-card" id="fw-m1" onclick="toggleCard(this)">
+        <div class="fw-card-header">
+          <div class="fw-card-icon m1">P</div>
+          <div class="fw-card-meta">
+            <div class="fw-card-id">M1</div>
+            <div class="fw-card-name">PAP</div>
+            <div class="fw-card-role">Prospeccao Ativa Presencial</div>
+          </div>
+          <div class="fw-card-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="fw-card-body">
+          <div class="fw-card-content">
+            <p class="fw-card-desc">Metodologia de 5 passos para encontrar os prospects certos com estrategia, nao forca. "PAP nao e bater perna. E bater informacao, interesse e relacionamento."</p>
+            <div class="fw-steps">
+              <div class="fw-steps-title">5 Steps</div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-blue-muted);color:var(--accent-blue)">1</span>
+                <span class="fw-step-text"><strong>Selecao Estrategica</strong> &mdash; Visitar QUEM faz sentido</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-blue-muted);color:var(--accent-blue)">2</span>
+                <span class="fw-step-text"><strong>Pesquisa Pre-Visita</strong> &mdash; Entender antes de chegar</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-blue-muted);color:var(--accent-blue)">3</span>
+                <span class="fw-step-text"><strong>Visita de Valor</strong> &mdash; 15min, 80% ouvir, 20% falar</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-blue-muted);color:var(--accent-blue)">4</span>
+                <span class="fw-step-text"><strong>Manutencao</strong> &mdash; Valor sem expectativa de retorno</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-blue-muted);color:var(--accent-blue)">5</span>
+                <span class="fw-step-text"><strong>Conversao Natural</strong> &mdash; Quando prontos, e obvio</span>
+              </div>
+            </div>
+            <div class="fw-atoms">
+              <div class="fw-atoms-title">Atomos (5)</div>
+              <div class="fw-atoms-list">
+                <span class="atom-pill">A12 Selecao estrategica</span>
+                <span class="atom-pill">A13 Pesquisa pre-visita</span>
+                <span class="atom-pill">A14 Visita de valor</span>
+                <span class="atom-pill">A15 Info, interesse, relacao</span>
+                <span class="atom-pill">A16 Quem conhece, fecha</span>
+              </div>
+            </div>
+            <div class="fw-metric">
+              <span class="fw-metric-label">Timeline:</span>
+              <span class="fw-metric-value">3-6 meses</span>
+              <span class="fw-metric-label" style="margin-left:16px">Metrica:</span>
+              <span class="fw-metric-value">20 profundos &gt; 100 rasos</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- M2: H2H -->
+      <article class="fw-card" id="fw-m2" onclick="toggleCard(this)">
+        <div class="fw-card-header">
+          <div class="fw-card-icon m2">H</div>
+          <div class="fw-card-meta">
+            <div class="fw-card-id">M2</div>
+            <div class="fw-card-name">H2H</div>
+            <div class="fw-card-role">Human-to-Human Selling</div>
+          </div>
+          <div class="fw-card-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="fw-card-body">
+          <div class="fw-card-content">
+            <p class="fw-card-desc">FILOSOFIA (nao tecnica) que permeia todas as interacoes. "Humanidade primeiro, tecnica segundo." 5 principios + 4 fases de interacao.</p>
+            <div class="fw-steps">
+              <div class="fw-steps-title">5 Principios</div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-orange-muted);color:var(--accent-orange)">1</span>
+                <span class="fw-step-text"><strong>Humanidade primeiro</strong> &mdash; Tecnica segundo</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-orange-muted);color:var(--accent-orange)">2</span>
+                <span class="fw-step-text"><strong>Educacao cria autoridade</strong> &mdash; Ensinar gera confianca</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-orange-muted);color:var(--accent-orange)">3</span>
+                <span class="fw-step-text"><strong>Clareza leva a decisao</strong> &mdash; Informacao gera acao</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-orange-muted);color:var(--accent-orange)">4</span>
+                <span class="fw-step-text"><strong>Presenca &gt; Pressao</strong> &mdash; Consistencia vence forca</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-orange-muted);color:var(--accent-orange)">5</span>
+                <span class="fw-step-text"><strong>Servico inseparavel</strong> &mdash; Vender e servir</span>
+              </div>
+            </div>
+            <div class="fw-atoms">
+              <div class="fw-atoms-title">Atomos (6)</div>
+              <div class="fw-atoms-list">
+                <span class="atom-pill">A01 Educacao &rarr; Influencia</span>
+                <span class="atom-pill">A02 Vendas salvam vidas</span>
+                <span class="atom-pill">A03 Cuide das pessoas</span>
+                <span class="atom-pill">A05 Clareza como moeda</span>
+                <span class="atom-pill">A06 Presenca &gt; Pressao</span>
+                <span class="atom-pill">A27 Quem educa, conduz</span>
+              </div>
+            </div>
+            <div class="fw-metric">
+              <span class="fw-metric-label">Natureza:</span>
+              <span class="fw-metric-value">Filosofia (nao tecnica)</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- M3: CTLV -->
+      <article class="fw-card" id="fw-m3" onclick="toggleCard(this)">
+        <div class="fw-card-header">
+          <div class="fw-card-icon m3">C</div>
+          <div class="fw-card-meta">
+            <div class="fw-card-id">M3</div>
+            <div class="fw-card-name">CTLV</div>
+            <div class="fw-card-role">Como Transformar Leads em Vendas</div>
+          </div>
+          <div class="fw-card-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="fw-card-body">
+          <div class="fw-card-content">
+            <p class="fw-card-desc">Sistema de 6 estagios para converter leads em clientes. "Se fez CTLV certo, fechamento e consequencia natural." Funil previsivel e escalavel.</p>
+            <div class="fw-steps">
+              <div class="fw-steps-title">6 Estagios</div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-purple-muted);color:var(--accent-purple)">1</span>
+                <span class="fw-step-text"><strong>Lead</strong> &mdash; Prospecto identificado (ICP match)</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-purple-muted);color:var(--accent-purple)">2</span>
+                <span class="fw-step-text"><strong>Contato</strong> &mdash; Primeira conversa real (entender, nao vender)</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-purple-muted);color:var(--accent-purple)">3</span>
+                <span class="fw-step-text"><strong>Qualificacao</strong> &mdash; Problema + Autoridade + Orcamento + Urgencia</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-purple-muted);color:var(--accent-purple)">4</span>
+                <span class="fw-step-text"><strong>Abordagem</strong> &mdash; Framework de solucao (alto nivel)</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-purple-muted);color:var(--accent-purple)">5</span>
+                <span class="fw-step-text"><strong>Apresentacao</strong> &mdash; Proposta detalhada + negociacao</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-purple-muted);color:var(--accent-purple)">6</span>
+                <span class="fw-step-text"><strong>Fechamento</strong> &mdash; Confirmar, nao convencer</span>
+              </div>
+            </div>
+            <div class="fw-atoms">
+              <div class="fw-atoms-title">Atomos (5)</div>
+              <div class="fw-atoms-list">
+                <span class="atom-pill">A17 6 estagios definidos</span>
+                <span class="atom-pill">A18 Qualificacao salva tempo</span>
+                <span class="atom-pill">A19 Fechar e confirmar</span>
+                <span class="atom-pill">A05 Clareza como moeda</span>
+                <span class="atom-pill">A27 Quem educa, conduz</span>
+              </div>
+            </div>
+            <div class="fw-metric">
+              <span class="fw-metric-label">Funil:</span>
+              <span class="fw-metric-value">100 leads &rarr; 9 fechados (9%)</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- M4: Atendimento -->
+      <article class="fw-card" id="fw-m4" onclick="toggleCard(this)">
+        <div class="fw-card-header">
+          <div class="fw-card-icon m4">A</div>
+          <div class="fw-card-meta">
+            <div class="fw-card-id">M4</div>
+            <div class="fw-card-name">Atendimento</div>
+            <div class="fw-card-role">Excelencia em Servico</div>
+          </div>
+          <div class="fw-card-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="fw-card-body">
+          <div class="fw-card-content">
+            <p class="fw-card-desc">4 pilares para reter clientes e gerar indicacoes. "O cliente nao some. Ele desaparece." — o churn silencioso drena o caixa sem fazer barulho.</p>
+            <div class="fw-steps">
+              <div class="fw-steps-title">4 Pilares</div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-green-muted);color:var(--accent-green)">1</span>
+                <span class="fw-step-text"><strong>Responsividade</strong> &mdash; Resposta &lt;4h, completa</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-green-muted);color:var(--accent-green)">2</span>
+                <span class="fw-step-text"><strong>Clareza</strong> &mdash; Zero ambiguidade em expectativas</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-green-muted);color:var(--accent-green)">3</span>
+                <span class="fw-step-text"><strong>Follow-through</strong> &mdash; Prometeu, cumpriu (ou antes)</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-green-muted);color:var(--accent-green)">4</span>
+                <span class="fw-step-text"><strong>Parceria</strong> &mdash; Sucesso deles = sucesso nosso</span>
+              </div>
+            </div>
+            <div class="fw-atoms">
+              <div class="fw-atoms-title">Atomos (6)</div>
+              <div class="fw-atoms-list">
+                <span class="atom-pill">A08 Dreno silencioso</span>
+                <span class="atom-pill">A09 Desaparecimento</span>
+                <span class="atom-pill">A23 Responsividade</span>
+                <span class="atom-pill">A24 Clareza expectativas</span>
+                <span class="atom-pill">A25 Follow-through</span>
+                <span class="atom-pill">A26 Parceria</span>
+              </div>
+            </div>
+            <div class="fw-metric">
+              <span class="fw-metric-label">Lifecycle:</span>
+              <span class="fw-metric-value">Pre-venda &rarr; Entrega &rarr; Recompra &rarr; Indicacao</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- M5: Gestao -->
+      <article class="fw-card" id="fw-m5" onclick="toggleCard(this)">
+        <div class="fw-card-header">
+          <div class="fw-card-icon m5">G</div>
+          <div class="fw-card-meta">
+            <div class="fw-card-id">M5</div>
+            <div class="fw-card-name">Gestao 3 Pontos</div>
+            <div class="fw-card-role">Lideranca Comercial</div>
+          </div>
+          <div class="fw-card-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="fw-card-body">
+          <div class="fw-card-content">
+            <p class="fw-card-desc">3 pontos nao-negociaveis que garantem performance sustentavel. "O time so performa no nivel que voce tolera." Turnaround: 30-90 dias, +25-40% receita.</p>
+            <div class="fw-steps">
+              <div class="fw-steps-title">3 Pontos</div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-pink-muted);color:var(--accent-pink)">1</span>
+                <span class="fw-step-text"><strong>Cobranca</strong> &mdash; "Sem cobranca, o padrao cai"</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-pink-muted);color:var(--accent-pink)">2</span>
+                <span class="fw-step-text"><strong>Treino</strong> &mdash; "Sem treino, o time repete erro"</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:var(--accent-pink-muted);color:var(--accent-pink)">3</span>
+                <span class="fw-step-text"><strong>Acompanhamento</strong> &mdash; "Sem acompanhamento, ninguem evolui"</span>
+              </div>
+            </div>
+            <div class="fw-atoms">
+              <div class="fw-atoms-title">Atomos (5)</div>
+              <div class="fw-atoms-list">
+                <span class="atom-pill">A07 Problema e de lideranca</span>
+                <span class="atom-pill">A10 Nivel de tolerancia</span>
+                <span class="atom-pill">A20 Cobranca</span>
+                <span class="atom-pill">A21 Treino</span>
+                <span class="atom-pill">A22 Acompanhamento</span>
+              </div>
+            </div>
+            <div class="fw-metric">
+              <span class="fw-metric-label">Impacto:</span>
+              <span class="fw-metric-value">+25-40% receita com mesmo time</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- M6: EBS -->
+      <article class="fw-card" id="fw-m6" onclick="toggleCard(this)">
+        <div class="fw-card-header">
+          <div class="fw-card-icon m6">E</div>
+          <div class="fw-card-meta">
+            <div class="fw-card-id">M6</div>
+            <div class="fw-card-name">Education-Based Selling</div>
+            <div class="fw-card-role">Motor Educacional</div>
+          </div>
+          <div class="fw-card-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="fw-card-body">
+          <div class="fw-card-content">
+            <p class="fw-card-desc">O METODO usado dentro de cada conversa de vendas. "Quem educa, conduz. Quem conduz, vende." Cliente decide por clareza, nao por pressao.</p>
+            <div class="fw-steps">
+              <div class="fw-steps-title">5 Tecnicas</div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:rgba(34,211,238,0.15);color:var(--accent-cyan)">1</span>
+                <span class="fw-step-text"><strong>Pergunta Diagnostica</strong> &mdash; Cliente diagnostica-se sozinho</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:rgba(34,211,238,0.15);color:var(--accent-cyan)">2</span>
+                <span class="fw-step-text"><strong>Framework</strong> &mdash; Estrutura simples para pensar o problema</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:rgba(34,211,238,0.15);color:var(--accent-cyan)">3</span>
+                <span class="fw-step-text"><strong>Case Study</strong> &mdash; Exemplo real, pressao baixa</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:rgba(34,211,238,0.15);color:var(--accent-cyan)">4</span>
+                <span class="fw-step-text"><strong>Data Point</strong> &mdash; Dado que valida o ponto</span>
+              </div>
+              <div class="fw-step">
+                <span class="fw-step-num" style="background:rgba(34,211,238,0.15);color:var(--accent-cyan)">5</span>
+                <span class="fw-step-text"><strong>Teaching Handout</strong> &mdash; Conteudo gratuito de valor</span>
+              </div>
+            </div>
+            <div class="fw-atoms">
+              <div class="fw-atoms-title">Atomos (4)</div>
+              <div class="fw-atoms-list">
+                <span class="atom-pill">A27 Quem educa, conduz</span>
+                <span class="atom-pill">A05 Clareza como moeda</span>
+                <span class="atom-pill">A01 Educacao &rarr; Influencia</span>
+                <span class="atom-pill">A11 Consciencia diaria</span>
+              </div>
+            </div>
+            <div class="fw-metric">
+              <span class="fw-metric-label">Ciclo:</span>
+              <span class="fw-metric-value">Listen &rarr; Educate &rarr; Guide &rarr; Facilitate</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FLOW TIMELINE -->
+  <section class="section" id="flow">
+    <div class="section-header">
+      <div class="section-label">Execucao</div>
+      <h2 class="section-title">Fluxo Operacional</h2>
+      <p class="section-desc">3 fases sequenciais com 3 camadas que permeiam tudo.</p>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-phases">
+        <div class="flow-phase">
+          <div class="flow-phase-label">Fase 1: Encontrar</div>
+          <div class="flow-phase-name">PAP</div>
+          <div class="flow-phase-mol">M1 &bull; 5 atomos</div>
+          <ul class="flow-steps-list">
+            <li>Selecao estrategica</li>
+            <li>Pesquisa pre-visita</li>
+            <li>Visita de valor</li>
+            <li>Manutencao relacao</li>
+            <li>Conversao natural</li>
+          </ul>
+        </div>
+        <div class="flow-phase">
+          <div class="flow-phase-label">Fase 2: Converter</div>
+          <div class="flow-phase-name">CTLV</div>
+          <div class="flow-phase-mol">M3 &bull; 6 estagios</div>
+          <ul class="flow-steps-list">
+            <li>Lead (ICP match)</li>
+            <li>Contato (entender)</li>
+            <li>Qualificacao (filtrar)</li>
+            <li>Abordagem (framework)</li>
+            <li>Apresentacao (proposta)</li>
+            <li>Fechamento (confirmar)</li>
+          </ul>
+        </div>
+        <div class="flow-phase">
+          <div class="flow-phase-label">Fase 3: Reter</div>
+          <div class="flow-phase-name">Atendimento</div>
+          <div class="flow-phase-mol">M4 &bull; 4 pilares</div>
+          <ul class="flow-steps-list">
+            <li>Responsividade (&lt;4h)</li>
+            <li>Clareza (zero ambiguidade)</li>
+            <li>Follow-through (promessa)</li>
+            <li>Parceria (sucesso mutuo)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-layers">
+      <div class="flow-layer-bar h2h">H2H &mdash; Filosofia em cada interacao</div>
+      <div class="flow-layer-bar ebs">EBS &mdash; Metodo em cada conversa</div>
+      <div class="flow-layer-bar gestao">Gestao &mdash; Lideranca sobre todo o sistema</div>
+    </div>
+
+    <div class="flow-loop-bar">
+      &larr; LOOP VIRTUOSO: Atendimento &rarr; Indicacao &rarr; PAP &rarr;
+    </div>
+  </section>
+
+  <!-- ATOMS LIBRARY -->
+  <section class="section" id="atoms">
+    <div class="section-header">
+      <div class="section-label">Atomos</div>
+      <h2 class="section-title">27 Conceitos Fundamentais</h2>
+      <p class="section-desc">Os blocos indivisiveis do ecossistema EVH.</p>
+    </div>
+
+    <!-- Filosofia -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">Filosofia (Base)</span>
+        <span class="atom-cat-count">6 atomos</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A01</span><div class="atom-card-body"><div class="atom-card-name">Educacao &rarr; Influencia &rarr; Conversao</div><div class="atom-card-def">Tese central: ensinar gera autoridade, autoridade gera venda natural</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A02</span><div class="atom-card-body"><div class="atom-card-name">Vendas salvam vidas</div><div class="atom-card-def">Vender e profissao nobre; cada venda gera impacto economico em cadeia</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A03</span><div class="atom-card-body"><div class="atom-card-name">Cuide das pessoas</div><div class="atom-card-def">"Cuide das pessoas, que Deus cuida de voce" — humanidade primeiro</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A04</span><div class="atom-card-body"><div class="atom-card-name">Processo &gt; Personalidade</div><div class="atom-card-def">Sistemas replicaveis vencem talento individual</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A05</span><div class="atom-card-body"><div class="atom-card-name">Clareza como moeda</div><div class="atom-card-def">"Quando o cliente nao entende, ele nao decide"</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A06</span><div class="atom-card-body"><div class="atom-card-name">Presenca &gt; Pressao</div><div class="atom-card-def">Consistencia e presenca geram mais que forca ou motivacao</div></div></div>
+      </div>
+    </div>
+
+    <!-- Diagnostico -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">Diagnostico (Obsessoes)</span>
+        <span class="atom-cat-count">5 atomos</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A07</span><div class="atom-card-body"><div class="atom-card-name">Problema e de lideranca</div><div class="atom-card-def">"O time nao falha. O lider falha com o time"</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A08</span><div class="atom-card-body"><div class="atom-card-name">Dreno silencioso</div><div class="atom-card-def">"Atendimento ruim nao faz barulho. Ele drena o caixa em silencio"</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A09</span><div class="atom-card-body"><div class="atom-card-name">Desaparecimento silencioso</div><div class="atom-card-def">"O cliente nao some. Ele desaparece" — saida sem reclamacao</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A10</span><div class="atom-card-body"><div class="atom-card-name">Nivel de tolerancia</div><div class="atom-card-def">"O time so performa no nivel que voce tolera"</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A11</span><div class="atom-card-body"><div class="atom-card-name">Consciencia diaria</div><div class="atom-card-def">"Quem quer resultado precisa parar de agir no automatico"</div></div></div>
+      </div>
+    </div>
+
+    <!-- PAP -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">PAP (Prospeccao)</span>
+        <span class="atom-cat-count">5 atomos</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A12</span><div class="atom-card-body"><div class="atom-card-name">Selecao estrategica</div><div class="atom-card-def">Visitar QUEM faz sentido, nao bater perna aleatoriamente</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A13</span><div class="atom-card-body"><div class="atom-card-name">Pesquisa pre-visita</div><div class="atom-card-def">Entender a situacao do prospect ANTES de chegar</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A14</span><div class="atom-card-body"><div class="atom-card-name">Visita de valor</div><div class="atom-card-def">Primeiro encontro e sobre ELES (80% ouvir, 20% falar)</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A15</span><div class="atom-card-body"><div class="atom-card-name">Info, interesse, relacao</div><div class="atom-card-def">Os 3 componentes que PAP bate (nao perna)</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A16</span><div class="atom-card-body"><div class="atom-card-name">Quem conhece, fecha</div><div class="atom-card-def">Conhecimento profundo = vantagem de venda</div></div></div>
+      </div>
+    </div>
+
+    <!-- CTLV -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">CTLV (Conversao)</span>
+        <span class="atom-cat-count">3 atomos</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A17</span><div class="atom-card-body"><div class="atom-card-name">6 estagios definidos</div><div class="atom-card-def">Lead &rarr; Contato &rarr; Qualificacao &rarr; Abordagem &rarr; Apresentacao &rarr; Fechamento</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A18</span><div class="atom-card-body"><div class="atom-card-name">Qualificacao salva tempo</div><div class="atom-card-def">Qualificar bem no estagio 3 salva tempo em TODOS os outros</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A19</span><div class="atom-card-body"><div class="atom-card-name">Fechar e confirmar</div><div class="atom-card-def">Se fez CTLV certo, fechamento e consequencia natural</div></div></div>
+      </div>
+    </div>
+
+    <!-- Gestao -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">Gestao (Lideranca)</span>
+        <span class="atom-cat-count">3 atomos</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A20</span><div class="atom-card-body"><div class="atom-card-name">Cobranca</div><div class="atom-card-def">Definir expectativas claras + cobrar entregas consistentemente</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A21</span><div class="atom-card-body"><div class="atom-card-name">Treino</div><div class="atom-card-def">Desenvolver capacidades ativamente — nao e evento, e pratica continua</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A22</span><div class="atom-card-body"><div class="atom-card-name">Acompanhamento</div><div class="atom-card-def">Estar presente, monitorar progresso, coaching in loco</div></div></div>
+      </div>
+    </div>
+
+    <!-- Atendimento -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">Atendimento (Retencao)</span>
+        <span class="atom-cat-count">4 atomos</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A23</span><div class="atom-card-body"><div class="atom-card-name">Responsividade</div><div class="atom-card-def">Velocidade e completude da resposta ao cliente</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A24</span><div class="atom-card-body"><div class="atom-card-name">Clareza de expectativas</div><div class="atom-card-def">Cliente entende exatamente o que vai acontecer, quando e quanto custa</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A25</span><div class="atom-card-body"><div class="atom-card-name">Follow-through</div><div class="atom-card-def">Fazer exatamente o que prometeu, quando prometeu (ou antes)</div></div></div>
+        <div class="atom-card"><span class="atom-card-id">A26</span><div class="atom-card-body"><div class="atom-card-name">Parceria</div><div class="atom-card-def">Tratar cliente como parceiro, investir no sucesso dele</div></div></div>
+      </div>
+    </div>
+
+    <!-- EBS -->
+    <div class="atom-category">
+      <div class="atom-cat-header">
+        <span class="atom-cat-label">Education-Based Selling</span>
+        <span class="atom-cat-count">1 atomo</span>
+      </div>
+      <div class="atom-grid">
+        <div class="atom-card"><span class="atom-card-id">A27</span><div class="atom-card-body"><div class="atom-card-name">Quem educa, conduz. Quem conduz, vende.</div><div class="atom-card-def">A venda acontece quando voce ensina, nao quando empurra</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARADOXES -->
+  <section class="section" id="paradoxes">
+    <div class="section-header">
+      <div class="section-label">Tensoes</div>
+      <h2 class="section-title">6 Paradoxos</h2>
+      <p class="section-desc">Tensoes que o sistema mantendo naturalmente &mdash; e por isso funciona.</p>
+    </div>
+
+    <div class="paradox-grid">
+      <div class="paradox-card">
+        <div class="paradox-num">#1</div>
+        <div class="paradox-title">Agressivo / Gentil</div>
+        <div class="paradox-tension">Diagnostico duro + metodo humanizado</div>
+        <div class="paradox-why">Acorda e depois acolhe</div>
+      </div>
+      <div class="paradox-card">
+        <div class="paradox-num">#2</div>
+        <div class="paradox-title">Anti-motivacao / Motivacional</div>
+        <div class="paradox-tension">Rejeita hype + inspira profundamente</div>
+        <div class="paradox-why">Motivacao real = resolver problemas</div>
+      </div>
+      <div class="paradox-card">
+        <div class="paradox-num">#3</div>
+        <div class="paradox-title">Critica sistema / Ama pessoas</div>
+        <div class="paradox-tension">Ataca estrutura + nunca culpa individuo</div>
+        <div class="paradox-why">Accountability sem vergonha</div>
+      </div>
+      <div class="paradox-card">
+        <div class="paradox-num">#4</div>
+        <div class="paradox-title">Ensina / Nao vende agressivamente</div>
+        <div class="paradox-tension">Educa mais que vende + vende mais que concorrentes</div>
+        <div class="paradox-why">"Quem educa, conduz" em pratica</div>
+      </div>
+      <div class="paradox-card">
+        <div class="paradox-num">#5</div>
+        <div class="paradox-title">Simples / Complexo</div>
+        <div class="paradox-tension">Frameworks de 3-5 pontos + profundidade extraordinaria</div>
+        <div class="paradox-why">Acessivel para aprender, poderoso para aplicar</div>
+      </div>
+      <div class="paradox-card">
+        <div class="paradox-num">#6</div>
+        <div class="paradox-title">Data-driven / Humanista</div>
+        <div class="paradox-tension">Metricas e KPIs + "cuide das pessoas"</div>
+        <div class="paradox-why">Numeros guiam, humanos importam</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTES -->
+  <section class="section" id="quotes">
+    <div class="section-header">
+      <div class="section-label">Frases-Assinatura</div>
+      <h2 class="section-title">A Voz de Pereira Amorim</h2>
+      <p class="section-desc">14 frases indexadas aos atomos do ecossistema.</p>
+    </div>
+
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-text">"Vendas salvam vidas, empregos, empresas e familias"</div>
+        <span class="quote-ref">A02</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Cuide das pessoas, que Deus cuida de voce"</div>
+        <span class="quote-ref">A03</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Quem educa, conduz. Quem conduz, vende."</div>
+        <span class="quote-ref">A27</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"O maior mercado do mundo e o da informacao"</div>
+        <span class="quote-ref">A05</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Quando o cliente nao entende, ele nao decide"</div>
+        <span class="quote-ref">A05</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"O cliente nao some. Ele desaparece"</div>
+        <span class="quote-ref">A09</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Atendimento ruim nao faz barulho. Ele drena o caixa em silencio"</div>
+        <span class="quote-ref">A08</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Um comercial nao morre por falta de talento"</div>
+        <span class="quote-ref">A07</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"O time so performa no nivel que voce tolera"</div>
+        <span class="quote-ref">A10</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Processo &gt; discurso"</div>
+        <span class="quote-ref">A04</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"PAP nao e bater perna. E bater informacao, interesse e relacionamento"</div>
+        <span class="quote-ref">A15</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Quem conhece o cliente, fecha negocio"</div>
+        <span class="quote-ref">A16</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Ninguem e tao forte quanto todos nos juntos"</div>
+        <span class="quote-ref">M5</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Quem quer resultado precisa parar de agir no automatico"</div>
+        <span class="quote-ref">A11</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAAS TRANSLATION -->
+  <section class="section" id="maas">
+    <div class="section-header">
+      <div class="section-label">Traducao MaaS</div>
+      <h2 class="section-title">Methodology as a Service</h2>
+      <p class="section-desc">Gaps identificados e oportunidades de amplificacao via Clone Cognitivo.</p>
+    </div>
+
+    <div class="maas-grid">
+      <div>
+        <div class="maas-col-title gaps">Gap Analysis</div>
+        <div class="maas-item">
+          <div class="maas-item-title">Escala de treinamento</div>
+          <div class="maas-item-desc">PA treina ~250 por evento presencial. Clone treina infinito simultaneamente.</div>
+        </div>
+        <div class="maas-item">
+          <div class="maas-item-title">Diagnostico em tempo real</div>
+          <div class="maas-item-desc">Depende de consulta com PA. IA diagnostica problema + sugere framework automaticamente.</div>
+        </div>
+        <div class="maas-item">
+          <div class="maas-item-title">Acompanhamento continuo</div>
+          <div class="maas-item-desc">Gestao depende de lider humano. IA monitora metricas e alerta quando pilar falha.</div>
+        </div>
+      </div>
+      <div>
+        <div class="maas-col-title opportunities">Oportunidades IA</div>
+        <div class="maas-item">
+          <div class="maas-item-title">Qualificacao CTLV automatizada</div>
+          <div class="maas-item-desc">IA guia vendedor pelas 5 perguntas de qualificacao em tempo real.</div>
+        </div>
+        <div class="maas-item">
+          <div class="maas-item-title">Manutencao PAP inteligente</div>
+          <div class="maas-item-desc">IA agenda e sugere conteudo de valor para cada prospect automaticamente.</div>
+        </div>
+        <div class="maas-item">
+          <div class="maas-item-title">Role-play 24/7</div>
+          <div class="maas-item-desc">Clone IA faz treinamento de vendas com vendedores a qualquer hora.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ke Calculation -->
+    <div class="ke-calc">
+      <div class="ke-calc-formula">Ke = (Alcance x Velocidade x Personalizacao) / Custo_Original</div>
+      <div class="ke-calc-rows">
+        <div class="ke-row">
+          <span class="ke-row-label">Alcance</span>
+          <div class="ke-row-values">
+            <span class="ke-row-original">250/evento</span>
+            <span class="ke-row-maas">&#8734; simultaneo &bull; 1000x</span>
+          </div>
+        </div>
+        <div class="ke-row">
+          <span class="ke-row-label">Velocidade</span>
+          <div class="ke-row-values">
+            <span class="ke-row-original">16 semanas</span>
+            <span class="ke-row-maas">Minutos &bull; 480x</span>
+          </div>
+        </div>
+        <div class="ke-row">
+          <span class="ke-row-label">Personalizacao</span>
+          <div class="ke-row-values">
+            <span class="ke-row-original">Turma generica</span>
+            <span class="ke-row-maas">1:1 contextual &bull; 10x</span>
+          </div>
+        </div>
+        <div class="ke-row">
+          <span class="ke-row-label">Custo</span>
+          <div class="ke-row-values">
+            <span class="ke-row-original">R$ 5k-15k</span>
+            <span class="ke-row-maas">~R$ 0,50/conversa</span>
+          </div>
+        </div>
+      </div>
+      <div class="ke-result">120x</div>
+      <div class="ke-result-label">Ke Ajustado (fidelidade 95%)</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-quote">"Cuide das pessoas, que Deus cuida de voce."</div>
+    <p class="footer-meta">
+      EVH Blueprint v2.0 &mdash; Mapeado por Atlas (Atomic Design) &mdash; Fev 2026<br>
+      27 Atomos &bull; 6 Moleculas &bull; 3 Organismos &bull; Ke 120x<br><br>
+      <a href="biblioteca-maas.html">&larr; Voltar para Biblioteca MaaS</a>
+    </p>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Framework card expand/collapse
+    function toggleCard(card) {
+      const wasExpanded = card.classList.contains('expanded');
+      // Collapse all
+      document.querySelectorAll('.fw-card.expanded').forEach(c => c.classList.remove('expanded'));
+      // Toggle clicked
+      if (!wasExpanded) {
+        card.classList.add('expanded');
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
+
+    // Scroll to framework from ecosystem diagram
+    function scrollToFramework(id) {
+      const target = document.getElementById('fw-' + id);
+      if (target) {
+        // Expand it
+        document.querySelectorAll('.fw-card.expanded').forEach(c => c.classList.remove('expanded'));
+        target.classList.add('expanded');
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      }
+    }
+
+    // Section nav active state on scroll
+    const sections = document.querySelectorAll('.section[id], .hero');
+    const navLinks = document.querySelectorAll('.section-nav a');
+
+    function updateNav() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 120) {
+          current = section.id;
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Smooth scroll for nav links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTLV — Framework Executavel | Pereira Amorim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-app: #0D0D0D;
+      --bg-card: #1A1A1A;
+      --bg-card-hover: #222222;
+      --bg-elevated: #252525;
+      --bg-input: #1A1A1A;
+      --border-subtle: #2A2A2A;
+      --border-default: #333333;
+      --border-hover: #444444;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #808080;
+      --accent-gold: #C9A962;
+      --accent-gold-muted: rgba(201,169,98,0.15);
+      --accent-purple: #9B7BFF;
+      --accent-purple-muted: rgba(155,123,255,0.15);
+      --accent-green: #4ADE80;
+      --accent-green-muted: rgba(74,222,128,0.15);
+      --accent-blue: #60A5FA;
+      --accent-blue-muted: rgba(96,165,250,0.15);
+      --accent-orange: #FB923C;
+      --accent-orange-muted: rgba(251,146,60,0.15);
+      --accent-pink: #F472B6;
+      --accent-pink-muted: rgba(244,114,182,0.15);
+      --accent-cyan: #22D3EE;
+      --accent-red: #F87171;
+      --accent-red-muted: rgba(248,113,113,0.15);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-ui: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px;
+      --radius-xl: 16px; --radius-2xl: 24px; --radius-full: 9999px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-ui); background: var(--bg-app); color: var(--text-secondary); min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: 52px; padding: 0 32px; background: rgba(13,13,13,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; z-index: 100; }
+    .nav-brand { font-family: var(--font-display); color: var(--accent-gold); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; padding: 6px 12px; border-radius: var(--radius-full); transition: all 0.2s; font-weight: 500; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); background: var(--bg-elevated); }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; border-bottom: 1px solid var(--border-subtle); }
+    section:last-child { border-bottom: none; }
+    .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; font-family: var(--font-mono); }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.8rem,3.5vw,2.4rem); color: var(--text-primary); margin-bottom: 16px; line-height: 1.2; }
+    .section-desc { color: var(--text-muted); font-size: 0.95rem; max-width: 640px; line-height: 1.6; margin-bottom: 40px; }
+
+    /* HERO */
+    .hero { padding: 140px 0 80px; text-align: center; border-bottom: 1px solid var(--border-subtle); background: radial-gradient(ellipse at 50% 0%, rgba(201,169,98,0.06) 0%, transparent 60%); }
+    .hero .section-label { margin-bottom: 16px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem,5vw,3.8rem); color: var(--text-primary); line-height: 1.1; margin-bottom: 20px; }
+    .hero h1 span { color: var(--accent-gold); }
+    .hero p { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+    .hero-stages { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-stage { background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+    .hero-stage .num { color: var(--accent-gold); font-family: var(--font-mono); font-size: 0.7rem; }
+    .hero-arrow { color: var(--text-muted); font-size: 0.75rem; display: flex; align-items: center; }
+    .hero-meta { display: flex; justify-content: center; gap: 32px; margin-top: 24px; }
+    .hero-meta-item { font-size: 0.75rem; color: var(--text-muted); }
+    .hero-meta-item strong { color: var(--text-secondary); }
+
+    /* OVERVIEW GRID */
+    .overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .overview-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 20px; transition: all 0.2s; }
+    .overview-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+    .overview-card .num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-gold); margin-bottom: 6px; }
+    .overview-card h4 { color: var(--text-primary); font-size: 0.9rem; margin-bottom: 4px; }
+    .overview-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* SCQ */
+    .scq-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: start; gap: 0; }
+    .scq-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 28px 24px; position: relative; }
+    .scq-card.situation { border-top: 3px solid var(--accent-blue); }
+    .scq-card.complication { border-top: 3px solid var(--accent-red); }
+    .scq-card.question { border-top: 3px solid var(--accent-green); }
+    .scq-card .tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; font-family: var(--font-mono); }
+    .scq-card.situation .tag { color: var(--accent-blue); }
+    .scq-card.complication .tag { color: var(--accent-red); }
+    .scq-card.question .tag { color: var(--accent-green); }
+    .scq-card h4 { color: var(--text-primary); font-size: 0.95rem; margin-bottom: 12px; line-height: 1.3; }
+    .scq-card p { font-size: 0.85rem; line-height: 1.6; }
+    .scq-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 1.2rem; padding: 0 8px; padding-top: 40px; }
+
+    /* FLOWCHART DECISION TREE */
+    .fc-wrap { overflow-x: auto; padding: 8px 0 24px; }
+    .fc-svg { display: block; margin: 0 auto; max-width: 100%; }
+    .fc-svg .fc-stage-rect { fill: #1A1A1A; stroke: #333; stroke-width: 2; cursor: pointer; }
+    .fc-svg .fc-stage-rect:hover, .fc-svg .fc-stage-rect.active { stroke: #C9A962; fill: rgba(201,169,98,0.08); }
+    .fc-svg .fc-stage-text { fill: #FFF; font-family: 'Inter',sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; pointer-events: all; }
+    .fc-svg .fc-diamond-shape { fill: #252525; stroke: #9B7BFF; stroke-width: 1.5; }
+    .fc-svg .fc-diamond-text { fill: #B3B3B3; font-family: 'Inter',sans-serif; font-size: 11px; font-weight: 600; }
+    .fc-svg .fc-branch-label { font-family: 'JetBrains Mono',monospace; font-size: 9px; font-weight: 700; letter-spacing: 1px; }
+    .fc-svg .fc-yes { fill: #4ADE80; }
+    .fc-svg .fc-maybe { fill: #FB923C; }
+    .fc-svg .fc-no { fill: #F87171; }
+    .fc-svg .fc-term-maybe { fill: rgba(251,146,60,0.12); stroke: #FB923C; stroke-width: 1.5; }
+    .fc-svg .fc-term-no { fill: rgba(248,113,113,0.12); stroke: #F87171; stroke-width: 1.5; }
+    .fc-svg .fc-term-text { fill: #FFF; font-family: 'Inter',sans-serif; font-size: 11px; font-weight: 600; }
+    .fc-svg .fc-term-sub { fill: #9B7BFF; font-family: 'JetBrains Mono',monospace; font-size: 9px; font-weight: 500; }
+    .fc-svg .fc-handoff { fill: rgba(74,222,128,0.12); stroke: #4ADE80; stroke-width: 2; }
+    .fc-svg .fc-handoff-text { fill: #4ADE80; font-family: 'Inter',sans-serif; font-size: 13px; font-weight: 800; }
+    .fc-svg .fc-handoff-sub { fill: #808080; font-family: 'Inter',sans-serif; font-size: 11px; }
+    .tree-detail { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 24px; margin-top: 16px; display: none; }
+    .tree-detail.visible { display: block; animation: fadeSlide 0.3s ease; }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .tree-detail h4 { color: var(--text-primary); font-size: 1rem; margin-bottom: 8px; }
+    .tree-detail .criteria { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .tree-detail .criteria-box { background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px; }
+    .tree-detail .criteria-box .label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 6px; font-family: var(--font-mono); }
+    .tree-detail .criteria-box p { font-size: 0.8rem; line-height: 1.5; }
+    .tree-branches { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .tree-branch { padding: 10px 16px; border-radius: var(--radius-md); font-size: 0.8rem; font-weight: 500; border: 1px solid; }
+    .tree-branch.yes { border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-muted); }
+    .tree-branch.maybe { border-color: var(--accent-orange); color: var(--accent-orange); background: var(--accent-orange-muted); }
+    .tree-branch.no { border-color: var(--accent-red); color: var(--accent-red); background: var(--accent-red-muted); }
+
+    /* CALIBRATOR */
+    .preset-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .preset-tab { padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; border: 1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+    .preset-tab:hover { border-color: var(--border-hover); }
+    .preset-tab.active { border-color: var(--accent-gold); color: var(--accent-gold); background: var(--accent-gold-muted); }
+    .var-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+    .var-table th { text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; border-bottom: 1px solid var(--border-subtle); font-family: var(--font-mono); }
+    .var-table td { padding: 10px 14px; font-size: 0.85rem; border-bottom: 1px solid var(--border-subtle); }
+    .var-table tr:last-child td { border-bottom: none; }
+    .var-table .var-name { font-family: var(--font-mono); color: var(--accent-purple); font-size: 0.8rem; }
+    .var-table .var-value { color: var(--text-primary); font-weight: 600; font-family: var(--font-mono); font-size: 0.85rem; }
+    .var-table .var-desc { color: var(--text-muted); font-size: 0.8rem; }
+    .var-table-wrap { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); overflow: hidden; }
+    .calibrator-alert { margin-top: 16px; background: var(--accent-gold-muted); border: 1px solid rgba(201,169,98,0.3); border-radius: var(--radius-lg); padding: 16px 20px; }
+    .calibrator-alert .alert-title { color: var(--accent-gold); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-family: var(--font-mono); }
+    .calibrator-alert p { font-size: 0.85rem; color: var(--text-secondary); }
+
+    /* JOURNEY */
+    .journey-timeline { position: relative; }
+    .journey-phase { display: grid; grid-template-columns: 120px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border-subtle); position: relative; cursor: pointer; }
+    .journey-phase:last-child { border-bottom: none; }
+    .journey-phase:hover .phase-left { border-color: var(--accent-gold); }
+    .phase-left { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px 8px; transition: all 0.2s; }
+    .phase-left .phase-num { font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-gold); }
+    .phase-left .phase-name { font-weight: 700; font-size: 0.85rem; color: var(--text-primary); margin-top: 4px; }
+    .phase-right { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .phase-cell { background: var(--bg-card); border-radius: var(--radius-md); padding: 12px 14px; }
+    .phase-cell .cell-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-family: var(--font-mono); }
+    .phase-cell p { font-size: 0.8rem; line-height: 1.5; }
+    .phase-cell.emotion .cell-label { color: var(--accent-purple); }
+    .phase-cell.friction .cell-label { color: var(--accent-red); }
+    .phase-cell.moment .cell-label { color: var(--accent-green); }
+    .phase-cell.action .cell-label { color: var(--accent-blue); }
+
+    .moments-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 40px; }
+    .moment-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; text-align: center; }
+    .moment-card .moment-num { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); }
+    .moment-card .moment-stage { font-size: 0.7rem; color: var(--accent-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 8px; font-family: var(--font-mono); }
+    .moment-card p { font-size: 0.8rem; line-height: 1.4; font-style: italic; }
+
+    /* FIVE ACT */
+    .act-accordion { display: flex; flex-direction: column; gap: 8px; }
+    .act-item { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.2s; }
+    .act-item:hover { border-color: var(--border-hover); }
+    .act-header { padding: 18px 24px; cursor: pointer; display: flex; align-items: center; gap: 16px; }
+    .act-num { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--accent-gold); min-width: 36px; }
+    .act-title { font-weight: 600; color: var(--text-primary); font-size: 0.95rem; flex: 1; }
+    .act-subtitle { font-size: 0.8rem; color: var(--text-muted); }
+    .act-toggle { color: var(--text-muted); font-size: 1rem; transition: transform 0.2s; }
+    .act-item.open .act-toggle { transform: rotate(180deg); }
+    .act-body { padding: 0 24px 20px; display: none; }
+    .act-item.open .act-body { display: block; animation: fadeSlide 0.3s ease; }
+    .act-body blockquote { border-left: 3px solid var(--accent-gold); padding-left: 16px; margin-bottom: 16px; }
+    .act-body blockquote p { font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); }
+    .act-body blockquote p strong { color: var(--text-primary); }
+    .act-body ul { list-style: none; margin: 12px 0; }
+    .act-body ul li { padding: 4px 0; font-size: 0.85rem; color: var(--text-secondary); padding-left: 16px; position: relative; }
+    .act-body ul li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; background: var(--accent-gold); border-radius: 50%; }
+    .act-table { width: 100%; margin: 12px 0; }
+    .act-table th { text-align: left; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); font-family: var(--font-mono); }
+    .act-table td { font-size: 0.8rem; padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); }
+    .act-table td:first-child { font-weight: 600; color: var(--text-primary); }
+
+    /* EXECUTION */
+    .exec-timeline { position: relative; padding-left: 40px; }
+    .exec-timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--border-subtle); }
+    .exec-phase { position: relative; margin-bottom: 8px; }
+    .exec-dot { position: absolute; left: -33px; top: 18px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent-gold); background: var(--bg-app); z-index: 1; }
+    .exec-phase.active .exec-dot { background: var(--accent-gold); }
+    .exec-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; transition: all 0.2s; }
+    .exec-card:hover { border-color: var(--border-hover); }
+    .exec-card-header { padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+    .exec-weeks { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; min-width: 80px; }
+    .exec-card-title { font-weight: 600; font-size: 0.9rem; color: var(--text-primary); flex: 1; }
+    .exec-card-toggle { color: var(--text-muted); font-size: 1rem; transition: transform 0.2s; }
+    .exec-phase.open .exec-card-toggle { transform: rotate(180deg); }
+    .exec-card-body { padding: 0 20px 20px; display: none; border-top: 1px solid var(--border-subtle); padding-top: 16px; }
+    .exec-phase.open .exec-card-body { display: block; animation: fadeSlide 0.3s ease; }
+    .exec-task { display: grid; grid-template-columns: 60px 1fr 120px auto; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.8rem; }
+    .exec-task:last-child { border-bottom: none; }
+    .exec-task .week { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-gold); }
+    .exec-task .resp { color: var(--text-muted); font-size: 0.75rem; }
+    .exec-checklist { margin-top: 16px; background: var(--bg-elevated); border-radius: var(--radius-md); padding: 14px; }
+    .exec-checklist .check-title { font-size: 0.7rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: var(--font-mono); }
+    .exec-checklist label { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; padding: 3px 0; cursor: pointer; color: var(--text-secondary); }
+    .exec-checklist input[type="checkbox"] { accent-color: var(--accent-gold); }
+
+    /* DASHBOARD */
+    .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dash-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: 24px; }
+    .dash-card h4 { font-size: 0.75rem; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-family: var(--font-mono); }
+    .dash-row { display: grid; grid-template-columns: 1fr 80px 80px 60px; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); font-size: 0.8rem; }
+    .dash-row:last-child { border-bottom: none; }
+    .dash-row .label { color: var(--text-secondary); }
+    .dash-row input { background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 6px 8px; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.8rem; text-align: center; width: 100%; }
+    .dash-row input:focus { outline: none; border-color: var(--accent-gold); }
+    .dash-row .delta { font-family: var(--font-mono); font-weight: 600; text-align: center; }
+    .dash-row .delta.positive { color: var(--accent-green); }
+    .dash-row .delta.negative { color: var(--accent-red); }
+    .dash-row .th { font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono); }
+    .go-nogo { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .go-card { padding: 16px; border-radius: var(--radius-lg); text-align: center; border: 1px solid; }
+    .go-card.go { border-color: var(--accent-green); background: var(--accent-green-muted); }
+    .go-card.adjust { border-color: var(--accent-orange); background: var(--accent-orange-muted); }
+    .go-card.diag { border-color: var(--accent-red); background: var(--accent-red-muted); }
+    .go-card .go-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-mono); margin-bottom: 4px; }
+    .go-card.go .go-label { color: var(--accent-green); }
+    .go-card.adjust .go-label { color: var(--accent-orange); }
+    .go-card.diag .go-label { color: var(--accent-red); }
+    .go-card p { font-size: 0.8rem; }
+
+    /* FOOTER */
+    .footer { padding: 40px 0; text-align: center; }
+    .footer p { font-size: 0.75rem; color: var(--text-muted); }
+    .footer .credit { color: var(--accent-gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .scq-flow { grid-template-columns: 1fr; }
+      .scq-arrow { transform: rotate(90deg); padding: 8px 0; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .phase-right { grid-template-columns: 1fr; }
+      .moments-grid { grid-template-columns: repeat(2, 1fr); }
+      .dash-grid { grid-template-columns: 1fr; }
+      .go-nogo { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .tree-pipeline { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">CTLV</div>
+  <div class="nav-links">
+    <a href="#scq">SCQ</a>
+    <a href="#tree">Decision Tree</a>
+    <a href="#calibrator">Calibrador</a>
+    <a href="#journey">Journey Map</a>
+    <a href="#fiveact">Five Act</a>
+    <a href="#execution">Execution</a>
+    <a href="#dashboard">Dashboard</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="section-label">Framework Executavel B2B</div>
+    <h1>Como Transformar <span>Leads em Vendas</span></h1>
+    <p>Sistema de 6 estagios que qualquer empresa compra, calibra para o nicho e implementa em 12 semanas. Sem consultor externo.</p>
+    <div class="hero-stages">
+      <div class="hero-stage"><span class="num">01</span> Lead</div>
+      <div class="hero-arrow">&#8594;</div>
+      <div class="hero-stage"><span class="num">02</span> Contact</div>
+      <div class="hero-arrow">&#8594;</div>
+      <div class="hero-stage"><span class="num">03</span> Qualify</div>
+      <div class="hero-arrow">&#8594;</div>
+      <div class="hero-stage"><span class="num">04</span> Approach</div>
+      <div class="hero-arrow">&#8594;</div>
+      <div class="hero-stage"><span class="num">05</span> Present</div>
+      <div class="hero-arrow">&#8594;</div>
+      <div class="hero-stage"><span class="num">06</span> Close</div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>9</strong> entregaveis</div>
+      <div class="hero-meta-item"><strong>5</strong> tools estrategicos</div>
+      <div class="hero-meta-item"><strong>11</strong> $variaveis</div>
+      <div class="hero-meta-item"><strong>12</strong> semanas</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="section-label">Produto</div>
+    <h2 class="section-title">O que a empresa recebe</h2>
+    <div class="section-desc">9 componentes executaveis. Compre, calibre, implemente.</div>
+    <div class="overview-grid">
+      <div class="overview-card"><div class="num">01</div><h4>SCQ do Mercado</h4><p>Por que sua empresa precisa de sistema</p></div>
+      <div class="overview-card"><div class="num">02</div><h4>Decision Tree</h4><p>6 estagios com criterios de decisao</p></div>
+      <div class="overview-card"><div class="num">03</div><h4>Prompt de Calibracao</h4><p>Personalizar $variaveis para seu nicho</p></div>
+      <div class="overview-card"><div class="num">04</div><h4>Journey Map</h4><p>O que o lead sente em cada estagio</p></div>
+      <div class="overview-card"><div class="num">05</div><h4>5 Momentos de Verdade</h4><p>Onde o vendedor ganha ou perde</p></div>
+      <div class="overview-card"><div class="num">06</div><h4>Five Act Kickoff</h4><p>Narrativa para treinar a equipe</p></div>
+      <div class="overview-card"><div class="num">07</div><h4>Execution Plan</h4><p>Roadmap de 12 semanas</p></div>
+      <div class="overview-card"><div class="num">08</div><h4>Dashboard</h4><p>Metricas before/after por estagio</p></div>
+      <div class="overview-card"><div class="num">09</div><h4>Cadencia de Gestao</h4><p>Ritmo permanente pos-implementacao</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCQ -->
+<section id="scq">
+  <div class="container">
+    <div class="section-label">Tool 1 &mdash; Define</div>
+    <h2 class="section-title">SCQ: A Oportunidade</h2>
+    <div class="section-desc">Situacao, Complicacao e Questao que o CTLV resolve.</div>
+    <div class="scq-flow">
+      <div class="scq-card situation">
+        <div class="tag">Situation</div>
+        <h4>O que e verdade hoje</h4>
+        <p>Empresas com 5-200 vendedores investem em treinamento regularmente. Vendedores participam de cursos, workshops e palestras. O mercado de capacitacao comercial movimenta bilhoes por ano.</p>
+      </div>
+      <div class="scq-arrow">&#8594;</div>
+      <div class="scq-card complication">
+        <div class="tag">Complication</div>
+        <h4>O que nao funciona</h4>
+        <p>Treinamentos entregam CONCEITOS, nao SISTEMA. Vendedor volta motivado, abandona em 2 semanas. Resultado depende de talento individual. Gestor nao consegue prever receita. Novos vendedores levam 6+ meses para performar.</p>
+      </div>
+      <div class="scq-arrow">&#8594;</div>
+      <div class="scq-card question">
+        <div class="tag">Question</div>
+        <h4>O que o CTLV responde</h4>
+        <p>Como transformar a conversao de leads em sistema com 6 estagios definidos, criterios claros de avanco e metricas por etapa &mdash; de modo que qualquer vendedor possa seguir e gerar resultados previsiveis?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DECISION TREE -->
+<section id="tree">
+  <div class="container">
+    <div class="section-label">Tool 2 &mdash; Split</div>
+    <h2 class="section-title">Decision Tree</h2>
+    <div class="section-desc">Flowchart completo com condicionais. Clique em cada estagio para ver criterios detalhados.</div>
+    <div class="fc-wrap" id="flowchartContainer"></div>
+    <div id="treeDetails"></div>
+  </div>
+</section>
+
+<!-- NICHE CALIBRATOR -->
+<section id="calibrator">
+  <div class="container">
+    <div class="section-label">Configurador</div>
+    <h2 class="section-title">Calibrador de Nicho</h2>
+    <div class="section-desc">Selecione o nicho para ver os valores de $variaveis recomendados. Cada empresa calibra para sua realidade.</div>
+    <div class="preset-tabs" id="presetTabs"></div>
+    <div class="var-table-wrap">
+      <table class="var-table" id="varTable">
+        <thead>
+          <tr><th>$Variavel</th><th>Valor</th><th>Descricao</th></tr>
+        </thead>
+        <tbody id="varBody"></tbody>
+      </table>
+    </div>
+    <div class="calibrator-alert" id="calibratorAlert"></div>
+  </div>
+</section>
+
+<!-- JOURNEY MAP -->
+<section id="journey">
+  <div class="container">
+    <div class="section-label">Tool 3 &mdash; Insight</div>
+    <h2 class="section-title">Journey Map do Lead</h2>
+    <div class="section-desc">O que o lead sente em cada estagio. A camada emocional que falta no processo puro.</div>
+    <div class="journey-timeline" id="journeyTimeline"></div>
+    <div style="margin-top: 48px;">
+      <div class="section-label">Os 5 Momentos de Verdade</div>
+      <div class="moments-grid">
+        <div class="moment-card"><div class="moment-num">1</div><div class="moment-stage">Contact</div><p>"Perguntou sobre mim, nao sobre o produto"</p></div>
+        <div class="moment-card"><div class="moment-num">2</div><div class="moment-stage">Qualify</div><p>"Disse que NAO sou fit"</p></div>
+        <div class="moment-card"><div class="moment-num">3</div><div class="moment-stage">Approach</div><p>"Descreveu meu problema melhor que eu"</p></div>
+        <div class="moment-card"><div class="moment-num">4</div><div class="moment-stage">Present</div><p>"Proposta citou minhas palavras exatas"</p></div>
+        <div class="moment-card"><div class="moment-num">5</div><div class="moment-stage">Close</div><p>"Onboarding em 48h, tudo organizado"</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIVE ACT -->
+<section id="fiveact">
+  <div class="container">
+    <div class="section-label">Tool 4 &mdash; Story</div>
+    <h2 class="section-title">Five Act: Narrativa de Kickoff</h2>
+    <div class="section-desc">5 atos para apresentar o CTLV a equipe comercial. Expandir cada ato para ver o roteiro.</div>
+    <div class="act-accordion" id="actAccordion"></div>
+  </div>
+</section>
+
+<!-- EXECUTION PLAN -->
+<section id="execution">
+  <div class="container">
+    <div class="section-label">Tool 5 &mdash; Act</div>
+    <h2 class="section-title">Execution Plan: 12 Semanas</h2>
+    <div class="section-desc">Roadmap de implementacao. Expandir cada fase para ver acoes, responsaveis e checklists.</div>
+    <div class="exec-timeline" id="execTimeline"></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="container">
+    <div class="section-label">Medicao</div>
+    <h2 class="section-title">Dashboard CTLV</h2>
+    <div class="section-desc">Preencha os campos para comparar baseline vs piloto. Os deltas calculam automaticamente.</div>
+    <div class="dash-grid">
+      <div class="dash-card">
+        <h4>Funil de Conversao</h4>
+        <div class="dash-row"><span class="th">Transicao</span><span class="th">Baseline</span><span class="th">Piloto</span><span class="th">Delta</span></div>
+        <div class="dash-row"><span class="label">Lead &rarr; Contact</span><input type="number" class="baseline" data-row="0" placeholder="_%"><input type="number" class="piloto" data-row="0" placeholder="_%"><span class="delta" id="d0">--</span></div>
+        <div class="dash-row"><span class="label">Contact &rarr; Qualify</span><input type="number" class="baseline" data-row="1" placeholder="_%"><input type="number" class="piloto" data-row="1" placeholder="_%"><span class="delta" id="d1">--</span></div>
+        <div class="dash-row"><span class="label">Qualify &rarr; Approach</span><input type="number" class="baseline" data-row="2" placeholder="_%"><input type="number" class="piloto" data-row="2" placeholder="_%"><span class="delta" id="d2">--</span></div>
+        <div class="dash-row"><span class="label">Approach &rarr; Present</span><input type="number" class="baseline" data-row="3" placeholder="_%"><input type="number" class="piloto" data-row="3" placeholder="_%"><span class="delta" id="d3">--</span></div>
+        <div class="dash-row"><span class="label">Present &rarr; Close</span><input type="number" class="baseline" data-row="4" placeholder="_%"><input type="number" class="piloto" data-row="4" placeholder="_%"><span class="delta" id="d4">--</span></div>
+        <div class="dash-row" style="border-top:2px solid var(--accent-gold);padding-top:12px"><span class="label" style="font-weight:700;color:var(--text-primary)">OVERALL</span><input type="number" class="baseline" data-row="5" placeholder="_%"><input type="number" class="piloto" data-row="5" placeholder="_%"><span class="delta" id="d5">--</span></div>
+      </div>
+      <div class="dash-card">
+        <h4>Tempo Medio por Estagio</h4>
+        <div class="dash-row"><span class="th">Transicao</span><span class="th">Baseline</span><span class="th">Piloto</span><span class="th">Delta</span></div>
+        <div class="dash-row"><span class="label">Lead &rarr; Contact</span><input type="number" class="baseline" data-row="6" placeholder="_d"><input type="number" class="piloto" data-row="6" placeholder="_d"><span class="delta" id="d6">--</span></div>
+        <div class="dash-row"><span class="label">Contact &rarr; Qualify</span><input type="number" class="baseline" data-row="7" placeholder="_d"><input type="number" class="piloto" data-row="7" placeholder="_d"><span class="delta" id="d7">--</span></div>
+        <div class="dash-row"><span class="label">Qualify &rarr; Approach</span><input type="number" class="baseline" data-row="8" placeholder="_d"><input type="number" class="piloto" data-row="8" placeholder="_d"><span class="delta" id="d8">--</span></div>
+        <div class="dash-row"><span class="label">Approach &rarr; Present</span><input type="number" class="baseline" data-row="9" placeholder="_d"><input type="number" class="piloto" data-row="9" placeholder="_d"><span class="delta" id="d9">--</span></div>
+        <div class="dash-row"><span class="label">Present &rarr; Close</span><input type="number" class="baseline" data-row="10" placeholder="_d"><input type="number" class="piloto" data-row="10" placeholder="_d"><span class="delta" id="d10">--</span></div>
+        <div class="dash-row" style="border-top:2px solid var(--accent-gold);padding-top:12px"><span class="label" style="font-weight:700;color:var(--text-primary)">CICLO TOTAL</span><input type="number" class="baseline" data-row="11" placeholder="_d"><input type="number" class="piloto" data-row="11" placeholder="_d"><span class="delta" id="d11">--</span></div>
+      </div>
+    </div>
+    <div class="go-nogo">
+      <div class="go-card go"><div class="go-label">GO</div><p>Conversao subiu 20%+ vs baseline</p></div>
+      <div class="go-card adjust"><div class="go-label">Ajustar</div><p>Subiu &lt;20% mas tendencia positiva</p></div>
+      <div class="go-card diag"><div class="go-label">Diagnosticar</div><p>Igual ou pior &mdash; identificar estagio</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="container">
+    <p>CTLV Framework Executavel v1.0 &mdash; <span class="credit">Pereira Amorim</span> &mdash; Produzido por @atlas &mdash; 2026</p>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const STAGES = [
+  { name:'Lead', entry:'Match ICP (problema, budget, autoridade)', exit:'Pesquisou situacao, definiu abordagem', action:'Adicionar ao CRM, pesquisar, preparar outreach', metric:'Benchmark: 40% convertem para Contact', branches:[
+    {type:'yes',text:'Match ICP &#8594; Contact'},
+    {type:'no',text:'Nao match &#8594; Descarte'}
+  ]},
+  { name:'Contact', entry:'Primeiro contato real (call, visita, email com resposta)', exit:'Lead concordou com proximo passo', action:'Perguntar, ouvir, entregar valor. NAO VENDER.', metric:'Benchmark: 60% convertem para Qualify', branches:[
+    {type:'yes',text:'Conversa real &#8594; Qualify'},
+    {type:'maybe',text:'Sem resposta &#8594; Follow-up ($max_followup_contact tentativas)'},
+    {type:'no',text:'3x sem resposta &#8594; Arquivo Frio'}
+  ]},
+  { name:'Qualify', entry:'5 criterios: Problema, Autoridade, Budget, Timeline, Fit', exit:'Decisao: avanca, hold ou close', action:'Perguntar com empatia, ouvir, anotar, avaliar fit', metric:'Benchmark: 70% convertem para Approach', branches:[
+    {type:'yes',text:'Todos SIM &#8594; Approach'},
+    {type:'maybe',text:'Parcial &#8594; HOLD (revisitar em $hold_revisit_period)'},
+    {type:'no',text:'Maioria NAO &#8594; Close & Thank'}
+  ]},
+  { name:'Approach', entry:'Apresentar framework da solucao (nao proposta)', exit:'Lead quer ver detalhes', action:'Recap &#8594; Diagnostico &#8594; Framework &#8594; Timeline &#8594; Investment &#8594; Next step', metric:'Benchmark: 80% convertem para Present', branches:[
+    {type:'yes',text:'"Quero ver detalhes" &#8594; Present'},
+    {type:'maybe',text:'"Preciso pensar" &#8594; Follow-up ($followup_approach)'},
+    {type:'no',text:'"Nao e pra agora" &#8594; HOLD'}
+  ]},
+  { name:'Present', entry:'Proposta detalhada com preco, timeline, termos', exit:'Lead aceita ou negocia', action:'Enviar proposta &#8594; 48h review &#8594; Reuniao de apresentacao', metric:'Benchmark: 65% convertem para Close', branches:[
+    {type:'yes',text:'"Vamos fazer" &#8594; Close'},
+    {type:'maybe',text:'Negociacao por VALOR (nao preco)'},
+    {type:'no',text:'"Nao agora" &#8594; HOLD'}
+  ]},
+  { name:'Close', entry:'Acordo confirmado, formalizar', exit:'Contrato assinado, handoff para Atendimento', action:'Contrato &#8594; Pagamento &#8594; Kickoff &#8594; Onboarding em $prazo_onboarding', metric:'Close rate overall: 9% (100 leads &#8594; 9 clientes)', branches:[
+    {type:'yes',text:'Assinado &#8594; HANDOFF Atendimento'},
+    {type:'maybe',text:'Bloqueio burocratico &#8594; Suporte ativo ($prazo_max_close)'}
+  ]}
+];
+
+const PRESETS = {
+  'Imobiliario': { max_followup_contact:'5', intervalo_followup_contact:'3-5 dias', reativacao_arquivo_frio:'6 meses', hold_revisit_period:'3 meses', followup_approach:'48h', max_followup_approach:'3', intervalo_followup_approach:'5-7 dias', prazo_max_negociacao:'30 dias', prazo_onboarding:'7 dias', prazo_max_close:'15 dias', ciclo_total_esperado:'30-90 dias', alert_title:'Critico neste nicho', alert_text:'$followup_approach e onde se perde mais venda. O comprador visita multiplos imoveis em paralelo - quem responde primeiro com framework ganha.' },
+  'Automoveis': { max_followup_contact:'3', intervalo_followup_contact:'1-2 dias', reativacao_arquivo_frio:'12 meses', hold_revisit_period:'6 meses', followup_approach:'24h', max_followup_approach:'2', intervalo_followup_approach:'2-3 dias', prazo_max_negociacao:'7 dias', prazo_onboarding:'1 dia', prazo_max_close:'5 dias', ciclo_total_esperado:'1-14 dias', alert_title:'Critico neste nicho', alert_text:'Ciclo curto - Contact e Qualify muitas vezes acontecem na mesma visita. $prazo_onboarding deve ser imediato (entrega do veiculo).' },
+  'SaaS B2B': { max_followup_contact:'4', intervalo_followup_contact:'2-3 dias', reativacao_arquivo_frio:'3 meses', hold_revisit_period:'1 mes', followup_approach:'48-72h', max_followup_approach:'3', intervalo_followup_approach:'3-5 dias', prazo_max_negociacao:'21 dias', prazo_onboarding:'14 dias', prazo_max_close:'10 dias', ciclo_total_esperado:'30-90 dias', alert_title:'Critico neste nicho', alert_text:'$hold_revisit_period curto (1 mes) porque SaaS tem ciclos de budget trimestrais. Perder a janela = esperar 3 meses.' },
+  'Varejo Premium': { max_followup_contact:'2', intervalo_followup_contact:'1 dia', reativacao_arquivo_frio:'3 meses', hold_revisit_period:'2 meses', followup_approach:'24h', max_followup_approach:'2', intervalo_followup_approach:'2-3 dias', prazo_max_negociacao:'3 dias', prazo_onboarding:'Imediato', prazo_max_close:'3 dias', ciclo_total_esperado:'1-7 dias', alert_title:'Critico neste nicho', alert_text:'Decisao emocional - o Approach e quase simultaneo ao Contact. $max_followup_contact baixo porque excesso de contato irrita.' },
+  'Consultoria': { max_followup_contact:'4', intervalo_followup_contact:'3-5 dias', reativacao_arquivo_frio:'6 meses', hold_revisit_period:'3 meses', followup_approach:'72h', max_followup_approach:'3', intervalo_followup_approach:'5-7 dias', prazo_max_negociacao:'30 dias', prazo_onboarding:'30 dias', prazo_max_close:'15 dias', ciclo_total_esperado:'60-180 dias', alert_title:'Critico neste nicho', alert_text:'$prazo_onboarding longo (30 dias) porque consultoria exige discovery, briefing e alinhamento de equipe antes de comecar.' }
+};
+
+const JOURNEY = [
+  { num:'01', name:'Lead', emotion:'Neutra - nao sabe que e lead', friction:'Zero para o lead', moment:'Fase invisivel', action:'Pesquisar, validar ICP' },
+  { num:'02', name:'Contact', emotion:'Desconfianca &#8594; Curiosidade', friction:'ALTA - guarda alta, rejeicao natural', moment:'"Perguntou sobre MIM"', action:'Perguntar, ouvir. NAO VENDER.' },
+  { num:'03', name:'Qualify', emotion:'Vulnerabilidade &#8594; Confianca', friction:'MEDIA-ALTA - perguntas desconfortaveis', moment:'"Disse que NAO sou fit"', action:'5 perguntas com empatia' },
+  { num:'04', name:'Approach', emotion:'Interesse &#8594; Esperanca', friction:'MEDIA - medo de compromisso', moment:'"Descreveu meu problema melhor que eu"', action:'Framework, nao pitch' },
+  { num:'05', name:'Present', emotion:'Analise racional &#8594; Ansiedade', friction:'ALTA - preco concreto, medo de errar', moment:'"Proposta citou minhas palavras"', action:'Proposta personalizada + reuniao' },
+  { num:'06', name:'Close', emotion:'Alivio + Ansiedade pos-compra', friction:'MEDIA - burocracia', moment:'"Onboarding em 48h"', action:'Confirmar, nao convencer' }
+];
+
+const ACTS = [
+  { num:'ATO 1', title:'Trends', subtitle:'O mundo mudou', content:'<blockquote><p><strong>"O comprador de hoje pesquisa sozinho antes de falar com vendedor."</strong></p></blockquote><ul><li>70% da jornada B2B acontece antes do primeiro contato com vendedor</li><li>Compradores chegam mais informados, mais ceticos, com mais opcoes</li><li>"Bom de labia" nao funciona mais</li><li>Empresas com processo formal faturam 18% mais</li></ul>' },
+  { num:'ATO 2', title:'Challenges', subtitle:'O que enfrentamos', content:'<blockquote><p><strong>"Nosso resultado depende de 2-3 pessoas. Se sairem, levam o processo na cabeca."</strong></p></blockquote><table class="act-table"><thead><tr><th>#</th><th>Erro</th><th>Consequencia</th></tr></thead><tbody><tr><td>1</td><td>Lead mal qualificado</td><td>Tempo gasto com quem nunca vai comprar</td></tr><tr><td>2</td><td>Pular qualificacao</td><td>Proposta para quem nao pode decidir</td></tr><tr><td>3</td><td>Pitch no primeiro contato</td><td>Lead levanta a guarda e some</td></tr><tr><td>4</td><td>Proposta generica</td><td>"Vou pensar" = nunca mais volta</td></tr><tr><td>5</td><td>Cada um faz diferente</td><td>Impossivel medir, melhorar, escalar</td></tr></tbody></table>' },
+  { num:'ATO 3', title:'Big Idea', subtitle:'CTLV - O sistema', content:'<blockquote><p><strong>"Vendas nao e arte. E sistema. E sistema qualquer pessoa pode seguir."</strong></p></blockquote><table class="act-table"><thead><tr><th>Antes (sem sistema)</th><th>Depois (CTLV)</th></tr></thead><tbody><tr><td>"Acho que esse lead e bom"</td><td>Lead passou nos 5 criterios de qualify</td></tr><tr><td>"Vou mandar uma proposta"</td><td>Lead pediu detalhes apos Approach</td></tr><tr><td>"Ele sumiu"</td><td>Follow-up #2 agendado em $intervalo dias</td></tr><tr><td>"Nao sei onde ta o deal"</td><td>Estagio 4/6, proximo passo agendado</td></tr><tr><td>"Esse mes vai ser bom (acho)"</td><td>14 em Present x 65% = ~9 closes previstos</td></tr></tbody></table>' },
+  { num:'ATO 4', title:'Benefits', subtitle:'O que muda', content:'<blockquote><p><strong>"Em 90 dias, voces vao saber EXATAMENTE quantas vendas vem mes que vem."</strong></p></blockquote><ul><li><strong>Vendedor:</strong> Sabe o que fazer em cada estagio, sem improvisar</li><li><strong>Gestor:</strong> Pipeline visivel, forecast com dados, coaching direcionado</li><li><strong>Empresa:</strong> Resultado previsivel, escalavel, vendedor sai mas sistema fica</li></ul><blockquote><p>Benchmark: 100 leads &#8594; 40 contacts &#8594; 24 qualified &#8594; 17 approached &#8594; 14 proposed &#8594; <strong>9 closed (9%)</strong></p></blockquote>' },
+  { num:'ATO 5', title:'Differentiators', subtitle:'Por que CTLV', content:'<table class="act-table"><thead><tr><th>Criterio</th><th>Curso tradicional</th><th>CTLV</th></tr></thead><tbody><tr><td>Formato</td><td>Video-aulas, PDFs</td><td>Fluxograma executavel + $variaveis</td></tr><tr><td>Adaptacao</td><td>Generico</td><td>Calibrado pro nicho via prompt</td></tr><tr><td>Dependencia</td><td>Precisa de trainer</td><td>Equipe roda sozinha</td></tr><tr><td>Medicao</td><td>"Gostaram do treinamento?"</td><td>Conversao por estagio, gargalo identificado</td></tr><tr><td>Integracao</td><td>Isolado</td><td>PAP &#8594; CTLV &#8594; Atendimento</td></tr><tr><td>Velocidade</td><td>Meses para absorver</td><td>Semana 1: sistema rodando</td></tr></tbody></table>' }
+];
+
+const EXEC_PHASES = [
+  { weeks:'Sem 1-2', title:'Setup', subtitle:'Calibrar e preparar', tasks:[
+    {week:'Sem 1',action:'Rodar prompt de calibracao por nicho',resp:'Gestor'},
+    {week:'Sem 1',action:'Definir ICP (Ideal Customer Profile)',resp:'Gestor + Mkt'},
+    {week:'Sem 1',action:'Mapear pipeline atual',resp:'Gestor'},
+    {week:'Sem 2',action:'Configurar CRM com 6 estagios',resp:'Ops / TI'},
+    {week:'Sem 2',action:'Criar 4 templates (Contact, Qualify, Approach, Proposta)',resp:'Gestor'},
+    {week:'Sem 2',action:'Definir metricas baseline',resp:'Gestor'}
+  ], checks:['$variaveis calibradas','ICP documentado','CRM com 6 estagios','4 templates criados','Baseline registrado'] },
+  { weeks:'Sem 3-4', title:'Treinar', subtitle:'Equipe aprende e pratica', tasks:[
+    {week:'Sem 3',action:'Kickoff: apresentar Five Act (30min)',resp:'Gestor'},
+    {week:'Sem 3',action:'Ensinar estagios 1-3 + role-play',resp:'Gestor'},
+    {week:'Sem 4',action:'Ensinar estagios 4-6 + role-play',resp:'Gestor'},
+    {week:'Sem 4',action:'Apresentar Journey Map',resp:'Gestor'},
+    {week:'Sem 4',action:'Prova pratica: ciclo completo simulado',resp:'Individual'}
+  ], checks:['100% participou do kickoff','Min 6 role-plays por vendedor','Prova pratica aprovada','Todos sabem usar CRM'] },
+  { weeks:'Sem 5-8', title:'Pilotar', subtitle:'Leads reais, grupo controlado', tasks:[
+    {week:'Sem 5',action:'Selecionar 3-5 vendedores para piloto',resp:'Gestor'},
+    {week:'Sem 5',action:'Distribuir 15-20 leads por piloto',resp:'Mkt / Ops'},
+    {week:'Sem 6',action:'Checkpoint #1: onde estao os leads?',resp:'Gestor'},
+    {week:'Sem 7',action:'Checkpoint #2: onde travou?',resp:'Gestor'},
+    {week:'Sem 8',action:'Checkpoint final: o que funcionou?',resp:'Todos'}
+  ], checks:['Piloto rodou 4 semanas','Dados por estagio coletados','Gargalos identificados','$variaveis recalibradas','Templates refinados'] },
+  { weeks:'Sem 9-10', title:'Medir', subtitle:'Comparar e decidir', tasks:[
+    {week:'Sem 9',action:'Extrair metricas do piloto',resp:'Ops'},
+    {week:'Sem 9',action:'Comparar piloto vs baseline (Dashboard)',resp:'Gestor'},
+    {week:'Sem 10',action:'Ajustar $variaveis com dados reais',resp:'Gestor'},
+    {week:'Sem 10',action:'Decisao GO / NO-GO para escalar',resp:'Diretoria'}
+  ], checks:['Dashboard preenchido','Before/after documentado','$variaveis v2 calibradas','Decisao GO/NO-GO tomada'] },
+  { weeks:'Sem 11-12', title:'Escalar', subtitle:'Rollout completo', tasks:[
+    {week:'Sem 11',action:'Treinar restante da equipe',resp:'Gestor + Pilotos'},
+    {week:'Sem 11',action:'Pilotos apresentam resultados',resp:'Pilotos'},
+    {week:'Sem 11',action:'Migrar todos para pipeline CTLV',resp:'Ops'},
+    {week:'Sem 12',action:'Primeira semana full: todos rodando',resp:'Equipe'},
+    {week:'Sem 12',action:'Definir cadencia permanente',resp:'Gestor'}
+  ], checks:['100% treinada e rodando','Pipeline unico no CRM','Cadencia definida','Primeiro checkpoint realizado','Gestor autonomo'] }
+];
+
+// ===== RENDER =====
+function renderFlowchart() {
+  const mx = 160, sw = 150, sh = 42, dw = 52, dh = 28;
+  const tw = 155, th = 34, c1 = 430, c2 = 650, gap = 20;
+
+  const levels = [
+    { n:'01', nm:'LEAD', q:'Match ICP?', br:[{t:'no',l:'Descarte',c:2}] },
+    { n:'02', nm:'CONTACT', q:'Conversa real?', br:[{t:'maybe',l:'Follow-up\n($max_followup_contact)',c:1},{t:'no',l:'Arquivo Frio\n($reativacao)',c:2}] },
+    { n:'03', nm:'QUALIFY', q:'5 criterios OK?', br:[{t:'maybe',l:'HOLD\n($hold_revisit_period)',c:1},{t:'no',l:'Close & Thank',c:2}] },
+    { n:'04', nm:'APPROACH', q:'Quer detalhes?', br:[{t:'maybe',l:'Follow-up\n($followup_approach)',c:1},{t:'no',l:'HOLD',c:2}] },
+    { n:'05', nm:'PRESENT', q:'Aceita proposta?', br:[{t:'maybe',l:'Negociar\npor VALOR',c:1},{t:'no',l:'HOLD',c:2}] },
+    { n:'06', nm:'CLOSE', q:'Assinado?', br:[{t:'maybe',l:'Suporte ativo\n($prazo_max_close)',c:1}] }
+  ];
+
+  let s = '', y = 16;
+  s += '<defs>';
+  s += '<marker id="ag" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="7" markerHeight="5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#4ADE80"/></marker>';
+  s += '<marker id="ao" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="7" markerHeight="5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#FB923C"/></marker>';
+  s += '<marker id="ar" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="7" markerHeight="5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#F87171"/></marker>';
+  s += '<marker id="ad" viewBox="0 0 10 7" refX="9" refY="3.5" markerWidth="7" markerHeight="5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#333"/></marker>';
+  s += '</defs>';
+
+  levels.forEach((lv, i) => {
+    // Stage box
+    s += `<rect class="fc-stage-rect" data-stage="${i}" x="${mx-sw/2}" y="${y}" width="${sw}" height="${sh}" rx="8"/>`;
+    s += `<text class="fc-stage-text" data-stage="${i}" x="${mx}" y="${y+sh/2+5}" text-anchor="middle">${lv.n}  ${lv.nm}</text>`;
+    y += sh;
+
+    // Connector down to diamond
+    s += `<line x1="${mx}" y1="${y}" x2="${mx}" y2="${y+gap}" stroke="#333" stroke-width="1.5" marker-end="url(#ad)"/>`;
+    y += gap;
+
+    // Diamond
+    const cy = y + dh;
+    s += `<polygon class="fc-diamond-shape" points="${mx},${y} ${mx+dw},${cy} ${mx},${y+dh*2} ${mx-dw},${cy}"/>`;
+    s += `<text class="fc-diamond-text" x="${mx}" y="${cy+4}" text-anchor="middle">${lv.q}</text>`;
+
+    const re = mx + dw; // right edge of diamond
+
+    if (lv.br.length === 2) {
+      const fx = re + 18;
+      s += `<line x1="${re}" y1="${cy}" x2="${fx}" y2="${cy}" stroke="#555" stroke-width="1.5"/>`;
+
+      lv.br.forEach((b, bi) => {
+        const bx = b.c === 1 ? c1 : c2;
+        const by = cy + (bi === 0 ? -14 : 14);
+        const col = b.t === 'maybe' ? '#FB923C' : '#F87171';
+        const mk = b.t === 'maybe' ? 'url(#ao)' : 'url(#ar)';
+        const cls = b.t === 'maybe' ? 'fc-term-maybe' : 'fc-term-no';
+        const lbl = b.t === 'maybe' ? 'TALVEZ' : 'NAO';
+        const lblCls = b.t === 'maybe' ? 'fc-maybe' : 'fc-no';
+
+        s += `<path d="M${fx},${cy} L${fx},${by} L${bx-tw/2},${by}" fill="none" stroke="${col}" stroke-width="1.5" marker-end="${mk}"/>`;
+        s += `<text class="fc-branch-label ${lblCls}" x="${fx+6}" y="${by-6}">${lbl}</text>`;
+        s += `<rect class="${cls}" x="${bx-tw/2}" y="${by-th/2}" width="${tw}" height="${th}" rx="6"/>`;
+
+        const lines = b.l.split('\n');
+        if (lines.length === 1) {
+          s += `<text class="fc-term-text" x="${bx}" y="${by+4}" text-anchor="middle">${lines[0]}</text>`;
+        } else {
+          s += `<text class="fc-term-text" x="${bx}" y="${by-2}" text-anchor="middle">${lines[0]}</text>`;
+          s += `<text class="fc-term-sub" x="${bx}" y="${by+11}" text-anchor="middle">${lines[1]}</text>`;
+        }
+      });
+    } else if (lv.br.length === 1) {
+      const b = lv.br[0];
+      const bx = b.c === 1 ? c1 : c2;
+      const col = b.t === 'maybe' ? '#FB923C' : '#F87171';
+      const mk = b.t === 'maybe' ? 'url(#ao)' : 'url(#ar)';
+      const cls = b.t === 'maybe' ? 'fc-term-maybe' : 'fc-term-no';
+      const lbl = b.t === 'maybe' ? 'TALVEZ' : 'NAO';
+      const lblCls = b.t === 'maybe' ? 'fc-maybe' : 'fc-no';
+
+      s += `<line x1="${re}" y1="${cy}" x2="${bx-tw/2}" y2="${cy}" stroke="${col}" stroke-width="1.5" marker-end="${mk}"/>`;
+      s += `<text class="fc-branch-label ${lblCls}" x="${re+10}" y="${cy-6}">${lbl}</text>`;
+      s += `<rect class="${cls}" x="${bx-tw/2}" y="${cy-th/2}" width="${tw}" height="${th}" rx="6"/>`;
+
+      const lines = b.l.split('\n');
+      if (lines.length === 1) {
+        s += `<text class="fc-term-text" x="${bx}" y="${cy+4}" text-anchor="middle">${lines[0]}</text>`;
+      } else {
+        s += `<text class="fc-term-text" x="${bx}" y="${cy-2}" text-anchor="middle">${lines[0]}</text>`;
+        s += `<text class="fc-term-sub" x="${bx}" y="${cy+11}" text-anchor="middle">${lines[1]}</text>`;
+      }
+    }
+
+    y += dh * 2; // bottom of diamond
+
+    // SIM line down
+    s += `<line x1="${mx}" y1="${y}" x2="${mx}" y2="${y+gap}" stroke="#4ADE80" stroke-width="1.5" marker-end="url(#ag)"/>`;
+    s += `<text class="fc-branch-label fc-yes" x="${mx+8}" y="${y+gap/2+3}">SIM</text>`;
+    y += gap;
+  });
+
+  // HANDOFF terminal
+  s += `<rect class="fc-handoff" x="${mx-sw/2}" y="${y}" width="${sw}" height="${sh}" rx="8"/>`;
+  s += `<text class="fc-handoff-text" x="${mx}" y="${y+sh/2+1}" text-anchor="middle">HANDOFF</text>`;
+  s += `<text class="fc-handoff-sub" x="${mx}" y="${y+sh+14}" text-anchor="middle">→ Atendimento</text>`;
+  y += sh + 24;
+
+  document.getElementById('flowchartContainer').innerHTML =
+    `<svg class="fc-svg" viewBox="0 0 760 ${y}" preserveAspectRatio="xMidYMin meet">${s}</svg>`;
+
+  // Click handlers for stage detail panel
+  document.querySelectorAll('.fc-stage-rect, .fc-stage-text').forEach(el => {
+    el.addEventListener('click', function() {
+      const idx = parseInt(this.dataset.stage);
+      document.querySelectorAll('.fc-stage-rect').forEach(r => r.classList.remove('active'));
+      document.querySelector(`.fc-stage-rect[data-stage="${idx}"]`).classList.add('active');
+      const st = STAGES[idx];
+      document.getElementById('treeDetails').innerHTML = `<div class="tree-detail visible"><h4>${st.name}</h4><div class="criteria"><div class="criteria-box"><div class="label">Criterio de Entrada</div><p>${st.entry}</p></div><div class="criteria-box"><div class="label">Criterio de Saida</div><p>${st.exit}</p></div><div class="criteria-box"><div class="label">Acao do Vendedor</div><p>${st.action}</p></div><div class="criteria-box"><div class="label">Metrica</div><p>${st.metric}</p></div></div></div>`;
+    });
+  });
+}
+
+function renderCalibrator() {
+  const tabs = document.getElementById('presetTabs');
+  const keys = Object.keys(PRESETS);
+  keys.forEach((k,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'preset-tab' + (i===0?' active':'');
+    btn.textContent = k;
+    btn.onclick = () => selectPreset(k);
+    tabs.appendChild(btn);
+  });
+  selectPreset(keys[0]);
+}
+
+function selectPreset(key) {
+  document.querySelectorAll('.preset-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.preset-tab').forEach(t => { if(t.textContent===key) t.classList.add('active'); });
+  const p = PRESETS[key];
+  const vars = [
+    ['$max_followup_contact', p.max_followup_contact, 'Tentativas max primeiro contato'],
+    ['$intervalo_followup_contact', p.intervalo_followup_contact, 'Dias entre tentativas'],
+    ['$reativacao_arquivo_frio', p.reativacao_arquivo_frio, 'Tempo para reativar lead frio'],
+    ['$hold_revisit_period', p.hold_revisit_period, 'Tempo para revisitar lead em HOLD'],
+    ['$followup_approach', p.followup_approach, 'Dias para follow-up pos-Approach'],
+    ['$max_followup_approach', p.max_followup_approach, 'Tentativas max pos-Approach'],
+    ['$intervalo_followup_approach', p.intervalo_followup_approach, 'Dias entre follow-ups pos-Approach'],
+    ['$prazo_max_negociacao', p.prazo_max_negociacao, 'Prazo max negociacao'],
+    ['$prazo_onboarding', p.prazo_onboarding, 'Prazo para onboarding'],
+    ['$prazo_max_close', p.prazo_max_close, 'Prazo max suporte no Close'],
+    ['$ciclo_total_esperado', p.ciclo_total_esperado, 'Ciclo Lead a Close']
+  ];
+  document.getElementById('varBody').innerHTML = vars.map(v => `<tr><td class="var-name">${v[0]}</td><td class="var-value">${v[1]}</td><td class="var-desc">${v[2]}</td></tr>`).join('');
+  document.getElementById('calibratorAlert').innerHTML = `<div class="alert-title">${p.alert_title}</div><p>${p.alert_text}</p>`;
+}
+
+function renderJourney() {
+  const tl = document.getElementById('journeyTimeline');
+  tl.innerHTML = JOURNEY.map(j => `<div class="journey-phase"><div class="phase-left"><span class="phase-num">${j.num}</span><span class="phase-name">${j.name}</span></div><div class="phase-right"><div class="phase-cell emotion"><div class="cell-label">Emocao</div><p>${j.emotion}</p></div><div class="phase-cell action"><div class="cell-label">Acao Vendedor</div><p>${j.action}</p></div><div class="phase-cell friction"><div class="cell-label">Friccao</div><p>${j.friction}</p></div><div class="phase-cell moment"><div class="cell-label">Momento de Verdade</div><p>${j.moment}</p></div></div></div>`).join('');
+}
+
+function renderActs() {
+  const acc = document.getElementById('actAccordion');
+  acc.innerHTML = ACTS.map((a,i) => `<div class="act-item${i===0?' open':''}"><div class="act-header" onclick="toggleAct(this)"><span class="act-num">${a.num}</span><span class="act-title">${a.title}</span><span class="act-subtitle">${a.subtitle}</span><span class="act-toggle">&#9662;</span></div><div class="act-body">${a.content}</div></div>`).join('');
+}
+function toggleAct(el) { el.parentElement.classList.toggle('open'); }
+
+function renderExec() {
+  const tl = document.getElementById('execTimeline');
+  tl.innerHTML = EXEC_PHASES.map((p,i) => `<div class="exec-phase${i===0?' open':''}"><div class="exec-dot"></div><div class="exec-card"><div class="exec-card-header" onclick="toggleExec(this)"><span class="exec-weeks">${p.weeks}</span><span class="exec-card-title">${p.title} <span style="color:var(--text-muted);font-weight:400;font-size:0.8rem">- ${p.subtitle}</span></span><span class="exec-card-toggle">&#9662;</span></div><div class="exec-card-body">${p.tasks.map(t=>`<div class="exec-task"><span class="week">${t.week}</span><span>${t.action}</span><span class="resp">${t.resp}</span></div>`).join('')}<div class="exec-checklist"><div class="check-title">Checklist</div>${p.checks.map(c=>`<label><input type="checkbox"> ${c}</label>`).join('')}</div></div></div></div>`).join('');
+}
+function toggleExec(el) { el.closest('.exec-phase').classList.toggle('open'); }
+
+// Dashboard auto-calc
+document.addEventListener('input', e => {
+  if (e.target.matches('.baseline, .piloto')) {
+    const row = e.target.dataset.row;
+    const b = document.querySelector(`.baseline[data-row="${row}"]`).value;
+    const p = document.querySelector(`.piloto[data-row="${row}"]`).value;
+    const dEl = document.getElementById('d'+row);
+    if (b && p) {
+      const delta = (parseFloat(p) - parseFloat(b)).toFixed(1);
+      const sign = delta > 0 ? '+' : '';
+      dEl.textContent = sign + delta;
+      dEl.className = 'delta ' + (delta > 0 ? 'positive' : delta < 0 ? 'negative' : '');
+    } else {
+      dEl.textContent = '--';
+      dEl.className = 'delta';
+    }
+  }
+});
+
+// Nav active state
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+
+// INIT
+renderFlowchart();
+renderCalibrator();
+renderJourney();
+renderActs();
+renderExec();
+</script>
+</body>
+</html>
